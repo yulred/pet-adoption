@@ -1,0 +1,25 @@
+.overlay {
+  position: absolute;
+  bottom: 2.85rem;
+  width: 100%;
+  padding: 1rem;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #f5f5f5;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0 0 0.375rem 0.375rem;
+  transition: .5s ease;
+  opacity: 0;
+}
+
+.pet-card:hover .overlay {
+  opacity: 1;
+}
+
+.pet-card-status {
+  text-transform: lowercase;
+  font-variant: small-caps;
+  font-size: 1rem;
+}

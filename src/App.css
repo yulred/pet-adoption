@@ -1,0 +1,14 @@
+:root {
+  --chakra-colors-white: #f5f5f5 !important;
+  --chakra-colors-gray-700: #121212 !important;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100vh;
+}

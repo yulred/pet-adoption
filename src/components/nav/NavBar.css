@@ -1,0 +1,19 @@
+.nav-bar {
+  height: 10vh;
+}
+
+.nav-bar a {
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
+
+.nav-bar button {
+  font-size: inherit;
+  font-weight: inherit;
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
+
+.nav-bar .chakra-link, .nav-bar .css-xl71ch {
+  padding-bottom: 0.3rem;
+}

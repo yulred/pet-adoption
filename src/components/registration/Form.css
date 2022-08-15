@@ -1,0 +1,7 @@
+form .chakra-form-control:not(:first-of-type) {
+  margin-top: 1rem;
+}
+
+.submit-button {
+  text-align: right;
+}

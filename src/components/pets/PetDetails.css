@@ -1,0 +1,23 @@
+.pet-name {
+  text-transform: lowercase;
+  font-variant: small-caps;
+  font-size: 2rem;
+  line-height: 2rem;
+}
+
+.pet-status {
+  text-transform: lowercase;
+  font-variant: small-caps;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.pet-bio {
+  margin: 2rem 0;
+  font-size: 1rem;
+}
+
+.pet-details > .chakra-button > .css-13otjrl {
+  height: 2rem !important;
+  width: 2rem !important;
+}

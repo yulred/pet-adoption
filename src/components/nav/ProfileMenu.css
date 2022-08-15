@@ -1,0 +1,7 @@
+.nav-bar .chakra-menu__menu-list {
+  font-size: 1.2rem;
+}
+
+.logout-button:focus, .logout-button:active {
+  background: inherit !important;
+}
