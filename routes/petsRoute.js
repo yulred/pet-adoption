@@ -3,7 +3,7 @@ const petsController = require("../controllers/petsController");
 
 const router = express.Router();
 
-router.get("/", petsController.getAllPets);
+router.get("/", petsController.getSearchedPets);
 
 router.get("/:id", petsController.getPet);
 
