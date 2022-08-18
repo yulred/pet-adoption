@@ -14,7 +14,7 @@
   opacity: 0;
 }
 
-.pet-card:hover .overlay {
+.chakra-linkbox:hover .overlay {
   opacity: 1;
 }
 

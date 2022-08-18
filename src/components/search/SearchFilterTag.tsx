@@ -14,8 +14,8 @@ export default function SearchFiltersList({ item }: ISearchFilterTag) {
       minW="fit-content"
       justifyContent="space-between"
     >
-      <TagLabel p={2}>{item}</TagLabel>
-      <TagCloseButton onClick={() => handleRemoveFilter(item)} />
+      <TagLabel p={2}>{item[1].replace("-", "–")}</TagLabel>
+      <TagCloseButton onClick={() => handleRemoveFilter(item[1])} />
     </Tag>
   )
 }

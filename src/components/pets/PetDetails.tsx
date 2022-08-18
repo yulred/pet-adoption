@@ -1,9 +1,9 @@
 import "./PetDetails.css";
 import { useState, useEffect } from "react";
-import { Box, Flex, Container, Tag , Image, Button, IconButton, Icon, useColorMode } from "@chakra-ui/react";
-import { GiFlamingo, GiHouse, GiReturnArrow } from "react-icons/gi";
-import { BsArrowLeft, BsStarFill } from "react-icons/bs";
-import { useLocation, NavLink } from "react-router-dom";
+import { Box, Flex, Container, Tag , Image, IconButton, Icon, useColorMode } from "@chakra-ui/react";
+import { BsArrowLeft } from "react-icons/bs";
+import { useLocation, useNavigate } from "react-router-dom";
+import PetDetailsActions from "./PetDetailsActions";
 import { Get } from "../../utils/api";
 import { petStatusColor } from "../../utils/helpers/helpers";
 import { IPet } from "../../utils/interfaces/pets.interface";
@@ -11,7 +11,17 @@ import { IPet } from "../../utils/interfaces/pets.interface";
 export default function PetDetails() {
   const { colorMode } = useColorMode();
   const [pet, setPet] = useState<IPet>({});
+  const navigate = useNavigate();
   let location = useLocation();
+  const petData = [
+    pet.type,
+    pet.breed,
+    pet.color,
+    pet.height + " cm",
+    pet.weight + " kg",
+    `${pet.hypoallergnic ? "Hypoallergenic" : "Not Hypoallergenic"}`,
+    `${pet?.dietery && pet.dietery.length > 0 ? "Dietary Restrictions: " + pet.dietery : "No Dietary Restrictions"}` //TODO: with dietary array
+  ]
 
   useEffect(() => {
     getPet(); // eslint-disable-next-line
@@ -28,15 +38,20 @@ export default function PetDetails() {
   return (
     <Flex justify="center" className="pet-details">
       <IconButton
-        as={NavLink}
-        to={"/search"}
         aria-label="Back"
         icon={<Icon as={BsArrowLeft} />}
         variant="unstyled"
         mr="1rem"
         ml="-3rem"
+        onClick={() => navigate(-1)}
       />
-      <Container boxShadow="sm" rounded="md" p={0} mx={0} bg={colorMode === "dark" ? "#242424" : "#f9f9f9"}>
+      <Container
+        boxShadow="sm"
+        rounded="md"
+        mx={0}
+        p={0}
+        bg={colorMode === "light" ? "#f9f9f9" : "#242424"}
+      >
         <Image 
           src={pet.picture}
           alt={pet.name}
@@ -51,32 +66,9 @@ export default function PetDetails() {
         <Box px={12} py={6}>
           <div className="pet-name">{pet.name}</div>
           <div className="pet-status" style={petStatusColor(pet)}>{pet.adoptionStatus}</div>
-          <Flex wrap="wrap" justify="center" gap={2}>
-            <Button leftIcon={<Icon as={GiFlamingo}/>} colorScheme="teal" variant="solid" alignItems="center" w="7.5rem">
-              Adopt
-            </Button>
-            <Button leftIcon={<Icon as={GiHouse} />} colorScheme="teal" variant="solid" alignItems="center" w="7.5rem">
-              Foster
-            </Button>
-            <Button leftIcon={<Icon as={GiReturnArrow} />} colorScheme="teal" variant="solid" alignItems="center" w="7.5rem">
-              Return
-            </Button>
-            <Button leftIcon={<Icon as={BsStarFill}/>} colorScheme="teal" variant="solid" alignItems="center" w="7.5rem">
-              Favourite
-            </Button>
-          </Flex>
+          <PetDetailsActions />
           <div className="pet-bio">{pet.bio}</div>
-          <Tag size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{pet.type}</Tag>
-          <Tag size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{pet.breed}</Tag>
-          <Tag size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{pet.color}</Tag>
-          <Tag size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{pet.height} cm</Tag>
-          <Tag size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{pet.weight} kg</Tag>
-          <Tag size="lg" variant="outline" colorScheme="teal" m={1} p={2}>
-            {pet.hypoallergnic ? "Hypoallergenic" : "Not Hypoallergenic"}
-          </Tag>
-          <Tag size="lg" variant="outline" colorScheme="teal" m={1} p={2}>
-            {pet?.dietery && pet.dietery.length > 0 ? `Dietary Restrictions: ${pet.dietery}` : "No Dietary Restrictions"}
-          </Tag>
+          {petData.map((attr, index) => <Tag key={index} size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{attr}</Tag>)}
         </Box>
       </Container>
     </Flex>

@@ -6,8 +6,10 @@ export default function SearchFiltersList() {
   const { filters } = useSearchContext();
 
   return (
-    <Flex wrap="wrap" mt={5} gap={2}>
-      {filters.map((item, index) => <SearchFilterTag key={index} item={item} />)}
+    <Flex justify="center" wrap="wrap" mt={5} gap={2}>
+      {filters
+        .filter(item => item[0] !== "q")
+        .map((item, index) => <SearchFilterTag key={index} item={item as string[]} />)}
     </Flex>
   )
 }

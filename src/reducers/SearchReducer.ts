@@ -1,11 +1,15 @@
 import { IAction } from "../utils/interfaces/reducers.interface";
 
-export default function SearchReducer(state: string[], action: IAction) {
+export default function SearchReducer(state: Array<Array<string | undefined>>, action: IAction) {
   switch(action.type) {
     case "ADD_FILTER":
-      return [action.data as string, ...state.filter(item => item !== action.data)];
+      return [[action.payload, action.data], ...state.filter(item => item[1] !== action.data)];
+    case "ADD_RANGE_FILTER":
+      return [[action.payload, action.data], ...state.filter(item => item[0] !== action.payload)];
+    case "ADD_QUERY_FILTER":
+      return [[action.payload, action.data], ...state.filter(item => item[0] !== action.payload)];
     case "REMOVE_FILTER":
-      state.splice(state.indexOf(action.data as string), 1);
+      state.splice(state.findIndex(item => item[1] === action.data), 1);
       return [...state];
     case "CLEAR_FILTERS":
       return [];

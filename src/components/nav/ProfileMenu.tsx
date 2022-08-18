@@ -9,7 +9,13 @@ export default function ProfileMenu() {
 
   return (
     <Menu autoSelect={false}>
-      <MenuButton as={Button} variant="link" colorScheme="white" minW="fit-content" rightIcon={<ChevronDownIcon />}>
+      <MenuButton
+        as={Button}
+        variant="link"
+        colorScheme="white"
+        minW="fit-content"
+        rightIcon={<ChevronDownIcon
+      />}>
         Profile
       </MenuButton>
       <MenuList>

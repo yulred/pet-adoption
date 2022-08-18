@@ -5,27 +5,47 @@ import { ISearchContext, ISearchContextProps } from "../utils/interfaces/search.
 const SearchContext = createContext<ISearchContext>({
   filters: [],
   handleAddFilter: ()=>{},
+  handleAddRangeFilter: ()=>{},
+  handleAddQueryFilter: ()=>{},
   handleRemoveFilter: ()=>{},
   handleClearFilters: ()=>{},
-  advancedSearch: false || true,
+  advancedSearch: true || false,
   toggleAdvancedSearch: ()=>{},
-});
+})
 
 const SearchProvider = ({ children }: ISearchContextProps) => {
   const [filters, dispatchFilters] = useReducer(SearchReducer, []);
   const [advancedSearch, setAdvancedSearch] = useState(false);
 
-  const handleAddFilter = (filter: string) => {
+  const handleAddFilter = (filter: string, group: string) => {
     dispatchFilters({
       type: "ADD_FILTER",
       data: filter,
+      payload: group,
     })
   }
 
-  const handleRemoveFilter = (filter: string) => {
+  const handleAddRangeFilter = (filter: string, group: string) => {
+    dispatchFilters({
+      type: "ADD_RANGE_FILTER",
+      data: filter,
+      payload: group,
+    })
+  }
+
+  const handleAddQueryFilter = (filter: string) => {
+    dispatchFilters({
+      type: "ADD_QUERY_FILTER",
+      data: filter,
+      payload: "q",
+    })
+  }
+
+  const handleRemoveFilter = (filter: string, group: string) => {
     dispatchFilters({
       type: "REMOVE_FILTER",
       data: filter,
+      payload: group,
     })
   }
 
@@ -41,7 +61,7 @@ const SearchProvider = ({ children }: ISearchContextProps) => {
   }
 
   return (
-    <SearchContext.Provider value={{ filters, handleAddFilter, handleRemoveFilter, handleClearFilters, advancedSearch, toggleAdvancedSearch }}>
+    <SearchContext.Provider value={{ filters, handleAddFilter, handleAddRangeFilter, handleAddQueryFilter, handleRemoveFilter, handleClearFilters, advancedSearch, toggleAdvancedSearch }}>
       {children}
     </SearchContext.Provider>
   )
