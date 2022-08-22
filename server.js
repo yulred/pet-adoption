@@ -1,20 +1,29 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const PORT = process.env.PORT || 8080;
+require("dotenv").config();
 
-const usersRoute = require("./routes/usersRoute");
-const petsRoute = require("./routes/petsRoute");
+const petRoute = require("./routes/petRoute");
+const userRoute = require("./routes/userRoute");
+const signupRoute = require("./routes/signupRoute");
+const loginRoute = require("./routes/loginRoute");
+const logoutRoute = require("./routes/logoutRoute");
+
+const app = express();
+const PORT = process.env.PORT || 8080;
 
 mongoose.connect(process.env.MONGO_URI, () => console.log("Connected to DB"), err => console.log(err));
 
-const app = express();
+app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: true, credentials: true })); //localhost
 
-app.use("/users", usersRoute);
-app.use("/pet", petsRoute);
+app.use("/pet", petRoute);
+app.use("/signup", signupRoute);
+app.use("/login", loginRoute);
+app.use("/logout", logoutRoute);
+app.use("/user", userRoute);
 
 app.listen(PORT, () => {
   console.log("Server listening on port " + PORT);
