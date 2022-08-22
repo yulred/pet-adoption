@@ -1,8 +1,8 @@
 import "./SearchFilterSlider.css";
 import { useState } from "react";
 import { Flex, RangeSlider, RangeSliderTrack, RangeSliderMark, RangeSliderFilledTrack, RangeSliderThumb, useColorMode } from "@chakra-ui/react";
-import { useSearchContext } from "../../context/SearchContext";
-import { ISearchFilterRange } from "../../utils/interfaces/search.interface";
+import { useSearchContext } from "../../../context/SearchContext";
+import { ISearchFilterRange } from "../../../utils/interfaces/search.interface";
 
 export default function SearchFilterSlider({ filter }: ISearchFilterRange) {
   const { handleAddRangeFilter } = useSearchContext();

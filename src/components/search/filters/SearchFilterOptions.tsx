@@ -1,6 +1,6 @@
 import { Flex, Button, MenuButton, Menu, MenuList, MenuItem } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { useSearchContext } from "../../context/SearchContext";
+import { useSearchContext } from "../../../context/SearchContext";
 import SearchFilterSlider from "./SearchFilterSlider";
 
 export default function SearchFiltersOptions() {
@@ -19,7 +19,7 @@ export default function SearchFiltersOptions() {
         <MenuButton as={Button} rightIcon={<ChevronDownIcon />} minW="10rem">Status</MenuButton>
         <MenuList>
           {["Available", "Fostered", "Adopted"].map((item, index) => 
-          <MenuItem key={index} onClick={() => handleAddFilter(item, "status[]")}>{item}</MenuItem>)}
+          <MenuItem key={index} onClick={() => handleAddFilter(item, "adoptionStatus[]")}>{item}</MenuItem>)}
         </MenuList>
       </Menu>
       <Menu>

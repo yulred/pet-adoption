@@ -1,49 +1,49 @@
-import "./Form.css";
 import { useState } from "react";
-import { FormControl, FormLabel, Input, Button, FormErrorMessage } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Textarea, Button, FormErrorMessage } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
-import { requiredErrorMsg, telRegExp } from "../../utils/globals/globals";
-import { Post } from "../../utils/api";
-import PasswordInput from "./PasswordInput";
+import { telRegExp } from "../../utils/globals/globals";
+import { Put } from "../../utils/api";
+import { useSessionContext } from "../../context/SessionContext";
+import PasswordInput from "../registration/PasswordInput";
 
-export default function SignupForm() {
+export default function ProfileSettingsForm() {
+  const { currentUser } = useSessionContext();
   const [serverError, setServerError] = useState("");
   let navigate = useNavigate();
 
-  const signupSchema = yup.object().shape({
+  const updateUserSchema = yup.object().shape({
     name: yup.string()
-      .required(requiredErrorMsg)
       .min(2, "Name must be at least 2 characters."),
     email: yup.string()
-      .required(requiredErrorMsg)
       .email("Invalid e-mail."),
     password: yup.string()
-      .required(requiredErrorMsg)
       .min(8, "Password must be at least 8 characters."),
     passwordConfirm: yup.string()
-      .required(requiredErrorMsg)
       .oneOf([yup.ref("password")], "Passwords must match."),
     tel: yup.string()
       .matches(telRegExp, "Invalid phone number."),
+    bio: yup.string()
+      .max(350, "Bio can't exceed 350 characters."),
   })
 
   return (
     <Formik
       initialValues={{
-        name: "",
-        email: "",
+        name: currentUser.name,
+        email: currentUser.email,
         password: "",
         passwordConfirm: "",
-        tel: "",
+        tel: currentUser.tel,
+        bio: currentUser.bio,
       }}
-      validationSchema={signupSchema}
+      validationSchema={updateUserSchema}
       validateOnChange={false}
-      onSubmit={async (newUser) => {
+      onSubmit={async (user) => {
         try {
           setServerError("");
-          const res = await Post("/signup", newUser);
+          const res = await Put("/user", { id: currentUser._id, ...user });
           if (res.ok) navigate(0);
         } catch(err: any) {
           setServerError(err.response.data ? err.response.data : err.response.statusText);
@@ -52,25 +52,25 @@ export default function SignupForm() {
     >
     {({ handleSubmit, errors, touched }) => (
       <form onSubmit={handleSubmit}>
-        <FormControl isRequired isInvalid={errors.name !== undefined && touched.name}>
+        <FormControl isInvalid={errors.name !== undefined && touched.name}>
           <FormLabel>Full Name</FormLabel>
           <Field as={Input} type="text" name="name" />
           <FormErrorMessage>{errors.name}</FormErrorMessage>
         </FormControl>
-        <FormControl isRequired isInvalid={errors.email !== undefined && touched.email}>
+        <FormControl isInvalid={errors.email !== undefined && touched.email}>
           <FormLabel>E-Mail</FormLabel>
           <Field as={Input} type="email" name="email" />
           <FormErrorMessage>{errors.email}</FormErrorMessage>
         </FormControl>
-        <FormControl isRequired isInvalid={errors.password !== undefined && touched.password}>
-          <FormLabel>Password</FormLabel>
+        <FormControl isInvalid={errors.password !== undefined && touched.password}>
+          <FormLabel>New Password</FormLabel>
           <Field>
             {() => <PasswordInput fieldName="password" />}
           </Field>
           <FormErrorMessage>{errors.password}</FormErrorMessage>
         </FormControl>
-        <FormControl isRequired isInvalid={errors.passwordConfirm !== undefined && touched.passwordConfirm}>
-          <FormLabel>Confirm Password</FormLabel>
+        <FormControl isInvalid={errors.passwordConfirm !== undefined && touched.passwordConfirm}>
+          <FormLabel>Confirm New Password</FormLabel>
           <Field>
             {() => <PasswordInput fieldName="passwordConfirm" />}
           </Field>
@@ -81,9 +81,14 @@ export default function SignupForm() {
           <Field as={Input} type="tel" name="tel" />
           <FormErrorMessage>{errors.tel}</FormErrorMessage>
         </FormControl>
+        <FormControl isInvalid={errors.bio !== undefined && touched.bio}>
+          <FormLabel>Bio</FormLabel>
+          <Field as={Textarea} name="bio" resize="vertical" />
+          <FormErrorMessage>{errors.bio}</FormErrorMessage>
+        </FormControl>
         {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
         <div className="submit-button">
-          <Button mt={4} colorScheme="teal" type="submit">Sign Up</Button>
+          <Button mt={4} colorScheme="teal" type="submit">Save</Button>
         </div>
       </form>
     )}

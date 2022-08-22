@@ -5,7 +5,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import PetDetailsActions from "./PetDetailsActions";
 import { Get } from "../../utils/api";
-import { petStatusColor } from "../../utils/helpers/helpers";
+import { petStatusColor } from "../../utils/globals/helpers";
 import { IPet } from "../../utils/interfaces/pets.interface";
 
 export default function PetDetails() {
@@ -27,12 +27,13 @@ export default function PetDetails() {
     getPet(); // eslint-disable-next-line
   }, [])
 
-  const getPet = () => {
-    Get(location.pathname)
-      .then((data: object) => {
-        setPet(data)
-      })
-      .catch(err => console.log(err))
+  const getPet = async () => {
+    try {
+      const data = await Get(location.pathname);
+      setPet(data);
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   return (

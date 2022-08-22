@@ -4,6 +4,12 @@ export interface IFormModalProps {
 }
 
 export interface IPasswordProps {
-  handleUserInput: Function,
   fieldName: string,
+}
+
+export interface IFormikContext {
+  fieldName: string,
+  password: string,
+  passwordConfirm: string,
+  handleChange: Function,
 }

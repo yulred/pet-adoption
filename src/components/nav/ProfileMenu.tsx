@@ -1,11 +1,11 @@
 import "./ProfileMenu.css";
 import { Menu, MenuButton, MenuList, MenuItem, Button, Box } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
+import ProfileMenuLogout from "./ProfileMenuLogout";
 
 export default function ProfileMenu() {
-  const handleLogout = () => {
-    console.log("logout");
-  }
+  let navigate = useNavigate();
 
   return (
     <Menu autoSelect={false}>
@@ -19,10 +19,10 @@ export default function ProfileMenu() {
         Profile
       </MenuButton>
       <MenuList>
-        <MenuItem onClick={() => console.log("settings")}>Settings</MenuItem>
-        <MenuItem onClick={() => console.log("my pets")}>My Pets</MenuItem>
+        <MenuItem onClick={() => navigate("/profile/settings")}>Settings</MenuItem>
+        <MenuItem onClick={() => navigate("/profile/mypets")}>My Pets</MenuItem>
         <MenuItem as={Box} className="logout-button">
-          <Button colorScheme="teal" onClick={handleLogout}>Log Out</Button>
+          <ProfileMenuLogout />
         </MenuItem>
       </MenuList>
     </Menu>

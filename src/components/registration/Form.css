@@ -5,3 +5,9 @@ form .chakra-form-control:not(:first-of-type) {
 .submit-button {
   text-align: right;
 }
+
+.server-error {
+  margin-top: 1rem;
+  text-align: center;
+  color: red;
+}

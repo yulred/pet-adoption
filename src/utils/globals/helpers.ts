@@ -1,4 +1,4 @@
-import { IPet } from "../../utils/interfaces/pets.interface";
+import { IPet } from "../interfaces/pets.interface";
 
 export const petStatusColor = (pet: IPet) => {
   let style:React.CSSProperties = {};
