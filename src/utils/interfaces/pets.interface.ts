@@ -12,3 +12,8 @@ export interface IPet {
   dietery?: string[],
   breed?: string,
 }
+
+export interface IPetStatus {
+  petID?: string,
+  changePetStatus: Function,
+}

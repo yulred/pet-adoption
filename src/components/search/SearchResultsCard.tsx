@@ -32,7 +32,7 @@ export default function SearchResultsCard({ pet }: ISearchResultsCard) {
         <Flex direction="row" justify="space-between" align="center" p={4}>
           <div className="pet-text">
             {pet.name}
-            <span style={petStatusColor(pet)} className="pet-card-status"> {pet.adoptionStatus}</span>
+            <span style={petStatusColor(pet.adoptionStatus as string)} className="pet-card-status"> {pet.adoptionStatus}</span>
           </div>
           <ArrowForwardIcon mt={2} />
         </Flex>

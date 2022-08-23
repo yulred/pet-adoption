@@ -15,7 +15,8 @@ export default function NavBar() {
     <div className="nav-bar">
       <Flex justify="end" align="center" gap={6} p={6}>
         <Link as={NavLink} to="/">Home</Link>
-        {isActiveSession ? <ProfileMenu /> : <Link onClick={toggleModal}>Log&nbsp;In/<wbr />Sign&nbsp;Up</Link>}
+        {isActiveSession ? <ProfileMenu /> : null}
+        {!isActiveSession ? <Link onClick={toggleModal}>Log&nbsp;In/<wbr />Sign&nbsp;Up</Link> : null}
         <Link as={NavLink} to="/search">Search</Link>
         <ColorModeSwitcher justifySelf="flex-end" alignSelf="center" />
       </Flex>

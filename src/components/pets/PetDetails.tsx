@@ -11,8 +11,6 @@ import { IPet } from "../../utils/interfaces/pets.interface";
 export default function PetDetails() {
   const { colorMode } = useColorMode();
   const [pet, setPet] = useState<IPet>({});
-  const navigate = useNavigate();
-  let location = useLocation();
   const petData = [
     pet.type,
     pet.breed,
@@ -21,7 +19,9 @@ export default function PetDetails() {
     pet.weight + " kg",
     `${pet.hypoallergnic ? "Hypoallergenic" : "Not Hypoallergenic"}`,
     `${pet?.dietery && pet.dietery.length > 0 ? "Dietary Restrictions: " + pet.dietery : "No Dietary Restrictions"}` //TODO: with dietary array
-  ]
+  ];
+  const navigate = useNavigate();
+  let location = useLocation();
 
   useEffect(() => {
     getPet(); // eslint-disable-next-line
@@ -34,6 +34,10 @@ export default function PetDetails() {
     } catch(err) {
       console.log(err)
     }
+  }
+
+  const changePetStatus = (newStatus: string) => {
+    setPet({ ...pet, adoptionStatus: newStatus })
   }
 
   return (
@@ -66,8 +70,8 @@ export default function PetDetails() {
         />
         <Box px={12} py={6}>
           <div className="pet-name">{pet.name}</div>
-          <div className="pet-status" style={petStatusColor(pet)}>{pet.adoptionStatus}</div>
-          <PetDetailsActions />
+          <div className="pet-status" style={petStatusColor(pet.adoptionStatus as string)}>{pet.adoptionStatus}</div>
+          <PetDetailsActions petID={pet._id} changePetStatus={changePetStatus} />
           <div className="pet-bio">{pet.bio}</div>
           {petData.map((attr, index) => <Tag key={index} size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{attr}</Tag>)}
         </Box>

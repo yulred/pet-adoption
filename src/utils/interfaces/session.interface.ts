@@ -7,6 +7,11 @@ export interface ISessionContext {
     email?: string,
     tel?: string,
     bio?: string,
+    pets?: {
+      adopted?: string[],
+      fostered?: string[],
+      saved?: string[],
+    }
   },
 }
 
