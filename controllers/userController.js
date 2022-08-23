@@ -2,7 +2,7 @@ const userModel = require("../models/userModel");
 
 async function getUser(req, res) {
   try {
-    let { id } = req.params;
+    const { id } = req.params;
     const user = await userModel.getUser(id);
     res.send(user);
   } catch(err) {

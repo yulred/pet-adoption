@@ -1,6 +1,4 @@
-const mongoose = require("mongoose");
-
-const loginSchemaAjv = {
+const loginSchema = {
   type: "object",
   properties: {
     email: {
@@ -15,9 +13,4 @@ const loginSchemaAjv = {
   required: ["email", "password"],
 }
 
-const loginSchema = new mongoose.Schema({
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-})
-
-module.exports = { loginSchemaAjv, loginSchema };
+module.exports = { loginSchema };

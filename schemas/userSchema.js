@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const { telRegExpStr } = require("../config");
 
-const userSchemaAjv = {
+const userSchema = {
   type: "object",
   properties: {
     name: { 
@@ -18,38 +18,13 @@ const userSchemaAjv = {
       anyOf: [ { type: "string", minLength: 8 }, { const: "" } ],
     },
     tel: {
-      anyOf: [ { type: "string", pattern: "^((\\+[1-9]{1,4}[\\-]*)|(\\([0-9]{2,3}\\)[\\-]*)|([0-9]{2,4})[\\-]*)*?[0-9]{3,4}?[\\-]*[0-9]{3,4}?$", }, { const: "" } ],
+      anyOf: [ { type: "string", pattern: telRegExpStr, }, { const: "" } ],
     },
     bio: {
       type: "string",
       maxLength: 350,
     },
   },
-  required: ["password"]
 }
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    minLength: 2,
-  },
-  email: {
-    type: String,
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Invalid e-mail."],
-  },
-  password: {
-    type: String,
-    minLength: 8,
-  },
-  tel: {
-    type: String,
-    match: [/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/, "Invalid phone number."],
-  },
-  bio: {
-    type: String,
-    maxLength: 350,
-  },
-},
-{ timestamps: true })
-
-module.exports = { userSchemaAjv, userSchema };
+module.exports = { userSchema };

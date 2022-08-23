@@ -11,7 +11,7 @@ async function getSearchedPets(req, res) {
 
 async function getPet(req, res) {
   try {
-    let { id } = req.params;
+    const { id } = req.params;
     const pet = await petModel.getPet(id);
     res.send(pet);
   } catch(err) {
@@ -19,4 +19,34 @@ async function getPet(req, res) {
   }
 }
 
-module.exports = { getSearchedPets, getPet };
+async function adoptPet(req, res) {
+  try {
+    const { id } = req.params;
+    const pet = await petModel.adoptPet(id, req.body);
+    res.send(pet);
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
+async function returnPet(req, res) {
+  try {
+    const { id } = req.params;
+    const pet = await petModel.returnPet(id, req.body);
+    res.send(pet);
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
+async function savePet(req, res) {
+  try {
+    const { id } = req.params;
+    const pet = await petModel.savePet(id, req.body);
+    res.send(pet);
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
+module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet };

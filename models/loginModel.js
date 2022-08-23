@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { authModel, generateAuthToken } = require("./authModel");
-const { loginSchema } = require("../schemas/loginSchema");
+const { loginSchema } = require("../mongoose/schemas/loginSchema");
 
 const loginModel = mongoose.model("User", loginSchema, "users");
 

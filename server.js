@@ -17,7 +17,7 @@ mongoose.connect(process.env.MONGO_URI, () => console.log("Connected to DB"), er
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true })); //localhost
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use("/pet", petRoute);
 app.use("/signup", signupRoute);

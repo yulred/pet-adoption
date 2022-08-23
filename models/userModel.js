@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { userSchema } = require("../schemas/userSchema");
+const { userSchema } = require("../mongoose/schemas/userSchema");
 
 const userModel = mongoose.model("users", userSchema);
 
@@ -20,11 +20,11 @@ async function updateUser(user) {
       if (key !== "id" && user[key] !== "") userToUpdate[key] = user[key];
     }
     
-    const updatedUser = await userModel.findOneAndUpdate({ _id: user.id }, update);
+    const updatedUser = await userModel.findByIdAndUpdate({ _id: user.id }, update, { new: true });
     return updatedUser;
   } catch(err) {
     console.log(err);
   }
 }
 
-module.exports = { getUser, updateUser };
+module.exports = { userModel, getUser, updateUser };
