@@ -1,4 +1,5 @@
-export interface ISessionContext {
+export interface IAuthContext {
+  isLoading: boolean,
   isActiveSession: boolean
   cookie: object,
   currentUser: {
@@ -11,10 +12,15 @@ export interface ISessionContext {
       adopted?: string[],
       fostered?: string[],
       saved?: string[],
-    }
+    },
   },
+  handleAdoptPet: Function,
+  handleFosterPet: Function,
+  handleReturnPet: Function,
+  handleSavePet: Function,
+  handleClearSavedPet: Function,
 }
 
-export interface ISessionContextProps {
+export interface IAuthContextProps {
   children: React.ReactNode,
 }

@@ -7,6 +7,7 @@ import PetDetailsActions from "./PetDetailsActions";
 import { Get } from "../../utils/api";
 import { petStatusColor } from "../../utils/globals/helpers";
 import { IPet } from "../../utils/interfaces/pets.interface";
+import { useAuthContext } from "../../context/AuthContext";
 
 export default function PetDetails() {
   const { colorMode } = useColorMode();
@@ -17,9 +18,10 @@ export default function PetDetails() {
     pet.color,
     pet.height + " cm",
     pet.weight + " kg",
-    `${pet.hypoallergnic ? "Hypoallergenic" : "Not Hypoallergenic"}`,
-    `${pet?.dietery && pet.dietery.length > 0 ? "Dietary Restrictions: " + pet.dietery : "No Dietary Restrictions"}` //TODO: with dietary array
+    `${pet.hypoallergenic ? "Hypoallergenic" : "Not Hypoallergenic"}`,
+    `${pet?.dietary && pet.dietary.length > 0 ? "Dietary Restrictions: " + pet.dietary : "No Dietary Restrictions"}` //TODO: with dietary array
   ];
+  const { isLoading } = useAuthContext();
   const navigate = useNavigate();
   let location = useLocation();
 
@@ -36,7 +38,7 @@ export default function PetDetails() {
     }
   }
 
-  const changePetStatus = (newStatus: string) => {
+  const updatePetStatus = (newStatus: string) => {
     setPet({ ...pet, adoptionStatus: newStatus })
   }
 
@@ -71,7 +73,7 @@ export default function PetDetails() {
         <Box px={12} py={6}>
           <div className="pet-name">{pet.name}</div>
           <div className="pet-status" style={petStatusColor(pet.adoptionStatus as string)}>{pet.adoptionStatus}</div>
-          <PetDetailsActions petID={pet._id} changePetStatus={changePetStatus} />
+          {!isLoading ? <PetDetailsActions pet={pet} updatePetStatus={updatePetStatus} /> : null}
           <div className="pet-bio">{pet.bio}</div>
           {petData.map((attr, index) => <Tag key={index} size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{attr}</Tag>)}
         </Box>

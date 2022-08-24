@@ -81,7 +81,7 @@ export default function SignupForm() {
           <Field as={Input} type="tel" name="tel" />
           <FormErrorMessage>{errors.tel}</FormErrorMessage>
         </FormControl>
-        {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
+        {serverError ? <div className="server-error">Error: {serverError}</div> : null}
         <div className="submit-button">
           <Button mt={4} colorScheme="teal" type="submit">Sign Up</Button>
         </div>

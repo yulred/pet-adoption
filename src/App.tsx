@@ -7,12 +7,12 @@ import Search from "./pages/Search";
 import Pet from "./pages/Pet";
 import ProfileSettings from "./pages/ProfileSettings";
 import ProfilePets from "./pages/ProfilePets";
-import SessionProvider from "./context/SessionContext";
+import AuthProvider from "./context/AuthContext";
 import { theme } from "./themes/theme";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <SessionProvider>
+    <AuthProvider>
       <Box textAlign="center" fontSize="xl">
         <Router>
           <NavBar />
@@ -27,6 +27,6 @@ export const App = () => (
           </Routes>
         </Router>
       </Box>
-    </SessionProvider>
+    </AuthProvider>
   </ChakraProvider>
 )

@@ -1,5 +1,6 @@
 export interface ISearchBar {
   getSearchResults: Function,
+  isSearching: boolean,
 }
 
 export interface ISearchFilterRange {
@@ -25,8 +26,8 @@ export interface ISearchResultsCard {
     weight?: number,
     color?: string,
     bio?: string,
-    hypoallergnic?: boolean,
-    dietery?: string[],
+    hypoallergenic?: boolean,
+    dietary?: string[],
     breed?: string,
   },
 }

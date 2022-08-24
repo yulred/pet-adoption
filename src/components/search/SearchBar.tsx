@@ -8,7 +8,7 @@ import { useSearchParams, URLSearchParamsInit } from "react-router-dom";
 import { useSearchContext } from "../../context/SearchContext";
 import { ISearchBar } from "../../utils/interfaces/search.interface";
 
-export default function SearchBar({ getSearchResults }: ISearchBar) {
+export default function SearchBar({ getSearchResults, isSearching }: ISearchBar) {
   const { filters, handleAddQueryFilter } = useSearchContext();
   const [typeFilter, setTypeFilter] = useState("Type");
   const [searchParams, setSearchParams] = useSearchParams();
@@ -55,6 +55,7 @@ export default function SearchBar({ getSearchResults }: ISearchBar) {
             borderTopLeftRadius={0}
             borderBottomLeftRadius={0}
             colorScheme="teal"
+            isLoading={isSearching}
             onClick={handleSearch} />}
           />
       </InputGroup>

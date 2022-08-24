@@ -1,11 +1,11 @@
-import "./SearchResultsCard.css";
+import "./PetCard.css";
 import { Flex, Image, LinkBox, useColorMode } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
 import { petStatusColor } from "../../utils/globals/helpers";
 import { ISearchResultsCard } from "../../utils/interfaces/search.interface";
 
-export default function SearchResultsCard({ pet }: ISearchResultsCard) {
+export default function PetCard({ pet }: ISearchResultsCard) {
   const { colorMode } = useColorMode();
 
   return (

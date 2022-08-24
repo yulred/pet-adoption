@@ -2,12 +2,12 @@ import "./NavBar.css";
 import { Link, useDisclosure, Flex } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "../../ColorModeSwitcher";
 import { NavLink } from "react-router-dom";
-import { useSessionContext } from "../../context/SessionContext";
+import { useAuthContext } from "../../context/AuthContext";
 import FormModal from "../registration/FormModal";
 import ProfileMenu from "./ProfileMenu";
 
 export default function NavBar() {
-  const { isActiveSession } = useSessionContext();
+  const { isActiveSession } = useAuthContext();
   const { isOpen, onToggle } = useDisclosure()
   const toggleModal = () => onToggle();
   

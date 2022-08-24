@@ -5,11 +5,11 @@ import { Formik, Field } from "formik";
 import * as yup from "yup";
 import { telRegExp } from "../../utils/globals/globals";
 import { Put } from "../../utils/api";
-import { useSessionContext } from "../../context/SessionContext";
+import { useAuthContext } from "../../context/AuthContext";
 import PasswordInput from "../registration/PasswordInput";
 
 export default function ProfileSettingsForm() {
-  const { currentUser } = useSessionContext();
+  const { currentUser } = useAuthContext();
   const [serverError, setServerError] = useState("");
   let navigate = useNavigate();
 
@@ -86,7 +86,7 @@ export default function ProfileSettingsForm() {
           <Field as={Textarea} name="bio" resize="vertical" />
           <FormErrorMessage>{errors.bio}</FormErrorMessage>
         </FormControl>
-        {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
+        {serverError ? <div className="server-error">Error: {serverError}</div> : null}
         <div className="submit-button">
           <Button mt={4} colorScheme="teal" type="submit">Save</Button>
         </div>

@@ -8,12 +8,20 @@ export interface IPet {
   weight?: number,
   color?: string,
   bio?: string,
-  hypoallergnic?: boolean,
-  dietery?: string[],
+  hypoallergenic?: boolean,
+  dietary?: string[],
   breed?: string,
 }
 
 export interface IPetStatus {
-  petID?: string,
-  changePetStatus: Function,
+  pet?: {
+    _id?: string,
+    adoptionStatus?: string,
+  },
+  updatePetStatus: Function,
+}
+
+export interface IPets {
+  ownedPets: object[],
+  savedPets: object[],
 }

@@ -1,11 +1,9 @@
 import { Button } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { useSessionContext } from "../../context/SessionContext";
+import { useAuthContext } from "../../context/AuthContext";
 import { Post } from "../../utils/api";
 
 export default function ProfileMenuLogout() {
-  const { cookie } = useSessionContext();
-  let navigate = useNavigate();
+  const { cookie } = useAuthContext();
 
   const handleLogout = async () => {
     try {

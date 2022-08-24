@@ -11,6 +11,7 @@ import SearchResults from "../components/search/SearchResults";
 
 export default function Search() {
   const [searchResults, setSearchResults] = useState<object[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
   let location = useLocation();
 
   useEffect(() => {
@@ -19,8 +20,10 @@ export default function Search() {
 
   const getSearchResults = async () => {
     try {
+      setIsSearching(true);
       const data = await Get("/pet" + location.search);
       setSearchResults(data);
+      setIsSearching(false);
     } catch(err) {
       console.log(err)
     }
@@ -31,7 +34,7 @@ export default function Search() {
       <Box p={12}>
         <Center>
           <Flex direction="column" w="75vw">
-            <SearchBar getSearchResults={getSearchResults} />
+            <SearchBar getSearchResults={getSearchResults} isSearching={isSearching} />
             <SearchToggle />
             <SearchFilterOptions />
             <SearchFilterTagList />

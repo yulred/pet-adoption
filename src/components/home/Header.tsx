@@ -1,8 +1,8 @@
 import "./Header.css";
-import { useSessionContext } from "../../context/SessionContext";
+import { useAuthContext } from "../../context/AuthContext";
 
 export default function Header() {
-  const { currentUser } = useSessionContext();
+  const { currentUser } = useAuthContext();
   const headerText = "header text";
 
   return (

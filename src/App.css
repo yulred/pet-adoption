@@ -16,3 +16,8 @@
 html, body {
 	height: 100vh;
 }
+
+h2 {
+  text-transform: lowercase;
+  font-variant: small-caps;
+}

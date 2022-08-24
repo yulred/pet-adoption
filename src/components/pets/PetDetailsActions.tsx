@@ -1,37 +1,20 @@
-import { useState, useEffect } from "react";
 import { Flex, Button, Icon } from "@chakra-ui/react";
 import { GiFlamingo, GiHouse, GiReturnArrow } from "react-icons/gi";
 import { BsStarFill } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
-import { Post } from "../../utils/api";
-import { useSessionContext } from "../../context/SessionContext";
+import { Post, Delete } from "../../utils/api";
+import { useAuthContext } from "../../context/AuthContext";
 import { IPetStatus } from "../../utils/interfaces/pets.interface";
 
-export default function PetDetailsActions({ petID, changePetStatus }: IPetStatus) {
-  const { currentUser } = useSessionContext();
-  const [isAdopted, setIsAdopted] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+export default function PetDetailsActions({ pet, updatePetStatus }: IPetStatus) {
+  const { currentUser, handleAdoptPet, handleFosterPet, handleReturnPet, handleSavePet, handleClearSavedPet } = useAuthContext();
   let location = useLocation();
-
-  useEffect(() => {
-    if (currentUser && currentUser.pets?.adopted?.includes(petID as string) || currentUser.pets?.fostered?.includes(petID as string)) {
-      setIsAdopted(true);
-    } else {
-      setIsAdopted(false);
-    }
-
-    if (currentUser && currentUser.pets?.saved?.includes(petID as string)) {
-      setIsSaved(true);
-    } else {
-      setIsSaved(false);
-    }
-  }, [currentUser])
 
   const handleAdopt = async () => {
     try {
-      setIsAdopted(true)
-      changePetStatus("Adopted");
       const res = await Post(`${location.pathname}/adopt`, { userID: currentUser._id, action: "adopt" });
+      updatePetStatus("Adopted");
+      handleAdoptPet(pet?._id as string);
     } catch(err) {
       console.log(err);
     }
@@ -39,9 +22,9 @@ export default function PetDetailsActions({ petID, changePetStatus }: IPetStatus
 
   const handleFoster = async () => {
     try {
-      setIsAdopted(true)
-      changePetStatus("Fostered");
       const res = await Post(`${location.pathname}/adopt`, { userID: currentUser._id, action: "foster" });
+      updatePetStatus("Fostered");
+      handleFosterPet(pet?._id as string);
     } catch(err) {
       console.log(err);
     }
@@ -49,9 +32,9 @@ export default function PetDetailsActions({ petID, changePetStatus }: IPetStatus
 
   const handleReturn = async () => {
     try {
-      setIsAdopted(false)
-      changePetStatus("Available");
       const res = await Post(`${location.pathname}/return`, { userID: currentUser._id });
+      updatePetStatus("Available");
+      handleReturnPet(pet?._id as string);
     } catch(err) {
       console.log(err);
     }
@@ -59,8 +42,13 @@ export default function PetDetailsActions({ petID, changePetStatus }: IPetStatus
 
   const handleSave = async () => {
     try {
-      setIsSaved(!isSaved);
-      const res = await Post(`${location.pathname}/save`, { userID: currentUser._id });
+      if (currentUser.pets?.saved?.includes(pet?._id as string)) {
+        const res = await Delete(`${location.pathname}/save`, { userID: currentUser._id });
+        handleClearSavedPet(pet?._id as string)
+      } else {
+        const res = await Post(`${location.pathname}/save`, { userID: currentUser._id });
+        handleSavePet(pet?._id as string);
+      }
     } catch(err) {
       console.log(err);
     }
@@ -68,9 +56,8 @@ export default function PetDetailsActions({ petID, changePetStatus }: IPetStatus
 
   return (
     <Flex wrap="wrap" justify="center" gap={2}>
-      {!isAdopted ? 
-        <>
-          <Button 
+      {pet?.adoptionStatus === "Available" || currentUser.pets?.fostered?.includes(pet?._id as string) ?
+          <Button
             leftIcon={<Icon as={GiFlamingo}/>}
             colorScheme="teal"
             variant="solid"
@@ -80,6 +67,8 @@ export default function PetDetailsActions({ petID, changePetStatus }: IPetStatus
           >
             Adopt
           </Button>
+      : null}
+      {pet?.adoptionStatus === "Available" ?
           <Button
             leftIcon={<Icon as={GiHouse} />}
             colorScheme="teal"
@@ -90,8 +79,8 @@ export default function PetDetailsActions({ petID, changePetStatus }: IPetStatus
           >
             Foster
           </Button>
-        </>
-      : 
+      : null}
+      {currentUser.pets?.adopted?.includes(pet?._id as string) || currentUser.pets?.fostered?.includes(pet?._id as string) ?
         <Button
           leftIcon={<Icon as={GiReturnArrow} />}
           colorScheme="teal"
@@ -102,7 +91,7 @@ export default function PetDetailsActions({ petID, changePetStatus }: IPetStatus
         >
           Return
         </Button>
-      }
+      : null}
       <Button
         leftIcon={<Icon as={BsStarFill}/>}
         colorScheme="teal"
@@ -111,7 +100,7 @@ export default function PetDetailsActions({ petID, changePetStatus }: IPetStatus
         minW="7.5rem"
         onClick={() => handleSave()}
       >
-        {isSaved ? "Unfavourite" : "Favourite"}
+        {currentUser.pets?.saved?.includes(pet?._id as string) ? "Unfavourite" : "Favourite"}
       </Button>
     </Flex>
   )

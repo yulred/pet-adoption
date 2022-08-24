@@ -16,3 +16,8 @@ export const Put = async (path: string, data: object, ) => {
   const res = await axios.put(BASE_URL + path, data, { withCredentials: true });
   return res.data;
 }
+
+export const Delete = async (path: string, data: object ) => {
+  const res = await axios.delete(BASE_URL + path, { data: data, withCredentials: true });
+  return res.data;
+}
