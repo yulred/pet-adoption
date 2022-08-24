@@ -13,7 +13,7 @@ async function getUser(req, res) {
 async function updateUser(req, res) {
   try {
     const user = await userModel.updateUser(req.body);
-    res.send(user);
+    res.send({ok: true});
   } catch(err) {
     res.status(500).send(err);
   }

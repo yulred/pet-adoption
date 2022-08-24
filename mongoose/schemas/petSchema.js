@@ -9,8 +9,8 @@ const petSchema = new mongoose.Schema({
   weight: Number,
   color: String,
   bio: String,
-  hypoallergnic: Boolean,
-  dietery: [String],
+  hypoallergenic: Boolean,
+  dietary: [String],
   breed: String,
 })
 

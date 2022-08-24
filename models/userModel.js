@@ -14,13 +14,13 @@ async function getUser(id) {
 
 async function updateUser(user) {
   try {
-    const update = {};
+    const userToUpdate = {};
 
     for (const key in user) {
-      if (key !== "id" && user[key] !== "") userToUpdate[key] = user[key];
+      if (user[key] && key !== "id") userToUpdate[key] = user[key];
     }
     
-    const updatedUser = await userModel.findByIdAndUpdate({ _id: user.id }, update, { new: true });
+    const updatedUser = await userModel.findByIdAndUpdate({ _id: user.id }, userToUpdate, { new: true });
     return updatedUser;
   } catch(err) {
     console.log(err);

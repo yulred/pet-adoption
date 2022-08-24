@@ -9,8 +9,8 @@ const petSchema = {
     weight: { type: "number" },
     color: { type: "string" },
     bio: { type: "string" },
-    hypoallergnic: { type: "boolean" },
-    dietery: { type: "array" },
+    hypoallergenic: { type: "boolean" },
+    dietary: { type: "array" },
     breed: { type: "string" },
   },
 }

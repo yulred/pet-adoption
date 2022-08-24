@@ -100,26 +100,59 @@ async function returnPet(petID, currentUser) {
   }
 }
 
+// const user = await userModel.findByIdAndUpdate(
+//   { _id: currentUser.userID },
+//   [ { $set: {
+//     "pets.saved": {
+//       $cond: [
+//         { $in: [petID, "$pets.saved"] },
+//         { $filter: { input: "$pets.saved", cond: { $eq: ["$pets.saved", petID] } } },
+//         { $concatArrays: [ "$pets.saved", [petID] ] }
+//       ]
+//     }
+//   }, } ],
+//   { new: true }
+// )
+
 async function savePet(petID, currentUser) {
   try {
     const user = await userModel.findByIdAndUpdate(
       { _id: currentUser.userID },
-      [ { $set: {
-        "pets.saved": {
-          $cond: [
-            { $in: [petID, "$pets.saved"] },
-            { $filter: { input: "$pets.saved", cond: { $eq: ["$pets.saved", petID] } } },
-            { $concatArrays: [ "$pets.saved", [petID] ] }
-          ]
-        }
-      }, } ],
+      { $addToSet: { "pets.saved": petID } },
       { new: true }
     )
 
-    return user;
+    return {user};
   } catch(err) {
     console.log(err);
   }
 }
 
-module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet };
+async function clearSavedPet(petID, currentUser) {
+  try {
+    const user = await userModel.findByIdAndUpdate(
+      { _id: currentUser.userID },
+      { $pull: { "pets.saved": petID } },
+      { new: true }
+    )
+
+    return {user};
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+async function getUsersPets(userID) {
+  try {
+    const user = await userModel.findById(userID);
+
+    const ownedPets = await petModel.find({"_id": {"$in": [...user.pets.adopted, ...user.pets.fostered]}});
+    const savedPets = await petModel.find({"_id" : {"$in" :[...user.pets.saved]}});
+    
+    return {ownedPets, savedPets};
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, clearSavedPet, getUsersPets };

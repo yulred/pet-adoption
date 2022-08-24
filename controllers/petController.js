@@ -49,4 +49,24 @@ async function savePet(req, res) {
   }
 }
 
-module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet };
+async function clearSavedPet(req, res) {
+  try {
+    const { id } = req.params;
+    const pet = await petModel.clearSavedPet(id, req.body);
+    res.send(pet);
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
+async function getUsersPets(req, res) {
+  try {
+    const { id } = req.params;
+    const pets = await petModel.getUsersPets(id);
+    res.send(pets);
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
+module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, clearSavedPet, getUsersPets };
