@@ -13,9 +13,9 @@ export default function PetDetailsActions({ pet, updatePetStatus }: IPetStatus) 
 
   const handleAdopt = async () => {
     try {
-      const res = await Post(`${location.pathname}/adopt`, { userID: currentUser._id, action: "adopt" });
       updatePetStatus("Adopted");
       handleAdoptPet(pet?._id as string);
+      await Post(`${location.pathname}/adopt`, { userID: currentUser._id, action: "adopt" });
     } catch(err) {
       console.log(err);
     }
@@ -23,9 +23,9 @@ export default function PetDetailsActions({ pet, updatePetStatus }: IPetStatus) 
 
   const handleFoster = async () => {
     try {
-      const res = await Post(`${location.pathname}/adopt`, { userID: currentUser._id, action: "foster" });
       updatePetStatus("Fostered");
       handleFosterPet(pet?._id as string);
+      await Post(`${location.pathname}/adopt`, { userID: currentUser._id, action: "foster" });
     } catch(err) {
       console.log(err);
     }
@@ -33,9 +33,9 @@ export default function PetDetailsActions({ pet, updatePetStatus }: IPetStatus) 
 
   const handleReturn = async () => {
     try {
-      const res = await Post(`${location.pathname}/return`, { userID: currentUser._id });
       updatePetStatus("Available");
       handleReturnPet(pet?._id as string);
+      await Post(`${location.pathname}/return`, { userID: currentUser._id });
     } catch(err) {
       console.log(err);
     }
@@ -44,11 +44,11 @@ export default function PetDetailsActions({ pet, updatePetStatus }: IPetStatus) 
   const handleSave = async () => {
     try {
       if (currentUser.pets?.saved?.includes(pet?._id as string)) {
-        const res = await Delete(`${location.pathname}/save`, { userID: currentUser._id });
         handleClearSavedPet(pet?._id as string)
+        await Delete(`${location.pathname}/save`, { userID: currentUser._id });
       } else {
-        const res = await Post(`${location.pathname}/save`, { userID: currentUser._id });
         handleSavePet(pet?._id as string);
+        await Post(`${location.pathname}/save`, { userID: currentUser._id });
       }
     } catch(err) {
       console.log(err);

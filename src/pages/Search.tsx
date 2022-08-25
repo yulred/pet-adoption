@@ -20,7 +20,7 @@ export default function Search() {
   const getSearchResults = async () => {
     try {
       setIsSearching(true);
-      const data = await Get("/pet" + location.search);
+      const data = await Get(`/pet${location.search}`);
       setSearchResults(data);
       setIsSearching(false);
     } catch(err) {
