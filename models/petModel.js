@@ -128,7 +128,7 @@ async function savePet(petID, currentUser) {
   }
 }
 
-async function clearSavedPet(petID, currentUser) {
+async function deleteSavedPet(petID, currentUser) {
   try {
     const user = await userModel.findByIdAndUpdate(
       { _id: currentUser.userID },
@@ -155,4 +155,4 @@ async function getUsersPets(userID) {
   }
 }
 
-module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, clearSavedPet, getUsersPets };
+module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, deleteSavedPet, getUsersPets };

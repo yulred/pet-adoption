@@ -49,10 +49,10 @@ async function savePet(req, res) {
   }
 }
 
-async function clearSavedPet(req, res) {
+async function deleteSavedPet(req, res) {
   try {
     const { id } = req.params;
-    const pet = await petModel.clearSavedPet(id, req.body);
+    const pet = await petModel.deleteSavedPet(id, req.body);
     res.send(pet);
   } catch(err) {
     res.status(500).send(err);
@@ -69,4 +69,4 @@ async function getUsersPets(req, res) {
   }
 }
 
-module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, clearSavedPet, getUsersPets };
+module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, deleteSavedPet, getUsersPets };

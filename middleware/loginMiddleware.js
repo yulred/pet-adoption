@@ -1,12 +1,12 @@
 const bcrypt = require("bcrypt");
 const { loginModel } = require("../models/loginModel");
 
-async function isExistingEmail(req, res, next) {
+async function doesEmailExist(req, res, next) {
   try {
     const userID = await loginModel.exists({ email: req.body.email });
 
     if (userID) {
-      res.locals.userID = userID;
+      res.locals.userID = userID._id.toString();
       next();
     }
     else res.status(400).send("User with this E-Mail does not exist.");
@@ -15,7 +15,7 @@ async function isExistingEmail(req, res, next) {
   }
 }
 
-async function isCorrectPassword(req, res, next) {
+async function validatePassword(req, res, next) {
   try {
     const user = await loginModel.findById(res.locals.userID);
     const hashedPassword = user.password;
@@ -29,4 +29,4 @@ async function isCorrectPassword(req, res, next) {
   }
 }
 
-module.exports = { isExistingEmail, isCorrectPassword };
+module.exports = { doesEmailExist, validatePassword };

@@ -5,10 +5,10 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const petRoute = require("./routes/petRoute");
-const userRoute = require("./routes/userRoute");
 const signupRoute = require("./routes/signupRoute");
 const loginRoute = require("./routes/loginRoute");
 const logoutRoute = require("./routes/logoutRoute");
+const userRoute = require("./routes/userRoute");
 
 const app = express();
 const PORT = process.env.PORT || 8080;

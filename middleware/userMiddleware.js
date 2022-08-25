@@ -17,7 +17,7 @@ function isPasswordMinLength(req, res, next) {
   } else next();
 }
 
-async function isExistingUser(req, res, next) {
+async function doesUserExist(req, res, next) {
   try {
     if (req.body.email) {
       const isUser = await userModel.exists({ email: req.body.email });
@@ -30,4 +30,4 @@ async function isExistingUser(req, res, next) {
   }
 }
 
-module.exports = { doPasswordsMatch, isPasswordMinLength, isExistingUser };
+module.exports = { doPasswordsMatch, isPasswordMinLength, doesUserExist };

@@ -1,14 +1,13 @@
 const mongoose = require("mongoose");
-const { authModel, generateAuthToken } = require("./authModel");
+const jwt = require("jsonwebtoken");
 const { loginSchema } = require("../mongoose/schemas/loginSchema");
 
 const loginModel = mongoose.model("User", loginSchema, "users");
 
 async function loginUser(userID) {
   try {
-    const authToken = generateAuthToken();
-    const newToken = await authModel.findOneAndUpdate({ user: userID._id }, { token: authToken }, { upsert: true, new: true });
-    return newToken;
+    const token = jwt.sign({ id: userID }, process.env.TOKEN_KEY, { expiresIn: "14d" });
+    return token;
   } catch(err) {
     console.log(err);
   }
