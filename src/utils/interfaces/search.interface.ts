@@ -42,7 +42,3 @@ export interface ISearchContext {
   advancedSearch: boolean,
   toggleAdvancedSearch: Function,
 }
-
-export interface ISearchContextProps {
-  children: React.ReactNode,
-}

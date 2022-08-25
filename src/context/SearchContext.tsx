@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer, useState } from "react";
+import { Outlet } from "react-router-dom";
 import SearchReducer from "../reducers/SearchReducer";
-import { ISearchContext, ISearchContextProps } from "../utils/interfaces/search.interface";
+import { ISearchContext } from "../utils/interfaces/search.interface";
 
 const SearchContext = createContext<ISearchContext>({
   filters: [],
@@ -13,7 +14,7 @@ const SearchContext = createContext<ISearchContext>({
   toggleAdvancedSearch: ()=>{},
 })
 
-const SearchProvider = ({ children }: ISearchContextProps) => {
+const SearchProvider = () => {
   const [filters, dispatchFilters] = useReducer(SearchReducer, []);
   const [advancedSearch, setAdvancedSearch] = useState(false);
 
@@ -62,7 +63,7 @@ const SearchProvider = ({ children }: ISearchContextProps) => {
 
   return (
     <SearchContext.Provider value={{ filters, handleAddFilter, handleAddRangeFilter, handleAddQueryFilter, handleRemoveFilter, handleClearFilters, advancedSearch, toggleAdvancedSearch }}>
-      {children}
+      <Outlet />
     </SearchContext.Provider>
   )
 }

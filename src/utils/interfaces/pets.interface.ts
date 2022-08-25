@@ -21,6 +21,12 @@ export interface IPetStatus {
   updatePetStatus: Function,
 }
 
+export interface IPetButton {
+  icon: any,
+  action: Function,
+  label: string,
+}
+
 export interface IPets {
   ownedPets: object[],
   savedPets: object[],

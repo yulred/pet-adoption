@@ -8,6 +8,7 @@ import Pet from "./pages/Pet";
 import ProfileSettings from "./pages/ProfileSettings";
 import ProfilePets from "./pages/ProfilePets";
 import AuthProvider from "./context/AuthContext";
+import SearchProvider from "./context/SearchContext";
 import { theme } from "./themes/theme";
 
 export const App = () => (
@@ -18,8 +19,10 @@ export const App = () => (
           <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/pet/:id" element={<Pet />} />
+            <Route element={<SearchProvider />}>
+              <Route path="/search" element={<Search />} />
+              <Route path="/pet/:id" element={<Pet />} />
+            </Route>
             <Route path="/profile" element={<Outlet />}>
               <Route path="settings" element={<ProfileSettings />} />
               <Route path="mypets" element={<ProfilePets />} />

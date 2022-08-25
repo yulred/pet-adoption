@@ -3,48 +3,54 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
-import FormInputField from "../form/FormInputField";
 import FormPasswordField from "../form/FormPasswordField";
 import FormSubmitButton from "../form/FormSubmitButton";
+import { Put } from "../../utils/api";
 import { requiredErrorMsg } from "../../utils/globals/globals";
-import { Post } from "../../utils/api";
+import { useAuthContext } from "../../context/AuthContext";
 
-export default function LoginForm() {
+export default function ProfilePasswordForm() {
+  const { currentUser } = useAuthContext();
   const [serverError, setServerError] = useState("");
   let navigate = useNavigate();
 
-  const loginSchema = yup.object().shape({
-    email: yup.string()
+  const updatePasswordSchema = yup.object().shape({
+    oldPassword: yup.string()
       .required(requiredErrorMsg),
     password: yup.string()
-      .required(requiredErrorMsg),
+      .required(requiredErrorMsg)
+      .min(8, "Password must be at least 8 characters."),
+    passwordConfirm: yup.string()
+      .required(requiredErrorMsg)
+      .oneOf([yup.ref("password")], "Passwords must match."),
   })
 
   return (
     <Formik
       initialValues={{
-        email: "",
+        oldPassword: "",
         password: "",
+        passwordConfirm: "",
       }}
-      validationSchema={loginSchema}
+      validationSchema={updatePasswordSchema}
       validateOnChange={false}
       onSubmit={async (user) => {
         try {
           setServerError("");
-          const res = await Post("/login", user);
+          const res = await Put("/user", { id: currentUser._id, ...user });
           if (res.ok) navigate(0);
         } catch(err: any) {
-          console.log(err)
           setServerError(err.response.data ? err.response.data : err.response.statusText);
         }
       }}
     >
     {({ handleSubmit }) => (
       <form onSubmit={handleSubmit}>
-        <FormInputField fieldName="email" fieldType="email" fieldLabel="E-Mail" req={true} />
-        <FormPasswordField fieldName="password" fieldLabel="Password" req={true} />
+        <FormPasswordField fieldName="oldPassword" fieldLabel="Old Password" req={true} />
+        <FormPasswordField fieldName="password" fieldLabel="New Password" req={true} />
+        <FormPasswordField fieldName="passwordConfirm" fieldLabel="Confirm New Password" req={true} />
         {serverError ? <div className="server-error">Error: {serverError}</div> : null}
-        <FormSubmitButton buttonLabel="Log In" />
+        <FormSubmitButton buttonLabel="Save" />
       </form>
     )}
     </Formik>

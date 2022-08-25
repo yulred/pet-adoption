@@ -1,12 +1,14 @@
+import "../form/Form.css";
 import { useState } from "react";
-import { FormControl, FormLabel, Input, Textarea, Button, FormErrorMessage } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import * as yup from "yup";
+import FormInputField from "../form/FormInputField";
+import FormTextareaField from "../form/FormTextareaField";
+import FormSubmitButton from "../form/FormSubmitButton";
 import { telRegExp } from "../../utils/globals/globals";
 import { Put } from "../../utils/api";
 import { useAuthContext } from "../../context/AuthContext";
-import PasswordInput from "../registration/PasswordInput";
 
 export default function ProfileSettingsForm() {
   const { currentUser } = useAuthContext();
@@ -18,10 +20,6 @@ export default function ProfileSettingsForm() {
       .min(2, "Name must be at least 2 characters."),
     email: yup.string()
       .email("Invalid e-mail."),
-    password: yup.string()
-      .min(8, "Password must be at least 8 characters."),
-    passwordConfirm: yup.string()
-      .oneOf([yup.ref("password")], "Passwords must match."),
     tel: yup.string()
       .matches(telRegExp, "Invalid phone number."),
     bio: yup.string()
@@ -33,8 +31,6 @@ export default function ProfileSettingsForm() {
       initialValues={{
         name: currentUser.name,
         email: currentUser.email,
-        password: "",
-        passwordConfirm: "",
         tel: currentUser.tel,
         bio: currentUser.bio,
       }}
@@ -50,46 +46,14 @@ export default function ProfileSettingsForm() {
         }
       }}
     >
-    {({ handleSubmit, errors, touched }) => (
+    {({ handleSubmit }) => (
       <form onSubmit={handleSubmit}>
-        <FormControl isInvalid={errors.name !== undefined && touched.name}>
-          <FormLabel>Full Name</FormLabel>
-          <Field as={Input} type="text" name="name" />
-          <FormErrorMessage>{errors.name}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={errors.email !== undefined && touched.email}>
-          <FormLabel>E-Mail</FormLabel>
-          <Field as={Input} type="email" name="email" />
-          <FormErrorMessage>{errors.email}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={errors.password !== undefined && touched.password}>
-          <FormLabel>New Password</FormLabel>
-          <Field>
-            {() => <PasswordInput fieldName="password" />}
-          </Field>
-          <FormErrorMessage>{errors.password}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={errors.passwordConfirm !== undefined && touched.passwordConfirm}>
-          <FormLabel>Confirm New Password</FormLabel>
-          <Field>
-            {() => <PasswordInput fieldName="passwordConfirm" />}
-          </Field>
-          <FormErrorMessage>{errors.passwordConfirm}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={errors.tel !== undefined && touched.tel}>
-          <FormLabel>Phone Number</FormLabel>
-          <Field as={Input} type="tel" name="tel" />
-          <FormErrorMessage>{errors.tel}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={errors.bio !== undefined && touched.bio}>
-          <FormLabel>Bio</FormLabel>
-          <Field as={Textarea} name="bio" resize="vertical" />
-          <FormErrorMessage>{errors.bio}</FormErrorMessage>
-        </FormControl>
+        <FormInputField fieldName="name" fieldType="text" fieldLabel="Full Name" req={false} />
+        <FormInputField fieldName="email" fieldType="email" fieldLabel="E-Mail" req={false} />
+        <FormInputField fieldName="tel" fieldType="tel" fieldLabel="Phone Number" req={false} />
+        <FormTextareaField fieldName="bio" fieldLabel="Bio" req={false} />
         {serverError ? <div className="server-error">Error: {serverError}</div> : null}
-        <div className="submit-button">
-          <Button mt={4} colorScheme="teal" type="submit">Save</Button>
-        </div>
+        <FormSubmitButton buttonLabel="Save" />
       </form>
     )}
     </Formik>

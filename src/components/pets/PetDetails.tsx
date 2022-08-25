@@ -11,6 +11,7 @@ import { useAuthContext } from "../../context/AuthContext";
 
 export default function PetDetails() {
   const { colorMode } = useColorMode();
+  const { isLoading } = useAuthContext();
   const [pet, setPet] = useState<IPet>({});
   const petData = [
     pet.type,
@@ -21,7 +22,6 @@ export default function PetDetails() {
     `${pet.hypoallergenic ? "Hypoallergenic" : "Not Hypoallergenic"}`,
     `${pet?.dietary && pet.dietary.length > 0 ? "Dietary Restrictions: " + pet.dietary : "No Dietary Restrictions"}` //TODO: with dietary array
   ];
-  const { isLoading } = useAuthContext();
   const navigate = useNavigate();
   let location = useLocation();
 

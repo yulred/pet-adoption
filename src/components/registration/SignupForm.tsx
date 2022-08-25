@@ -1,12 +1,13 @@
-import "./Form.css";
+import "../form/Form.css";
 import { useState } from "react";
-import { FormControl, FormLabel, Input, Button, FormErrorMessage } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import * as yup from "yup";
+import FormInputField from "../form/FormInputField";
+import FormPasswordField from "../form/FormPasswordField";
+import FormSubmitButton from "../form/FormSubmitButton";
 import { requiredErrorMsg, telRegExp } from "../../utils/globals/globals";
 import { Post } from "../../utils/api";
-import PasswordInput from "./PasswordInput";
 
 export default function SignupForm() {
   const [serverError, setServerError] = useState("");
@@ -50,41 +51,15 @@ export default function SignupForm() {
         }
       }}
     >
-    {({ handleSubmit, errors, touched }) => (
+    {({ handleSubmit }) => (
       <form onSubmit={handleSubmit}>
-        <FormControl isRequired isInvalid={errors.name !== undefined && touched.name}>
-          <FormLabel>Full Name</FormLabel>
-          <Field as={Input} type="text" name="name" />
-          <FormErrorMessage>{errors.name}</FormErrorMessage>
-        </FormControl>
-        <FormControl isRequired isInvalid={errors.email !== undefined && touched.email}>
-          <FormLabel>E-Mail</FormLabel>
-          <Field as={Input} type="email" name="email" />
-          <FormErrorMessage>{errors.email}</FormErrorMessage>
-        </FormControl>
-        <FormControl isRequired isInvalid={errors.password !== undefined && touched.password}>
-          <FormLabel>Password</FormLabel>
-          <Field>
-            {() => <PasswordInput fieldName="password" />}
-          </Field>
-          <FormErrorMessage>{errors.password}</FormErrorMessage>
-        </FormControl>
-        <FormControl isRequired isInvalid={errors.passwordConfirm !== undefined && touched.passwordConfirm}>
-          <FormLabel>Confirm Password</FormLabel>
-          <Field>
-            {() => <PasswordInput fieldName="passwordConfirm" />}
-          </Field>
-          <FormErrorMessage>{errors.passwordConfirm}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={errors.tel !== undefined && touched.tel}>
-          <FormLabel>Phone Number</FormLabel>
-          <Field as={Input} type="tel" name="tel" />
-          <FormErrorMessage>{errors.tel}</FormErrorMessage>
-        </FormControl>
+        <FormInputField fieldName="name" fieldType="text" fieldLabel="Full Name" req={true} />
+        <FormInputField fieldName="email" fieldType="email" fieldLabel="E-Mail" req={true} />
+        <FormPasswordField fieldName="password" fieldLabel="Password" req={true} />
+        <FormPasswordField fieldName="passwordConfirm" fieldLabel="Confirm Password" req={true} />
+        <FormInputField fieldName="tel" fieldType="tel" fieldLabel="Phone Number" req={false} />
         {serverError ? <div className="server-error">Error: {serverError}</div> : null}
-        <div className="submit-button">
-          <Button mt={4} colorScheme="teal" type="submit">Sign Up</Button>
-        </div>
+        <FormSubmitButton buttonLabel="Sign Up" />
       </form>
     )}
     </Formik>

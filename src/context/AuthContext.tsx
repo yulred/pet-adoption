@@ -24,10 +24,10 @@ const AuthProvider = ({ children }: IAuthContextProps) => {
 
   useEffect(() => {
     if (!isActiveSession && Object.keys(cookie).length > 0) {
-      let userID = cookie.PetAdoption.split("%")[0];
+      let userID = JSON.parse(atob(cookie.PetAdoption.split(".")[1])).id;
       setIsActiveSession(true);
       getCurrentUser(userID);
-    }
+    } // eslint-disable-next-line
   }, [cookie])
 
   const getCurrentUser = async (userID: string) => {

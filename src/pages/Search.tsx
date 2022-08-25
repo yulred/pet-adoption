@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Box, Center, Flex } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import { Get } from "../utils/api";
-import SearchProvider from "../context/SearchContext";
 import SearchBar from "../components/search/SearchBar";
 import SearchToggle from "../components/search/SearchToggle";
 import SearchFilterOptions from "../components/search/filters/SearchFilterOptions";
@@ -30,18 +29,16 @@ export default function Search() {
   }
 
   return (
-    <SearchProvider>
-      <Box p={12}>
-        <Center>
-          <Flex direction="column" w="75vw">
-            <SearchBar getSearchResults={getSearchResults} isSearching={isSearching} />
-            <SearchToggle />
-            <SearchFilterOptions />
-            <SearchFilterTagList />
-            <SearchResults searchResults={searchResults} />
-          </Flex>
-        </Center>
-      </Box>
-    </SearchProvider>
+    <Box p={12}>
+      <Center>
+        <Flex direction="column" w="75vw">
+          <SearchBar getSearchResults={getSearchResults} isSearching={isSearching} />
+          <SearchToggle />
+          <SearchFilterOptions />
+          <SearchFilterTagList />
+          <SearchResults searchResults={searchResults} />
+        </Flex>
+      </Center>
+    </Box>
   )
  }

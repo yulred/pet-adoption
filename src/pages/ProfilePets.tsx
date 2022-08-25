@@ -1,9 +1,8 @@
-import { Box, Container, Heading, useColorMode } from "@chakra-ui/react";
+import { Box, Container, Heading } from "@chakra-ui/react";
 import ProfilePetsList from "../components/profile/ProfilePetsList";
 import { useAuthContext } from "../context/AuthContext";
 
 export default function Home() {
-  const { colorMode } = useColorMode();
   const { isLoading } = useAuthContext();
  
   return (
