@@ -10,6 +10,25 @@ async function getUser(req, res) {
   }
 }
 
+async function getFullUser(req, res) {
+  try {
+    const { id } = req.params;
+    const user = await userModel.getFullUser(id);
+    res.send(user);
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
+async function getAllUsers(req, res) {
+  try {
+    const user = await userModel.getAllUsers();
+    res.send(user);
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
 async function updateUser(req, res) {
   try {
     const user = await userModel.updateUser(req.body);
@@ -19,4 +38,4 @@ async function updateUser(req, res) {
   }
 }
 
-module.exports = { getUser, updateUser };
+module.exports = { getUser, getFullUser, getAllUsers, updateUser };

@@ -25,7 +25,7 @@ async function getSearchedPets(query) {
       query.$or = [ {type: qRe }, {name: qRe}, {adoptionStatus: qRe}, {color: qRe}, {bio: qRe}, {breed: qRe} ];
     }
     
-    const searchedPets = await petModel.find(query);
+    const searchedPets = await petModel.find(query, { name: 1, adoptionStatus: 1, picture: 1 });
 
     return searchedPets.sort((a, b) => a.name.localeCompare(b.name));
   } catch(err) {
@@ -99,20 +99,6 @@ async function returnPet(petID, currentUser) {
     console.log(err);
   }
 }
-
-// const user = await userModel.findByIdAndUpdate(
-//   { _id: currentUser.userID },
-//   [ { $set: {
-//     "pets.saved": {
-//       $cond: [
-//         { $in: [petID, "$pets.saved"] },
-//         { $filter: { input: "$pets.saved", cond: { $eq: ["$pets.saved", petID] } } },
-//         { $concatArrays: [ "$pets.saved", [petID] ] }
-//       ]
-//     }
-//   }, } ],
-//   { new: true }
-// )
 
 async function savePet(petID, currentUser) {
   try {

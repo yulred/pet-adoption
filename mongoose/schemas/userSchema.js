@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     maxLength: 350,
   },
+  role: {
+    type: String,
+  },
   pets: {
     adopted: Array,
     fostered: Array,
