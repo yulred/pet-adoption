@@ -1,0 +1,30 @@
+table {
+  border-collapse: separate;
+}
+
+.css-woqubx tr:nth-of-type(2n+1) td {
+  color: var(--chakra-colors-white);
+  background: var(--chakra-colors-teal-500) !important;
+}
+
+.css-woqubx tr:nth-of-type(2n+1) td:first-of-type, .css-v5e1nz tr:nth-of-type(2n+1) td:first-of-type {
+  border-top-left-radius: var(--chakra-radii-md);
+  border-bottom-left-radius: var(--chakra-radii-md);
+}
+
+.css-woqubx tr:nth-of-type(2n+1) td:last-of-type, .css-v5e1nz tr:nth-of-type(2n+1) td:last-of-type {
+  border-top-right-radius: var(--chakra-radii-md);
+  border-bottom-right-radius: var(--chakra-radii-md);
+}
+
+.css-po59wb, .css-12576gb, .css-13gcm2g, .css-m2ydem {
+  border-color: transparent !important;
+}
+
+tr:last-of-type .css-po59wb {
+  border-color: var(--chakra-colors-teal-500) !important;
+}
+
+tr:last-of-type .css-13gcm2g {
+  border-color: var(--chakra-colors-teal-700) !important;
+}

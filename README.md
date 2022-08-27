@@ -7,4 +7,5 @@ React Icons, https://react-icons.github.io/react-icons \
 Axios, https://axios-http.com/docs/intro \
 Formik, https://formik.org/ \
 yup, https://www.npmjs.com/package/yup \
-JavaScript Cookie, https://www.npmjs.com/package/js-cookie
+JavaScript Cookie, https://www.npmjs.com/package/js-cookie \
+React Table, https://react-table-v7.tanstack.com/

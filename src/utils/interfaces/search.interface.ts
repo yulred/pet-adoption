@@ -15,23 +15,6 @@ export interface ISearchResults {
   searchResults: object[],
 }
 
-export interface ISearchResultsCard {
-  pet: {
-    _id?: string,
-    type?: string,
-    name?: string,
-    adoptionStatus?: string,
-    picture?: string,
-    height?: number,
-    weight?: number,
-    color?: string,
-    bio?: string,
-    hypoallergenic?: boolean,
-    dietary?: string[],
-    breed?: string,
-  },
-}
-
 export interface ISearchContext {
   filters: Array<Array<string | undefined>>,
   handleAddFilter: Function,

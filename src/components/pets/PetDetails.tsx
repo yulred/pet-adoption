@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PetDetailsActions from "./PetDetailsActions";
 import { Get } from "../../utils/api";
 import { petStatusColor } from "../../utils/globals/helpers";
-import { IPet } from "../../utils/interfaces/pets.interface";
+import { IPet } from "../../utils/interfaces/pet.interface";
 import { useAuthContext } from "../../context/AuthContext";
 
 export default function PetDetails() {

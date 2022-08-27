@@ -3,7 +3,7 @@ import ProfileSettingsForm from "../components/profile/ProfileSettingsForm";
 import ProfilePasswordForm from "../components/profile/ProfilePasswordForm";
 import { useAuthContext } from "../context/AuthContext";
 
-export default function Home() {
+export default function ProfileSettings() {
   const { isLoading } = useAuthContext();
  
   return (

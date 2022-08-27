@@ -3,16 +3,17 @@ import { Flex, Image, LinkBox, useColorMode } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
 import { petStatusColor } from "../../utils/globals/helpers";
-import { ISearchResultsCard } from "../../utils/interfaces/search.interface";
+import { IPetCard } from "../../utils/interfaces/pet.interface";
 
-export default function PetCard({ pet }: ISearchResultsCard) {
+export default function PetCard({ pet, cardSize }: IPetCard) {
   const { colorMode } = useColorMode();
 
   return (
     <LinkBox 
       as={NavLink}
       to={`/pet/${pet._id}`}
-      minW="20rem"
+      minW={cardSize}
+      maxW={cardSize}
       rounded="md"
       my={2}
       boxShadow="md"
@@ -24,7 +25,7 @@ export default function PetCard({ pet }: ISearchResultsCard) {
           alt={pet.name}
           objectFit="cover"
           objectPosition="top"
-          h="20rem"
+          h={cardSize}
           rounded="md"
           borderBottomLeftRadius={0}
           borderBottomRightRadius={100}
@@ -36,7 +37,7 @@ export default function PetCard({ pet }: ISearchResultsCard) {
           </div>
           <ArrowForwardIcon mt={2} />
         </Flex>
-        <div className="overlay">About Me</div>
+        {cardSize !== "20rem" ? null : <div className="overlay">About Me</div>}
       </Flex>
     </LinkBox>
   )

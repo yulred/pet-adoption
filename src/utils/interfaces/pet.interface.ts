@@ -27,6 +27,24 @@ export interface IPetButton {
   label: string,
 }
 
+export interface IPetCard {
+  pet: {
+    _id?: string,
+    type?: string,
+    name?: string,
+    adoptionStatus?: string,
+    picture?: string,
+    height?: number,
+    weight?: number,
+    color?: string,
+    bio?: string,
+    hypoallergenic?: boolean,
+    dietary?: string[],
+    breed?: string,
+  },
+  cardSize: string,
+}
+
 export interface IPets {
   ownedPets: object[],
   savedPets: object[],

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import PetDetailsButton from "./PetDetailsButton";
 import { Post, Delete } from "../../utils/api";
 import { useAuthContext } from "../../context/AuthContext";
-import { IPetStatus } from "../../utils/interfaces/pets.interface";
+import { IPetStatus } from "../../utils/interfaces/pet.interface";
 
 export default function PetDetailsActions({ pet, updatePetStatus }: IPetStatus) {
   const { currentUser, handleAdoptPet, handleFosterPet, handleReturnPet, handleSavePet, handleClearSavedPet } = useAuthContext();

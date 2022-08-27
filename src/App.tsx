@@ -7,6 +7,8 @@ import Search from "./pages/Search";
 import Pet from "./pages/Pet";
 import ProfileSettings from "./pages/ProfileSettings";
 import ProfilePets from "./pages/ProfilePets";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminUser from "./pages/AdminUser";
 import AuthProvider from "./context/AuthContext";
 import SearchProvider from "./context/SearchContext";
 import { theme } from "./themes/theme";
@@ -27,6 +29,8 @@ export const App = () => (
               <Route path="settings" element={<ProfileSettings />} />
               <Route path="mypets" element={<ProfilePets />} />
             </Route>
+            <Route path="/dashboard" element={<AdminDashboard />} />
+            <Route path="dashboard/user/:id" element={<AdminUser />} />
           </Routes>
         </Router>
       </Box>

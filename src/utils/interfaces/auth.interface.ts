@@ -13,6 +13,7 @@ export interface IAuthContext {
       fostered?: string[],
       saved?: string[],
     },
+    role?: string,
   },
   handleAdoptPet: Function,
   handleFosterPet: Function,
