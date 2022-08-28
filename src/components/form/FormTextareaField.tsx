@@ -1,5 +1,5 @@
 import { FormControl, FormLabel, Textarea, FormErrorMessage } from "@chakra-ui/react";
-import { ITextAreaProps } from "../../utils/interfaces/form.interface";
+import { ITextAreaProps } from "../../ts/interfaces/form.interface";
 import { useFormikContext, Field } from "formik";
 
 export default function FormTextareaField({ fieldName, fieldLabel, req }: ITextAreaProps) {

@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer, useState } from "react";
 import { Outlet } from "react-router-dom";
 import SearchReducer from "../reducers/SearchReducer";
-import { ISearchContext } from "../utils/interfaces/search.interface";
+import { ISearchContext } from "../ts/interfaces/search.interface";
 
 const SearchContext = createContext<ISearchContext>({
   filters: [],

@@ -49,3 +49,9 @@ export interface IPets {
   ownedPets: object[],
   savedPets: object[],
 }
+
+export interface IPetGrid {
+  cardSize: string,
+  petsArray: IPet[],
+  emptyArrayMsg: string,
+}

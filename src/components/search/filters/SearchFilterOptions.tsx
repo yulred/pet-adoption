@@ -18,15 +18,15 @@ export default function SearchFiltersOptions() {
       <Menu>
         <MenuButton as={Button} rightIcon={<ChevronDownIcon />} minW="10rem">Status</MenuButton>
         <MenuList>
-          {["Available", "Fostered", "Adopted"].map((item, index) => 
-          <MenuItem key={index} onClick={() => handleAddFilter(item, "adoptionStatus[]")}>{item}</MenuItem>)}
+          {["Available", "Fostered", "Adopted"].map(item => 
+          <MenuItem key={item} onClick={() => handleAddFilter(item, "adoptionStatus[]")}>{item}</MenuItem>)}
         </MenuList>
       </Menu>
       <Menu>
         <MenuButton as={Button} rightIcon={<ChevronDownIcon />} minW="10rem">Name</MenuButton>
         <MenuList>
-          {["A-F", "G-K", "L-Q", "R-W", "X-Z"].map((item, index) => 
-          <MenuItem key={index} onClick={() => handleAddFilter(item, "name[]")}>{item.replace("-", "–")}</MenuItem>)}
+          {["A-F", "G-K", "L-Q", "R-W", "X-Z"].map(item => 
+          <MenuItem key={item} onClick={() => handleAddFilter(item, "name[]")}>{item.replace("-", "–")}</MenuItem>)}
         </MenuList>
       </Menu>
       <SearchFilterSlider filter="height" />

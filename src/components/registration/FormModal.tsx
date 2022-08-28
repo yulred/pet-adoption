@@ -4,7 +4,7 @@ import {
 } from "@chakra-ui/react";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
-import { IFormModalProps } from "../../utils/interfaces/form.interface";
+import { IFormModalProps } from "../../ts/interfaces/form.interface";
 
 export default function FormModal({ isOpen, toggleModal }: IFormModalProps) {
  

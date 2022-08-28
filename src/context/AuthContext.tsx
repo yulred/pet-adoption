@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, useReducer } from "react";
 import Cookies from "js-cookie";
 import { Get } from "../utils/api";
-import { IAuthContext, IAuthContextProps } from "../utils/interfaces/auth.interface";
+import { IAuthContext, IAuthContextProps } from "../ts/interfaces/auth.interface";
 import AuthReducer from "../reducers/AuthReducer";
 
 const AuthContext = createContext<IAuthContext>({

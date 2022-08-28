@@ -1,4 +1,4 @@
-import { IAuthAction, IAuthState } from "../utils/interfaces/reducers.interface";
+import { IAuthAction, IAuthState } from "../ts/interfaces/reducers.interface";
 
 export default function SearchReducer(state: IAuthState, action: IAuthAction): any {
   switch(action.type) {

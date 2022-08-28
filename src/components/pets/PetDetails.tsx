@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PetDetailsActions from "./PetDetailsActions";
 import { Get } from "../../utils/api";
 import { petStatusColor } from "../../utils/globals/helpers";
-import { IPet } from "../../utils/interfaces/pet.interface";
+import { IPet } from "../../ts/interfaces/pet.interface";
 import { useAuthContext } from "../../context/AuthContext";
 
 export default function PetDetails() {
@@ -75,7 +75,7 @@ export default function PetDetails() {
           <div className="pet-status" style={petStatusColor(pet.adoptionStatus as string)}>{pet.adoptionStatus}</div>
           {!isLoading ? <PetDetailsActions pet={pet} updatePetStatus={updatePetStatus} /> : null}
           <div className="pet-bio">{pet.bio}</div>
-          {petData.map((attr, index) => <Tag key={index} size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{attr}</Tag>)}
+          {petData.map(attr => <Tag key={attr} size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{attr}</Tag>)}
         </Box>
       </Container>
     </Flex>

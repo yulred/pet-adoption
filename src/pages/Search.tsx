@@ -6,7 +6,7 @@ import SearchBar from "../components/search/SearchBar";
 import SearchToggle from "../components/search/SearchToggle";
 import SearchFilterOptions from "../components/search/filters/SearchFilterOptions";
 import SearchFilterTagList from "../components/search/filters/SearchFilterTagList";
-import SearchResults from "../components/search/SearchResults";
+import PetGrid from "../components/pets/PetGrid";
 
 export default function Search() {
   const [searchResults, setSearchResults] = useState<object[]>([]);
@@ -36,7 +36,7 @@ export default function Search() {
           <SearchToggle />
           <SearchFilterOptions />
           <SearchFilterTagList />
-          <SearchResults searchResults={searchResults} />
+          {!isSearching ? <PetGrid cardSize="20rem" petsArray={searchResults} emptyArrayMsg="No pets match your search criteria." /> : null}
         </Flex>
       </Center>
     </Box>

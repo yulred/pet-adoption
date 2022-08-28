@@ -1,5 +1,5 @@
 import { Button} from "@chakra-ui/react";
-import { ISubmitButtonProps } from "../../utils/interfaces/form.interface";
+import { ISubmitButtonProps } from "../../ts/interfaces/form.interface";
 
 export default function FormSubmitButton({ buttonLabel }: ISubmitButtonProps) {
 

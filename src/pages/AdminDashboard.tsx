@@ -8,9 +8,9 @@ export default function AdminDashboard() {
   return (
     <Box p={12}>
       <Container w="75vw">
-        <Heading size="lg" textAlign="left" mb={12}>Users</Heading>
-        {!isLoading ? <UsersData /> : null}
+        <Heading size="lg" textAlign="left" mb={12}>Dashboard</Heading>
       </Container>
+      {!isLoading ? <UsersData /> : null}
     </Box>
   )
 }

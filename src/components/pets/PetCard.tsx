@@ -3,7 +3,7 @@ import { Flex, Image, LinkBox, useColorMode } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
 import { petStatusColor } from "../../utils/globals/helpers";
-import { IPetCard } from "../../utils/interfaces/pet.interface";
+import { IPetCard } from "../../ts/interfaces/pet.interface";
 
 export default function PetCard({ pet, cardSize }: IPetCard) {
   const { colorMode } = useColorMode();
@@ -12,8 +12,7 @@ export default function PetCard({ pet, cardSize }: IPetCard) {
     <LinkBox 
       as={NavLink}
       to={`/pet/${pet._id}`}
-      minW={cardSize}
-      maxW={cardSize}
+      w={cardSize}
       rounded="md"
       my={2}
       boxShadow="md"

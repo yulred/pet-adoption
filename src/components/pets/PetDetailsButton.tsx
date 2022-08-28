@@ -1,5 +1,5 @@
 import { Button, Icon } from "@chakra-ui/react";
-import { IPetButton } from "../../utils/interfaces/pet.interface";
+import { IPetButton } from "../../ts/interfaces/pet.interface";
 
 export default function PetDetailsButton({ icon, action, label }: IPetButton) {
 

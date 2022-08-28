@@ -1,4 +1,4 @@
-import { ISearchAction } from "../utils/interfaces/reducers.interface";
+import { ISearchAction } from "../ts/interfaces/reducers.interface";
 
 export default function SearchReducer(state: Array<Array<string | undefined>>, action: ISearchAction) {
   switch(action.type) {

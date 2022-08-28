@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Container } from "@chakra-ui/react";
 import UsersTable from "./UsersTable";
 import { Get } from "../../utils/api";
 
@@ -21,8 +22,8 @@ export default function UsersData() {
   }
 
   return (
-    <>
+    <Container maxW="100ch">
       {!isListLoading ? <UsersTable users={users} /> : null}
-    </>
+    </Container>
   )
 }

@@ -1,5 +1,5 @@
 import { FormControl, FormLabel, Input, FormErrorMessage } from "@chakra-ui/react";
-import { ITextInputProps } from "../../utils/interfaces/form.interface";
+import { ITextInputProps } from "../../ts/interfaces/form.interface";
 import { useFormikContext, Field } from "formik";
 
 export default function FormInputField({ fieldName, fieldType, fieldLabel, req }: ITextInputProps) {

@@ -1,24 +1,23 @@
 import "./UserDetails.css";
 import { useState, useEffect } from "react";
-import { Box, Flex, Container, IconButton, Icon, useColorMode, Grid, 
+import { Box, Flex, Container, IconButton, Icon, useColorMode,
   Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Stack, Divider } from "@chakra-ui/react";
 import { BsArrowLeft } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
+import PetGrid from "../pets/PetGrid";
 import { Get } from "../../utils/api";
 import { userRoleColor } from "../../utils/globals/helpers";
-import { IUser } from "../../utils/interfaces/user.interface";
-import { IPets } from "../../utils/interfaces/pet.interface";
-import PetCard from "../pets/PetCard";
+import { IUser } from "../../ts/interfaces/user.interface";
+import { IPets } from "../../ts/interfaces/pet.interface";
 
 export default function UserDetails() {
   const { colorMode } = useColorMode();
   const [user, setUser] = useState<IUser>();
   const [pets, setPets] = useState<IPets>();
-  const navigate = useNavigate();
-  let location = useLocation();
   const [isUserLoading, setIsUserLoading] = useState(true);
   const [isListLoading, setIsListLoading] = useState(true);
-  const cardSize = "12rem";
+  const navigate = useNavigate();
+  let location = useLocation();
 
   //TODO: clean this up
 
@@ -89,10 +88,7 @@ export default function UserDetails() {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <Grid templateColumns={`repeat(auto-fit, minmax(${cardSize}, ${cardSize}))`} justifyContent="center" my={8} gap={8}>
-                  {pets?.ownedPets.map((pet, index) => <PetCard key={index} pet={pet} cardSize={cardSize} />)}
-                  {!isListLoading && pets!.ownedPets.length === 0 ? "This user does not currently own or foster any pets." : null}
-                </Grid>
+                {!isListLoading ? <PetGrid cardSize="12rem" petsArray={pets!.ownedPets} emptyArrayMsg="This user does not currently own or foster any pets." /> : null}
               </AccordionPanel>
             </AccordionItem>
           </Accordion>

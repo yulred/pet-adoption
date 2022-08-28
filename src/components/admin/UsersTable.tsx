@@ -1,10 +1,11 @@
 import "./UsersTable.css";
 import { useMemo } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, Link, Flex } from "@chakra-ui/react";
-import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import { TriangleDownIcon, TriangleUpIcon, LinkIcon } from "@chakra-ui/icons";
 import { useTable, useSortBy, Column, CellProps } from "react-table";
 import { NavLink } from "react-router-dom";
-import { IUsers, IColumn } from "../../utils/interfaces/user.interface";
+import { userRoleColor } from "../../utils/globals/helpers";
+import { IUsers, IColumn } from "../../ts/interfaces/user.interface";
 
 export default function UsersTable({ users }: IUsers) {
 
@@ -25,7 +26,7 @@ export default function UsersTable({ users }: IUsers) {
       {
         Header: "Name",
         accessor: "name",
-        Cell: (e: CellProps<IColumn>) => <Link as={NavLink} to={`user/${e.row.original.id}`}>{e.value}</Link>
+        Cell: (e: CellProps<IColumn>) => <Link as={NavLink} to={`user/${e.row.original.id}`}><LinkIcon mr={2} />{e.value}</Link>
       },
       {
         Header: "E-Mail",
@@ -33,7 +34,11 @@ export default function UsersTable({ users }: IUsers) {
         Cell: (e: CellProps<IColumn>) => <Link href={`mailto:${e.value}`}>{e.value}</Link>
       },
       { Header: "Phone No.", accessor: "tel" },
-      { Header: "Role", accessor: "role" },
+      {
+        Header: "Role",
+        accessor: "role",
+        Cell: (e: CellProps<IColumn>) => <span style={userRoleColor(e.value)} className="dashboard-role">{e.value}</span>
+      },
     ], [],
   )
 
@@ -46,7 +51,7 @@ export default function UsersTable({ users }: IUsers) {
 
 
   return (
-    <Table size="sm" mx={-2} variant="striped" colorScheme="teal" {...getTableProps()}>
+    <Table size="md" variant="simple" colorScheme="blackAlpha" fontSize="1rem" {...getTableProps()}>
       <Thead>
         {headerGroups.map(headerGroup => (
           <Tr {...headerGroup.getHeaderGroupProps()}>

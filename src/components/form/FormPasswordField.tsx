@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FormControl,FormLabel, InputGroup, Input, InputRightElement, Button, FormErrorMessage } from "@chakra-ui/react";
-import { IPasswordProps } from "../../utils/interfaces/form.interface";
+import { IPasswordProps } from "../../ts/interfaces/form.interface";
 import { useFormikContext,Field } from "formik";
 
 export default function FormPasswordField({ fieldName, fieldLabel, req }: IPasswordProps) {

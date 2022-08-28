@@ -16,7 +16,7 @@ export interface ISearchResults {
 }
 
 export interface ISearchContext {
-  filters: Array<Array<string | undefined>>,
+  filters: (string | undefined)[][],
   handleAddFilter: Function,
   handleAddRangeFilter: Function,
   handleAddQueryFilter: Function,

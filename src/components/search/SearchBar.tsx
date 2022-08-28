@@ -6,7 +6,7 @@ import {
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import { useSearchParams, URLSearchParamsInit } from "react-router-dom";
 import { useSearchContext } from "../../context/SearchContext";
-import { ISearchBar } from "../../utils/interfaces/search.interface";
+import { ISearchBar } from "../../ts/interfaces/search.interface";
 
 export default function SearchBar({ getSearchResults, isSearching }: ISearchBar) {
   const { filters, handleAddQueryFilter } = useSearchContext();
@@ -42,8 +42,8 @@ export default function SearchBar({ getSearchResults, isSearching }: ISearchBar)
             <MenuList>
               <MenuItem onClick={() => setTypeFilter("Any")}>Any</MenuItem>
               <MenuDivider />
-              {["Dog", "Cat", "Horse", "Hamster", "Rock"].map((item, index) => 
-              <MenuItem key={index} onClick={() => setTypeFilter(item)}>{item}</MenuItem>)}
+              {["Dog", "Cat", "Horse", "Hamster", "Rock"].map(item => 
+              <MenuItem key={item} onClick={() => setTypeFilter(item)}>{item}</MenuItem>)}
             </MenuList>
           </Menu>}
         />
