@@ -1,14 +1,14 @@
 import { createContext, useContext, useEffect, useState, useReducer } from "react";
-import Cookies from "js-cookie";
 import { Get } from "../utils/api";
 import { IAuthContext, IAuthContextProps } from "../ts/interfaces/auth.interface";
 import AuthReducer from "../reducers/AuthReducer";
 
 const AuthContext = createContext<IAuthContext>({
-  isLoading: true || false,
-  isActiveSession: true || false,
-  cookie: {},
+  isLoading: true,
+  isActiveSession: false,
   currentUser: {},
+  getCurrentUser: ()=>{},
+  clearCurrentUser: ()=>{},
   handleAdoptPet: ()=>{},
   handleFosterPet: ()=>{},
   handleReturnPet: ()=>{},
@@ -20,24 +20,46 @@ const AuthProvider = ({ children }: IAuthContextProps) => {
   const [currentUser, dispatchCurrentUser] = useReducer(AuthReducer, {});
   const [isLoading, setIsLoading] = useState(true);
   const [isActiveSession, setIsActiveSession] = useState(false);
-  const cookie = Cookies.get();
+  const [userID, setUserID] = useState("");
 
   useEffect(() => {
-    if (!isActiveSession && Object.keys(cookie).length > 0) {
-      let userID = JSON.parse(atob(cookie.PetAdoption.split(".")[1])).id;
-      setIsActiveSession(true);
-      getCurrentUser(userID);
-    } // eslint-disable-next-line
-  }, [cookie])
+    const awaitVerifyUser = async () => await verifyUser();
+    awaitVerifyUser(); // eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
+    const awaitGetCurrentUser = async (userID: string) => await getCurrentUser(userID);
+    if (userID) awaitGetCurrentUser(userID); // eslint-disable-next-line
+  }, [userID])
+
+  const verifyUser = async () => {
+    try {
+      const res = await Get("");
+      if (res.ok) setUserID(res.id);
+    } catch(err: any) {
+      if (err.response.status === 401) {
+        initCurrentUser({});
+        setIsActiveSession(false);
+      }
+      else console.log(err);
+    }
+  }
 
   const getCurrentUser = async (userID: string) => {
     try {
+      setIsLoading(true);
       const res = await Get(`/user/${userID}`);
-      setIsLoading(false);
       initCurrentUser(res);
-    } catch(err: any) {
+      setIsLoading(false);
+      setIsActiveSession(true);
+    } catch(err) {
       console.log(err);
     }
+  }
+
+  const clearCurrentUser = async () => {
+    initCurrentUser({});
+    setIsActiveSession(false);
   }
 
   const initCurrentUser = (user: object) => {
@@ -83,7 +105,7 @@ const AuthProvider = ({ children }: IAuthContextProps) => {
   }
 
   return (
-    <AuthContext.Provider value={{ isLoading, isActiveSession, cookie, currentUser, handleAdoptPet, handleFosterPet, handleReturnPet, handleSavePet, handleClearSavedPet }}>
+    <AuthContext.Provider value={{ isLoading, isActiveSession, currentUser, getCurrentUser, clearCurrentUser, handleAdoptPet, handleFosterPet, handleReturnPet, handleSavePet, handleClearSavedPet }}>
       {children}
     </AuthContext.Provider>
   )

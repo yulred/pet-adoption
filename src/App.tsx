@@ -12,6 +12,7 @@ import AdminUser from "./pages/AdminUser";
 import AuthProvider from "./context/AuthContext";
 import SearchProvider from "./context/SearchContext";
 import { theme } from "./themes/theme";
+import PetDetails from "./components/pets/PetDetails";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -29,8 +30,11 @@ export const App = () => (
               <Route path="settings" element={<ProfileSettings />} />
               <Route path="mypets" element={<ProfilePets />} />
             </Route>
-            <Route path="/dashboard" element={<AdminDashboard />} />
-            <Route path="dashboard/user/:id" element={<AdminUser />} />
+            <Route path="/dashboard" element={<Outlet />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="user/:id" element={<AdminUser />} />
+              <Route path="pet/:id" element={<PetDetails />} />
+            </Route>
           </Routes>
         </Router>
       </Box>

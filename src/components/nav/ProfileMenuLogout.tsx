@@ -1,14 +1,14 @@
 import { Button } from "@chakra-ui/react";
-import { useAuthContext } from "../../context/AuthContext";
 import { Post } from "../../utils/api";
+import { useAuthContext } from "../../context/AuthContext";
 
 export default function ProfileMenuLogout() {
-  const { cookie } = useAuthContext();
+  const { clearCurrentUser } = useAuthContext();
 
   const handleLogout = async () => {
     try {
-      const res = await Post("/logout", cookie);
-      if (res.ok) (window as Window).location = "/";
+      const res = await Post("/logout", {});
+      if (res.ok) clearCurrentUser();
     } catch(err) {
       console.log(err);
     }

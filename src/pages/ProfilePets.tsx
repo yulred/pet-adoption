@@ -1,5 +1,5 @@
 import { Box, Container, Heading } from "@chakra-ui/react";
-import ProfilePetsList from "../components/profile/ProfilePetsList";
+import ProfilePetsTabs from "../components/profile/ProfilePetsTabs";
 import { useAuthContext } from "../context/AuthContext";
 
 export default function ProfilePets() {
@@ -10,7 +10,7 @@ export default function ProfilePets() {
       <Container w="75vw">
         <Heading size="lg" textAlign="left" mb={12}>My Pets</Heading>
       </Container>
-      {!isLoading ? <ProfilePetsList /> : null}
+      {!isLoading ? <ProfilePetsTabs /> : null}
     </Box>
   )
 }

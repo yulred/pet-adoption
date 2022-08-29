@@ -1,5 +1,5 @@
 import { Box, Container, Heading } from "@chakra-ui/react";
-import UsersData from "../components/admin/UsersData";
+import DashboardTabs from "../components/admin/DashboardTabs";
 import { useAuthContext } from "../context/AuthContext";
 
 export default function AdminDashboard() {
@@ -10,7 +10,7 @@ export default function AdminDashboard() {
       <Container w="75vw">
         <Heading size="lg" textAlign="left" mb={12}>Dashboard</Heading>
       </Container>
-      {!isLoading ? <UsersData /> : null}
+      {!isLoading ? <DashboardTabs /> : null}
     </Box>
   )
 }

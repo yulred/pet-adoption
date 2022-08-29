@@ -5,17 +5,19 @@ import { IPets } from "../../ts/interfaces/pet.interface";
 import { Get } from "../../utils/api";
 import { useAuthContext } from "../../context/AuthContext";
 
-export default function ProfilePets() {
+export default function ProfilePetsTabs() {
   const { currentUser } = useAuthContext();
   const [pets, setPets] = useState<IPets>();
   const [isListLoading, setIsListLoading] = useState(true);
 
   useEffect(() => {
-    getPets(); // eslint-disable-next-line
+    const awaitGetPets = async () => await getPets();
+    awaitGetPets(); // eslint-disable-next-line
   }, [])
 
   const getPets = async () => {
     try {
+      setIsListLoading(true);
       const data = await Get(`/pet/user/${currentUser._id}`);
       setPets(data);
       setIsListLoading(false);

@@ -1,7 +1,9 @@
 import "./UserDetails.css";
 import { useState, useEffect } from "react";
 import { Box, Flex, Container, IconButton, Icon, useColorMode,
-  Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Stack, Divider } from "@chakra-ui/react";
+        Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Stack, Divider
+} from "@chakra-ui/react";
+import { EmailIcon, PhoneIcon, BellIcon } from "@chakra-ui/icons";
 import { BsArrowLeft } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import PetGrid from "../pets/PetGrid";
@@ -22,7 +24,10 @@ export default function UserDetails() {
   //TODO: clean this up
 
   useEffect(() => {
-    getUser(); // eslint-disable-next-line
+    const awaitGetUserAndPets = async () => {
+      await getUser();
+    }
+    awaitGetUserAndPets(); // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -31,17 +36,19 @@ export default function UserDetails() {
 
   const getUser = async () => {
     try {
+      setIsUserLoading(true);
       const url = location.pathname.split("dashboard")[1];
       const data = await Get(`${url}/full`);
       setUser(data);
       setIsUserLoading(false);
     } catch(err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
   const getPets = async () => {
     try {
+      setIsListLoading(true);
       const data = await Get(`/pet/user/${user?._id}`);
       setPets(data);
       setIsListLoading(false);
@@ -73,9 +80,9 @@ export default function UserDetails() {
           <Stack direction="row" h="100px" p={4}>
             <Divider orientation="vertical" />
             <div className="user-info">
-              <div>E-Mail: <a href={`mailto:${user?.email}`}>{user?.email}</a></div>
-              <div>Phone Number: {user?.tel ? user?.tel : "–"}</div>
-              <div>Joined: {!isUserLoading ? new Date(user!.createdAt).toLocaleString() : null}</div>
+              <div><EmailIcon mr={2} />E-Mail: <a href={`mailto:${user?.email}`}>{user?.email}</a></div>
+              <div><PhoneIcon mr={2} />Phone Number: {user?.tel ? user?.tel : "–"}</div>
+              <div><BellIcon mr={2} />Joined: {!isUserLoading ? new Date(user!.createdAt).toLocaleString() : null}</div>
             </div>
           </Stack>
           <div className="user-bio">Bio: {user?.bio ? user?.bio : "–"}</div>

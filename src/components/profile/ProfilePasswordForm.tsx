@@ -1,6 +1,5 @@
 import "../form/Form.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as yup from "yup";
 import FormPasswordField from "../form/FormPasswordField";
@@ -12,7 +11,6 @@ import { useAuthContext } from "../../context/AuthContext";
 export default function ProfilePasswordForm() {
   const { currentUser } = useAuthContext();
   const [serverError, setServerError] = useState("");
-  let navigate = useNavigate();
 
   const updatePasswordSchema = yup.object().shape({
     oldPassword: yup.string()
@@ -38,7 +36,7 @@ export default function ProfilePasswordForm() {
         try {
           setServerError("");
           const res = await Put("/user", { id: currentUser._id, ...user });
-          if (res.ok) navigate(0);
+          //if (res.ok) TODO: success msg
         } catch(err: any) {
           setServerError(err.response.data ? err.response.data : err.response.statusText);
         }

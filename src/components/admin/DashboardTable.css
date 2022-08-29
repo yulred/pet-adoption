@@ -1,0 +1,17 @@
+.table-role, .table-status {
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
+
+.css-zgoslk:last-of-type, .css-11ye33e:last-of-type {
+  text-align: right;
+}
+
+.css-1szkfps:last-of-type, .css-1xtg91g:last-of-type {
+  display: flex;
+  flex-flow: row-reverse nowrap;
+}
+
+.css-1szkfps:last-of-type .css-1kgg7u8, .css-1xtg91g:last-of-type .css-1kgg7u8 {
+  justify-content: end;
+}

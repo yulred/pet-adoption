@@ -32,7 +32,7 @@ export interface IUsers {
   }[],
 }
 
-export interface IColumn {
+export interface IUserColumn {
   name: string | undefined,
   email: string | undefined,
   tel: string | undefined,

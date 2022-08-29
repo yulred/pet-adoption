@@ -26,7 +26,8 @@ export default function PetDetails() {
   let location = useLocation();
 
   useEffect(() => {
-    getPet(); // eslint-disable-next-line
+    const awaitGetPet = async () => await getPet();
+    awaitGetPet(); // eslint-disable-next-line
   }, [])
 
   const getPet = async () => {
@@ -73,9 +74,9 @@ export default function PetDetails() {
         <Box px={12} py={6}>
           <div className="pet-name">{pet.name}</div>
           <div className="pet-status" style={petStatusColor(pet.adoptionStatus as string)}>{pet.adoptionStatus}</div>
-          {!isLoading ? <PetDetailsActions pet={pet} updatePetStatus={updatePetStatus} /> : null}
+          {isLoading ? <PetDetailsActions pet={pet} updatePetStatus={updatePetStatus} /> : null}
           <div className="pet-bio">{pet.bio}</div>
-          {petData.map(attr => <Tag key={attr} size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{attr}</Tag>)}
+          {petData.map((attr, index) => <Tag key={index} size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{attr}</Tag>)}
         </Box>
       </Container>
     </Flex>

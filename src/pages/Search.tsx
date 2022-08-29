@@ -14,7 +14,10 @@ export default function Search() {
   let location = useLocation();
 
   useEffect(() => {
-    if (location.search) getSearchResults(); // eslint-disable-next-line
+    const awaitGetSearchResults = async () => {
+      if (location.search) await getSearchResults();
+    }
+    awaitGetSearchResults(); // eslint-disable-next-line
   }, [])
 
   const getSearchResults = async () => {

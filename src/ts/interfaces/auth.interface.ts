@@ -1,7 +1,6 @@
 export interface IAuthContext {
   isLoading: boolean,
-  isActiveSession: boolean
-  cookie: object,
+  isActiveSession: boolean,
   currentUser: {
     _id?: string,
     name?: string,
@@ -15,6 +14,8 @@ export interface IAuthContext {
     },
     role?: string,
   },
+  getCurrentUser: Function,
+  clearCurrentUser: Function,
   handleAdoptPet: Function,
   handleFosterPet: Function,
   handleReturnPet: Function,

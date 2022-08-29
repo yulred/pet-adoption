@@ -21,10 +21,10 @@ export default function FormModal({ isOpen, toggleModal }: IFormModalProps) {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <LoginForm />
+                <LoginForm toggleModal={toggleModal} />
               </TabPanel>
               <TabPanel>
-                <SignupForm />
+                <SignupForm toggleModal={toggleModal} />
               </TabPanel>
             </TabPanels>
           </Tabs>

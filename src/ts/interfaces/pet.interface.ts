@@ -55,3 +55,10 @@ export interface IPetGrid {
   petsArray: IPet[],
   emptyArrayMsg: string,
 }
+
+export interface IPetColumn {
+  name: string | undefined,
+  type: string | undefined,
+  status: string | undefined,
+  id: string | undefined,
+}
