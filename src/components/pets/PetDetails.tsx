@@ -1,9 +1,9 @@
 import "./PetDetails.css";
 import { useState, useEffect } from "react";
-import { Box, Flex, Container, Tag , Image, IconButton, Icon, useColorMode } from "@chakra-ui/react";
-import { BsArrowLeft } from "react-icons/bs";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Box, Flex, Container, Tag , Image, useColorMode } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 import PetDetailsActions from "./PetDetailsActions";
+import BackButton from "../nav/BackButton";
 import { Get } from "../../utils/api";
 import { petStatusColor } from "../../utils/globals/helpers";
 import { IPet } from "../../ts/interfaces/pet.interface";
@@ -22,7 +22,6 @@ export default function PetDetails() {
     `${pet.hypoallergenic ? "Hypoallergenic" : "Not Hypoallergenic"}`,
     `${pet?.dietary && pet.dietary.length > 0 ? "Dietary Restrictions: " + pet.dietary : "No Dietary Restrictions"}` //TODO: with dietary array
   ];
-  const navigate = useNavigate();
   let location = useLocation();
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export default function PetDetails() {
       const data = await Get(location.pathname);
       setPet(data);
     } catch(err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
@@ -45,14 +44,7 @@ export default function PetDetails() {
 
   return (
     <Flex justify="center" className="pet-details">
-      <IconButton
-        aria-label="Back"
-        icon={<Icon as={BsArrowLeft} />}
-        variant="unstyled"
-        mr="1rem"
-        ml="-3rem"
-        onClick={() => navigate(-1)}
-      />
+      <BackButton />
       <Container
         boxShadow="sm"
         rounded="md"
@@ -60,7 +52,7 @@ export default function PetDetails() {
         p={0}
         bg={colorMode === "light" ? "#f9f9f9" : "#242424"}
       >
-        <Image 
+        <Image
           src={pet.picture}
           alt={pet.name}
           objectFit="cover"

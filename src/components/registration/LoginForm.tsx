@@ -44,7 +44,7 @@ export default function LoginForm({ toggleModal }: {toggleModal: Function}) {
     >
     {({ handleSubmit }) => (
       <form onSubmit={handleSubmit}>
-        <FormInputField fieldName="email" fieldType="email" fieldLabel="E-Mail" req={true} />
+        <FormInputField fieldName="email" fieldLabel="E-Mail" req={true} />
         <FormPasswordField fieldName="password" fieldLabel="Password" req={true} />
         {serverError ? <div className="server-error">Error: {serverError}</div> : null}
         <FormSubmitButton buttonLabel="Log In" />

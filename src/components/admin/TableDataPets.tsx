@@ -16,7 +16,7 @@ export default function TableDataPets({ pets }: { pets: (IPet[] | undefined) }) 
         type: pet.type,
         status: pet.adoptionStatus,
         id: pet._id,
-      })
+      }) // eslint-disable-next-line
     }), [],
   )
 

@@ -5,6 +5,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import { useSearchParams, URLSearchParamsInit } from "react-router-dom";
+import { petTypes } from "../../utils/globals/globals";
 import { useSearchContext } from "../../context/SearchContext";
 import { ISearchBar } from "../../ts/interfaces/search.interface";
 
@@ -14,7 +15,8 @@ export default function SearchBar({ getSearchResults, isSearching }: ISearchBar)
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    getSearchResults(); // eslint-disable-next-line
+    const awaitGetSearchResults = async () => await getSearchResults();
+    awaitGetSearchResults(); // eslint-disable-next-line
   }, [searchParams])
 
   const handleSearch = () => {
@@ -42,7 +44,7 @@ export default function SearchBar({ getSearchResults, isSearching }: ISearchBar)
             <MenuList>
               <MenuItem onClick={() => setTypeFilter("Any")}>Any</MenuItem>
               <MenuDivider />
-              {["Dog", "Cat", "Horse", "Hamster", "Rock"].map(item => 
+              {petTypes.map(item => 
               <MenuItem key={item} onClick={() => setTypeFilter(item)}>{item}</MenuItem>)}
             </MenuList>
           </Menu>}

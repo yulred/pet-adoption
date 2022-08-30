@@ -1,2 +1,6 @@
 export const requiredErrorMsg = "Required field.";
 export const telRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+export const petTypes = ["Dog", "Cat", "Horse", "Hamster", "Rock"];
+export const petStatus = ["Adopted", "Fostered", "Available"];
+export const petNameLetters = ["A-F", "G-K", "L-Q", "R-W", "X-Z"];

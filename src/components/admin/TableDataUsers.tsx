@@ -17,7 +17,7 @@ export default function TableDataUsers({ users }: IUsers) {
         tel: user.tel,
         role: user.role,
         id: user._id,
-      })
+      }) // eslint-disable-next-line
     }), [],
   )
 

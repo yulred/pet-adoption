@@ -3,23 +3,19 @@ export interface IFormModalProps {
   toggleModal: Function,
 }
 
-export interface ITextInputProps {
+export interface IFieldProps {
   fieldName: string,
-  fieldType: string,
   fieldLabel: string,
-  req: boolean,
+  fieldUnit?: string,
+  fieldSize?: string,
+  isChecked?: boolean,
+  req?: boolean,
 }
 
-export interface ITextAreaProps {
+export interface ISelectFieldProps {
   fieldName: string,
   fieldLabel: string,
-  req: boolean,
-}
-
-export interface IPasswordProps {
-  fieldName: string,
-  fieldLabel: string,
-  req: boolean,
+  fieldArray: string[],
 }
 
 export interface ISubmitButtonProps {

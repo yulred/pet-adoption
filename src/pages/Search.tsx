@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Box, Center, Flex } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
-import { Get } from "../utils/api";
 import SearchBar from "../components/search/SearchBar";
 import SearchToggle from "../components/search/SearchToggle";
 import SearchFilterOptions from "../components/search/filters/SearchFilterOptions";
 import SearchFilterTagList from "../components/search/filters/SearchFilterTagList";
 import PetGrid from "../components/pets/PetGrid";
+import { Get } from "../utils/api";
 
 export default function Search() {
   const [searchResults, setSearchResults] = useState<object[]>([]);
@@ -27,7 +27,7 @@ export default function Search() {
       setSearchResults(data);
       setIsSearching(false);
     } catch(err) {
-      console.log(err)
+      console.log(err);
     }
   }
 

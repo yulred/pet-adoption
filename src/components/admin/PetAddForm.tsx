@@ -1,5 +1,5 @@
 import "../form/Form.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import FormInputField from "../form/FormInputField";
@@ -9,9 +9,13 @@ import { telRegExp } from "../../utils/globals/globals";
 import { Put } from "../../utils/api";
 import { useAuthContext } from "../../context/AuthContext";
 
-export default function ProfileSettingsForm() {
+export default function PetAddForm() {
   const { currentUser, getCurrentUser } = useAuthContext();
   const [serverError, setServerError] = useState("");
+
+  useEffect(() => {
+    console.log(currentUser)
+  }, [currentUser])
 
   const updateUserSchema = yup.object().shape({
     name: yup.string()

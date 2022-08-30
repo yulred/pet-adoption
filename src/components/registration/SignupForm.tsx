@@ -56,11 +56,11 @@ export default function SignupForm({ toggleModal }: { toggleModal: Function }) {
     >
     {({ handleSubmit }) => (
       <form onSubmit={handleSubmit}>
-        <FormInputField fieldName="name" fieldType="text" fieldLabel="Full Name" req={true} />
-        <FormInputField fieldName="email" fieldType="email" fieldLabel="E-Mail" req={true} />
+        <FormInputField fieldName="name" fieldLabel="Full Name" req={true} />
+        <FormInputField fieldName="email" fieldLabel="E-Mail" req={true} />
         <FormPasswordField fieldName="password" fieldLabel="Password" req={true} />
         <FormPasswordField fieldName="passwordConfirm" fieldLabel="Confirm Password" req={true} />
-        <FormInputField fieldName="tel" fieldType="tel" fieldLabel="Phone Number" req={false} />
+        <FormInputField fieldName="tel" fieldLabel="Phone Number" req={false} />
         {serverError ? <div className="server-error">Error: {serverError}</div> : null}
         <FormSubmitButton buttonLabel="Sign Up" />
       </form>

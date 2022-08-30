@@ -1,3 +1,7 @@
+form {
+  width: 100%;
+}
+
 form .chakra-form-control:not(:first-of-type) {
   margin-top: 1rem;
 }
@@ -10,4 +14,30 @@ form .chakra-form-control:not(:first-of-type) {
   margin-top: 1rem;
   text-align: center;
   color: red;
+}
+
+.css-1sgc0qu {
+  margin-left: 0 !important;
+}
+
+.form-header, .form-header-label, .form-header-input {
+  font-family: var(--chakra-fonts-heading) !important;
+  font-weight: var(--chakra-fontWeights-bold) !important;
+  font-size: var(--chakra-fontSizes-3xl) !important;
+  text-transform: lowercase !important;
+  font-variant: small-caps !important;
+}
+
+.css-y0zcnp, .css-1ssjhh {
+  display: none;
+}
+
+.css-7nrq, .css-8hr38g {
+  padding-inline-start: 0 !important;
+  padding-inline-end: 0 !important;
+}
+
+.css-1d0ox2v, .css-e9ptzl {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
 }

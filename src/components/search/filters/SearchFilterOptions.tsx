@@ -1,7 +1,8 @@
 import { Flex, Button, MenuButton, Menu, MenuList, MenuItem } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { useSearchContext } from "../../../context/SearchContext";
 import SearchFilterSlider from "./SearchFilterSlider";
+import { petStatus, petNameLetters } from "../../../utils/globals/globals";
+import { useSearchContext } from "../../../context/SearchContext";
 
 export default function SearchFiltersOptions() {
   const { handleAddFilter, advancedSearch } = useSearchContext();
@@ -18,14 +19,14 @@ export default function SearchFiltersOptions() {
       <Menu>
         <MenuButton as={Button} rightIcon={<ChevronDownIcon />} minW="10rem">Status</MenuButton>
         <MenuList>
-          {["Available", "Fostered", "Adopted"].map(item => 
+          {petStatus.map(item => 
           <MenuItem key={item} onClick={() => handleAddFilter(item, "adoptionStatus[]")}>{item}</MenuItem>)}
         </MenuList>
       </Menu>
       <Menu>
         <MenuButton as={Button} rightIcon={<ChevronDownIcon />} minW="10rem">Name</MenuButton>
         <MenuList>
-          {["A-F", "G-K", "L-Q", "R-W", "X-Z"].map(item => 
+          {petNameLetters.map(item => 
           <MenuItem key={item} onClick={() => handleAddFilter(item, "name[]")}>{item.replace("-", "–")}</MenuItem>)}
         </MenuList>
       </Menu>

@@ -1,12 +1,13 @@
 import "./UserDetails.css";
 import { useState, useEffect } from "react";
-import { Box, Flex, Container, IconButton, Icon, useColorMode,
-        Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Stack, Divider
+import { 
+  Box, Flex, Container, Stack, Divider, useColorMode,
+  Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon 
 } from "@chakra-ui/react";
 import { EmailIcon, PhoneIcon, BellIcon } from "@chakra-ui/icons";
-import { BsArrowLeft } from "react-icons/bs";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import PetGrid from "../pets/PetGrid";
+import BackButton from "../nav/BackButton";
 import { Get } from "../../utils/api";
 import { userRoleColor } from "../../utils/globals/helpers";
 import { IUser } from "../../ts/interfaces/user.interface";
@@ -18,7 +19,6 @@ export default function UserDetails() {
   const [pets, setPets] = useState<IPets>();
   const [isUserLoading, setIsUserLoading] = useState(true);
   const [isListLoading, setIsListLoading] = useState(true);
-  const navigate = useNavigate();
   let location = useLocation();
 
   //TODO: clean this up
@@ -59,14 +59,7 @@ export default function UserDetails() {
 
   return (
     <Flex justify="center" className="pet-details">
-      <IconButton
-        aria-label="Back"
-        icon={<Icon as={BsArrowLeft} />}
-        variant="unstyled"
-        mr="1rem"
-        ml="-3rem"
-        onClick={() => navigate(-1)}
-      />
+      <BackButton />
       <Container
         boxShadow="sm"
         rounded="md"
@@ -88,14 +81,14 @@ export default function UserDetails() {
           <div className="user-bio">Bio: {user?.bio ? user?.bio : "–"}</div>
           <Accordion allowToggle>
             <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left">{user?.name}'s Pets</Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
+              <AccordionButton>
+                <Box flex="1" textAlign="left">{user?.name}'s Pets</Box>
+                <AccordionIcon />
+              </AccordionButton>
               <AccordionPanel pb={4}>
-                {!isListLoading ? <PetGrid cardSize="12rem" petsArray={pets!.ownedPets} emptyArrayMsg="This user does not currently own or foster any pets." /> : null}
+                {!isListLoading
+                  ? <PetGrid cardSize="12rem" petsArray={pets!.ownedPets} emptyArrayMsg="This user does not currently own or foster any pets." />
+                  : null}
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
