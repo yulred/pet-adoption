@@ -15,7 +15,7 @@ async function signupUser(newUser) {
     }
     const user = await signupModel.create(newUser);
     const token = jwt.sign({ id: user._id.toString() }, process.env.TOKEN_KEY, { expiresIn: "14d" });
-    return token;
+    return { token, user };
   } catch(err) {
     console.log(err);
   }

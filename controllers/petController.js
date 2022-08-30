@@ -69,4 +69,22 @@ async function getUsersPets(req, res) {
   }
 }
 
-module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, deleteSavedPet, getUsersPets };
+async function editPet(req, res) {
+  try {
+    const pet = await petModel.editPet(req.body);
+    res.send({ ok: true });
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
+async function addPet(req, res) {
+  try {
+    const pet = await petModel.addPet(req.body);
+    res.send({ ok: true });
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
+module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, deleteSavedPet, getUsersPets, editPet, addPet };

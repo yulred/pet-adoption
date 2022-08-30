@@ -25,7 +25,7 @@ async function getSearchedPets(query) {
       query.$or = [ {type: qRe }, {name: qRe}, {adoptionStatus: qRe}, {color: qRe}, {bio: qRe}, {breed: qRe} ];
     }
     
-    const searchedPets = await petModel.find(query, { name: 1, adoptionStatus: 1, picture: 1 });
+    const searchedPets = await petModel.find(query, { name: 1, type: 1, adoptionStatus: 1, picture: 1 });
 
     return searchedPets.sort((a, b) => a.name.localeCompare(b.name));
   } catch(err) {
@@ -132,8 +132,8 @@ async function getUsersPets(userID) {
   try {
     const user = await userModel.findById(userID);
 
-    const ownedPets = await petModel.find({"_id": {"$in": [...user.pets.adopted, ...user.pets.fostered]}});
-    const savedPets = await petModel.find({"_id" : {"$in" :[...user.pets.saved]}});
+    const ownedPets = await petModel.find({"_id": {$in: [...user.pets.adopted, ...user.pets.fostered]}});
+    const savedPets = await petModel.find({"_id" : {$in: [...user.pets.saved]}});
     
     return {ownedPets, savedPets};
   } catch(err) {
@@ -141,4 +141,35 @@ async function getUsersPets(userID) {
   }
 }
 
-module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, deleteSavedPet, getUsersPets };
+async function editPet(pet) {
+  try {
+    const petToUpdate = {};
+
+    for (const key in pet) {
+      if (pet[key] && key !== "id") petToUpdate[key] = pet[key];
+    }
+    
+    const updatedPet = await petModel.findByIdAndUpdate({ _id: pet.id }, petToUpdate, { new: true });
+    return updatedPet;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+async function addPet(newPet) {
+  try {
+    newUser.bio = "";
+    newUser.role = "user";
+    newUser.pets = {
+      adopted: [],
+      fostered: [],
+      saved: [],
+    }
+    const pet = await petModel.create(newPet);
+    return pet;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, deleteSavedPet, getUsersPets, editPet, addPet };

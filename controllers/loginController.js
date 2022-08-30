@@ -4,8 +4,8 @@ async function loginUser(req, res) {
   try {
     const token = await loginModel.loginUser(res.locals.userID);
 
-    res.cookie("PetAdoption", token, { maxAge: 1209600000, httpOnly: false, overwrite: true });
-    res.send({ ok: true });
+    res.cookie("token", token, { maxAge: 1209600000, httpOnly: true, sameSite: "none", overwrite: true });
+    res.send({ ok: true, id: res.locals.userID });
   } catch(err) {
     res.status(500).send(err);
   }

@@ -8,5 +8,5 @@ bcrypt, https://www.npmjs.com/package/bcrypt \
 cookie-parser, https://www.npmjs.com/package/cookie-parser \
 Ajv, https://www.npmjs.com/package/ajv \
 ajv-formats, https://www.npmjs.com/package/ajv-formats \
-ajv-errors, https://www.npmjs.com/package/ajv-errors \
-jsonwebtoken, https://www.npmjs.com/package/jsonwebtoken
+jsonwebtoken, https://www.npmjs.com/package/jsonwebtoken \
+Multer, https://www.npmjs.com/package/multer
