@@ -1,17 +1,19 @@
 import "../form/Form.css";
 import { useState } from "react";
+import { useToast, UseToastOptions } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import FormInputField from "../form/FormInputField";
 import FormTextareaField from "../form/FormTextareaField";
 import FormSubmitButton from "../form/FormSubmitButton";
-import { telRegExp } from "../../utils/globals/globals";
+import { telRegExp, toastSuccessOptions } from "../../utils/globals/globals";
 import { Put } from "../../utils/api";
 import { useAuthContext } from "../../context/AuthContext";
 
 export default function ProfileSettingsForm() {
   const { currentUser, getCurrentUser } = useAuthContext();
   const [serverError, setServerError] = useState("");
+  const toast = useToast();
 
   const updateUserSchema = yup.object().shape({
     name: yup.string()
@@ -38,7 +40,11 @@ export default function ProfileSettingsForm() {
         try {
           setServerError("");
           const res = await Put("/user", { id: currentUser._id, ...user });
-          if (res.ok) getCurrentUser(currentUser._id);
+          
+          if (res.ok) {
+            toast({ ...toastSuccessOptions as UseToastOptions, description: "Profile successfully updated." });
+            await getCurrentUser(currentUser._id);
+          }
         } catch(err: any) {
           setServerError(err.response.data ? err.response.data : err.response.statusText);
         }

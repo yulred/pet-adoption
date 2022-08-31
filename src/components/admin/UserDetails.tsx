@@ -9,6 +9,7 @@ import { useLocation } from "react-router-dom";
 import PetGrid from "../pets/PetGrid";
 import BackButton from "../nav/BackButton";
 import { Get } from "../../utils/api";
+import { lightModeColor, darkModeColor } from "../../utils/globals/globals";
 import { userRoleColor } from "../../utils/globals/helpers";
 import { IUser } from "../../ts/interfaces/user.interface";
 import { IPets } from "../../ts/interfaces/pet.interface";
@@ -24,14 +25,13 @@ export default function UserDetails() {
   //TODO: clean this up
 
   useEffect(() => {
-    const awaitGetUserAndPets = async () => {
-      await getUser();
-    }
-    awaitGetUserAndPets(); // eslint-disable-next-line
+    const awaitGetUser = async () => await getUser();
+    awaitGetUser(); // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
-    if (!isUserLoading) getPets(); // eslint-disable-next-line
+    const awaitGetPets = async () => await getPets();
+    if (!isUserLoading) awaitGetPets(); // eslint-disable-next-line
   }, [user])
 
   const getUser = async () => {
@@ -65,7 +65,7 @@ export default function UserDetails() {
         rounded="md"
         mx={0}
         p={0}
-        bg={colorMode === "light" ? "#f9f9f9" : "#242424"}
+        bg={colorMode === "light" ? lightModeColor : darkModeColor}
       >
         <Box px={12} py={6}>
           <div className="user-name">{user?.name}</div>
@@ -87,7 +87,7 @@ export default function UserDetails() {
               </AccordionButton>
               <AccordionPanel pb={4}>
                 {!isListLoading
-                  ? <PetGrid cardSize="12rem" petsArray={pets!.ownedPets} emptyArrayMsg="This user does not currently own or foster any pets." />
+                  ? <PetGrid cardSize={12} petsArray={pets!.ownedPets} emptyArrayMsg="This user does not currently own or foster any pets." />
                   : null}
               </AccordionPanel>
             </AccordionItem>

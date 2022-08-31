@@ -57,15 +57,15 @@ export default function PetDetailsActions({ pet, updatePetStatus }: IPetStatus) 
 
   return (
     <Flex wrap="wrap" justify="center" gap={2}>
-      {pet?.adoptionStatus === "Available" || currentUser.pets?.fostered?.includes(pet?._id as string) ?
-        <PetDetailsButton icon={GiFlamingo} action={handleAdopt} label="Adopt" />
-      : null}
-      {pet?.adoptionStatus === "Available" ?
-        <PetDetailsButton icon={GiHouse} action={handleFoster} label="Foster"/>
-      : null}
-      {currentUser.pets?.adopted?.includes(pet?._id as string) || currentUser.pets?.fostered?.includes(pet?._id as string) ?
-        <PetDetailsButton icon={GiReturnArrow} action={handleReturn} label="Return" />
-      : null}
+      {pet?.adoptionStatus === "Available" || currentUser.pets?.fostered?.includes(pet?._id as string)
+        ? <PetDetailsButton icon={GiFlamingo} action={handleAdopt} label="Adopt" />
+        : null}
+      {pet?.adoptionStatus === "Available"
+        ? <PetDetailsButton icon={GiHouse} action={handleFoster} label="Foster"/>
+        : null}
+      {currentUser.pets?.adopted?.includes(pet?._id as string) || currentUser.pets?.fostered?.includes(pet?._id as string)
+        ? <PetDetailsButton icon={GiReturnArrow} action={handleReturn} label="Return" />
+        : null}
       <PetDetailsButton
         icon={BsStarFill}
         action={handleSave}

@@ -49,7 +49,13 @@ export default function SearchBar({ getSearchResults, isSearching }: ISearchBar)
             </MenuList>
           </Menu>}
         />
-        <Input type="text" placeholder="Search..." px={6} onBlur={(e) => handleAddQueryFilter(e.target.value)} />
+        <Input
+          type="text"
+          placeholder="Search..."
+          px={6}
+          onChange={(e) => handleAddQueryFilter(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" ? handleSearch() : null}
+        />
         <InputRightAddon p={0} children={
           <IconButton 
             aria-label="Search"

@@ -42,7 +42,7 @@ export interface IPetCard {
     dietary?: string[],
     breed?: string,
   },
-  cardSize: string,
+  cardSize: number,
 }
 
 export interface IPets {
@@ -51,7 +51,7 @@ export interface IPets {
 }
 
 export interface IPetGrid {
-  cardSize: string,
+  cardSize: number,
   petsArray: IPet[],
   emptyArrayMsg: string,
 }
@@ -61,4 +61,11 @@ export interface IPetColumn {
   type: string | undefined,
   status: string | undefined,
   id: string | undefined,
+}
+
+export interface IPetImage {
+  imageSrc: string | undefined,
+  imageAlt: string | undefined,
+  imageSize: number,
+  imageRadius: number,
 }

@@ -1,17 +1,19 @@
 import "../form/Form.css";
 import { useState } from "react";
+import { useToast, UseToastOptions } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import FormInputField from "../form/FormInputField";
 import FormPasswordField from "../form/FormPasswordField";
 import FormSubmitButton from "../form/FormSubmitButton";
-import { requiredErrorMsg, telRegExp } from "../../utils/globals/globals";
+import { requiredErrorMsg, telRegExp, toastSuccessOptions } from "../../utils/globals/globals";
 import { Post } from "../../utils/api";
 import { useAuthContext } from "../../context/AuthContext";
 
 export default function SignupForm({ toggleModal }: { toggleModal: Function }) {
   const { getCurrentUser } = useAuthContext();
   const [serverError, setServerError] = useState("");
+  const toast = useToast();
 
   const signupSchema = yup.object().shape({
     name: yup.string()
@@ -47,7 +49,8 @@ export default function SignupForm({ toggleModal }: { toggleModal: Function }) {
           const res = await Post("/signup", newUser);
           if (res.ok) {
             toggleModal();
-            getCurrentUser(res.id);
+            toast({ ...toastSuccessOptions as UseToastOptions, description: "Account successfully created." });
+            await getCurrentUser(res.id);
           }
         } catch(err: any) {
           setServerError(err.response.data ? err.response.data : err.response.statusText);

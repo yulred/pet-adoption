@@ -13,8 +13,8 @@ export default function FormCheckbox({ fieldName, fieldLabel, isChecked }: IFiel
         w="100%"
         flexDirection="row-reverse"
         justifyContent="start"
-        gap={9}
-        isChecked={isChecked}
+        gap={8}
+        defaultChecked={isChecked}
         onChange={handleChange}
       >
         {fieldLabel}

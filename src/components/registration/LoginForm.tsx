@@ -34,7 +34,7 @@ export default function LoginForm({ toggleModal }: {toggleModal: Function}) {
           const res = await Post("/login", user);
           if (res.ok) {
             toggleModal();
-            getCurrentUser(res.id);
+            await getCurrentUser(res.id);
           }
         } catch(err: any) {
           console.log(err)

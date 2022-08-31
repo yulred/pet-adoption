@@ -1,7 +1,7 @@
 import "../form/Form.css";
 import { useState } from "react";
+import { Flex, useToast, UseToastOptions } from "@chakra-ui/react";
 import { Formik } from "formik";
-import { Flex, Image } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import FilePicker from "chakra-ui-file-picker";
 import * as yup from "yup";
@@ -12,14 +12,18 @@ import FormCheckbox from "../form/FormCheckbox";
 import FormTextareaField from "../form/FormTextareaField";
 import FormSubmitButton from "../form/FormSubmitButton";
 import BackButton from "../nav/BackButton";
-import { requiredErrorMsg, petTypes, petStatus } from "../../utils/globals/globals";
+import PetImage from "../pets/PetImage";
+import { requiredErrorMsg, petTypes, petStatus, toastSuccessOptions } from "../../utils/globals/globals";
 import { Put } from "../../utils/api";
 import { IPet } from "../../ts/interfaces/pet.interface";
 
-export default function PetEditForm({ currentPet }: { currentPet: IPet }) {
+export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, getPet: Function }) {
   const [serverError, setServerError] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
+  const toast = useToast();
   let location = useLocation();
+
+  //TODO: clean this up
 
   const petSchema = yup.object().shape({
     type: yup.string()
@@ -55,7 +59,7 @@ export default function PetEditForm({ currentPet }: { currentPet: IPet }) {
           color: currentPet.color,
           bio: currentPet.bio,
           hypoallergenic: currentPet.hypoallergenic,
-          dietary: "",
+          dietary: currentPet.dietary?.join(", "),
           breed: currentPet.breed,
         }}
         validationSchema={petSchema}
@@ -74,7 +78,11 @@ export default function PetEditForm({ currentPet }: { currentPet: IPet }) {
             petData.append("picture", selectedFile);
 
             const res = await Put(url, petData);
-            // if (res.ok) console.log(res)
+
+            if (res.ok) {
+              toast({ ...toastSuccessOptions as UseToastOptions, description: "Pet successfully updated." });
+              await getPet(url);
+            }
           } catch(err: any) {
             setServerError(err.response.data ? err.response.data : err.response.statusText);
           }
@@ -82,36 +90,23 @@ export default function PetEditForm({ currentPet }: { currentPet: IPet }) {
       >
       {({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <Image 
-            src={currentPet.picture}
-            alt={currentPet.name}
-            objectFit="cover"
-            objectPosition="top"
-            w="100%"
-            h="12rem"
-            rounded="md"
-            borderBottomLeftRadius={0}
-            borderBottomRightRadius={175}
-          />
-
+          <PetImage imageSrc={currentPet.picture} imageAlt={currentPet.name} imageSize={12} imageRadius={175} />
           <FormHeaderField fieldName="name" fieldLabel="Edit:" req={true} />
-
           <FilePicker
             onFileChange={(fileList: any[]) => setSelectedFile(fileList[0])}
             multipleFiles={false}
             accept="image/*"
             hideClearButton={false}
             clearButtonLabel="Clear File"
-            placeholder={"Select new image..."}
+            placeholder={"Choose image..."}
           />
-
           <FormSelectField fieldName="type" fieldLabel="Pet Type" fieldArray={petTypes} />
           <FormSelectField fieldName="adoptionStatus" fieldLabel="Adoption Status" fieldArray={petStatus} />
           <FormInputField fieldName="height" fieldLabel="Height" fieldUnit="cm" fieldSize="20%" req={true} />
           <FormInputField fieldName="weight" fieldLabel="Weight" fieldUnit="kg" fieldSize="20%" req={true} />
           <FormCheckbox fieldName="hypoallergenic" fieldLabel="Hypoallergenic" isChecked={currentPet.hypoallergenic} />
           <FormInputField fieldName="color" fieldLabel="Colour" req={true} />
-          <FormInputField fieldName="dietary" fieldLabel="Dietary Restrictions" req={false} />
+          <FormInputField fieldName="dietary" fieldLabel="Dietary Restrictions (separated by comma)" req={false} />
           <FormInputField fieldName="breed" fieldLabel="Breed" req={true} />
           <FormTextareaField fieldName="bio" fieldLabel="Bio" req={true} />
           {serverError ? <div className="server-error">Error: {serverError}</div> : null}

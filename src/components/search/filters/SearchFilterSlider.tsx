@@ -25,8 +25,8 @@ export default function SearchFilterSlider({ filter }: ISearchFilterRange) {
           handleAddRangeFilter(`${val.join("-")} ${filter === "height" ? "cm" : "kg"}`, filter)
         }}
       >
-      {showSliderMark ?
-        <>
+      {showSliderMark
+        ? <>
           <RangeSliderMark
             value={sliderMark[0]}
             textAlign="center"

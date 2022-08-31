@@ -30,7 +30,7 @@ export default function Pet() {
   return (
     <Box p={12}>
       <Container w="75vw">
-        {!isPetLoading ? <PetEditForm currentPet={currentPet} /> : null}
+        {!isPetLoading ? <PetEditForm currentPet={currentPet} getPet={getPet} /> : null}
       </Container>
     </Box>
   )

@@ -34,10 +34,14 @@ export default function ProfilePetsTabs() {
       </TabList>
       <TabPanels>
         <TabPanel>
-          {!isListLoading ? <PetGrid cardSize="20rem" petsArray={pets!.ownedPets} emptyArrayMsg="You do not currently own or foster any pets." /> : null}
+          {!isListLoading
+            ? <PetGrid cardSize={20} petsArray={pets!.ownedPets} emptyArrayMsg="You do not currently own or foster any pets." />
+            : null}
         </TabPanel>
         <TabPanel>
-          {!isListLoading ? <PetGrid cardSize="20rem" petsArray={pets!.savedPets} emptyArrayMsg="You have not favourited any pets." /> : null}
+          {!isListLoading
+            ? <PetGrid cardSize={20} petsArray={pets!.savedPets} emptyArrayMsg="You have not favourited any pets." />
+            : null}
         </TabPanel>
       </TabPanels>
     </Tabs>
