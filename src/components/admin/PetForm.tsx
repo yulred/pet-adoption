@@ -23,7 +23,7 @@ import { IPet } from "../../ts/interfaces/pet.interface";
 export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, getPet: Function }) {
   const [serverError, setServerError] = useState("");
   const [selectedFile, setSelectedFile] = useState();
-  const [userInput, setUserInput] = useState<{_id: string, name: string, email: string}>();
+  const [userInput, setUserInput] = useState({_id: "", name: "", email: ""});
   const [searchRes, setSearchRes] = useState<{_id: string, name: string, email: string}[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,6 +39,17 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
     if (!location.pathname.split("/").includes("new")) setIsEditing(true); // eslint-disable-next-line
   }, [])
 
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      if (userInput?.name && userInput?.name.length > 1) {
+        handleUserSearch(userInput.name);
+        if (!isMenuOpen) setIsMenuOpen(true);
+      } else setIsMenuOpen(false);
+    }, 300)
+
+    return () => clearTimeout(debounce);
+  }, [userInput])
+
   const handleUserSearch = async (userQuery: string) => {
     try {
       const res = await Get(`/user/search?q=${userQuery}`);
@@ -47,13 +58,6 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
       console.log(err);
     }
   }
-
-  useEffect(() => {
-    if (userInput?.name.length) {
-      handleUserSearch(userInput.name);
-      setIsMenuOpen(true);
-    } else setIsMenuOpen(false);
-  }, [userInput])
 
   const petSchema = yup.object().shape({
     type: yup.string(),
@@ -138,9 +142,9 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
             ? <>
                 <FormControl display="flex" flexFlow="row wrap" alignItems="center">
                   <FormLabel w="8rem">Owner</FormLabel>
-                  <Menu isOpen={isMenuOpen}>
+                  <Menu isOpen={isMenuOpen} autoSelect={false} flip={false}>
                     <MenuButton></MenuButton>
-                    <MenuList mt={4} ref={menuRef}>
+                    <MenuList mt={4} ref={menuRef} fontSize="md">
                       {searchRes.map(item => <MenuItem key={item._id} onClick={() => {setUserInput(item); setIsMenuOpen(false)}}>{item.name}</MenuItem>)}
                     </MenuList>
                   </Menu>
