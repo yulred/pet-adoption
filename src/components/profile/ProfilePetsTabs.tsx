@@ -9,8 +9,12 @@ export default function ProfilePetsTabs() {
   const { currentUser } = useAuthContext();
   const [pets, setPets] = useState<IPets>();
   const [isListLoading, setIsListLoading] = useState(true);
+  const [tabIndex, setTabIndex] = useState(0);
 
   useEffect(() => {
+    let openTab = sessionStorage.getItem("pet-adoption-tab");
+    setTabIndex(+openTab!);
+
     const awaitGetPets = async () => await getPets();
     awaitGetPets(); // eslint-disable-next-line
   }, [])
@@ -27,10 +31,17 @@ export default function ProfilePetsTabs() {
   }
 
   return (
-    <Tabs isFitted colorScheme="teal" w="60vw" m="auto">
+    <Tabs
+      isFitted
+      colorScheme="teal"
+      w="60vw"
+      m="auto"
+      index={tabIndex}
+      onChange={index => sessionStorage.setItem("pet-adoption-tab", `${index}`)}
+    >
       <TabList>
-        <Tab>My Pets</Tab>
-        <Tab>Favourites</Tab>
+        <Tab onClick={() => setTabIndex(0)}>My Pets</Tab>
+        <Tab onClick={() => setTabIndex(1)}>Favourites</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>

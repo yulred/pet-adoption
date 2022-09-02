@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, useReducer } from "react";
 import { Get } from "../utils/api";
-import { IAuthContext, IAuthContextProps } from "../ts/interfaces/auth.interface";
+import { IAuthContext } from "../ts/interfaces/auth.interface";
 import AuthReducer from "../reducers/AuthReducer";
 
 const AuthContext = createContext<IAuthContext>({
@@ -16,7 +16,7 @@ const AuthContext = createContext<IAuthContext>({
   handleClearSavedPet: ()=>{},
 })
 
-const AuthProvider = ({ children }: IAuthContextProps) => {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, dispatchCurrentUser] = useReducer(AuthReducer, {});
   const [isLoading, setIsLoading] = useState(true);
   const [isActiveSession, setIsActiveSession] = useState(false);
@@ -40,8 +40,7 @@ const AuthProvider = ({ children }: IAuthContextProps) => {
       if (err.response.status === 401) {
         initCurrentUser({});
         setIsActiveSession(false);
-      }
-      else console.log(err);
+      } else console.log(err);
     }
   }
 

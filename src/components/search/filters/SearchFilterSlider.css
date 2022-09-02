@@ -1,13 +1,3 @@
-.slider-label {
-  margin-right: 1rem;
-  font-size: 1rem;
-  font-weight: var(--chakra-fontWeights-semibold);
-}
-
-.slider-label::first-letter {
-  text-transform: uppercase;
-}
-
 .chakra-slider__thumb {
   z-index: 0 !important;
 }

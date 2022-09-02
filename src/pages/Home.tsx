@@ -16,7 +16,7 @@ export default function Home() {
   
   return (
     <Box p={12} style={homeBg}>
-      <Container maxW="sm" textAlign="left" pl={20}>
+      <Container maxW="md" textAlign="left" pl={20}>
         <Header />
       </Container>
     </Box>

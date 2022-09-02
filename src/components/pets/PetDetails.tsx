@@ -1,6 +1,5 @@
-import "./PetDetails.css";
 import { useState, useEffect } from "react";
-import { Box, Flex, Container, Tag, useColorMode } from "@chakra-ui/react";
+import { Box, Flex, Container, Tag, Text, useColorMode } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import PetDetailsActions from "./PetDetailsActions";
 import BackButton from "../nav/BackButton";
@@ -56,10 +55,10 @@ export default function PetDetails() {
       >
         <PetImage imageSrc={pet.picture} imageAlt={pet.name} imageSize={22} imageRadius={175} />
         <Box px={12} py={6}>
-          <div className="pet-name">{pet.name}</div>
-          <div className="pet-status" style={petStatusColor(pet.adoptionStatus as string)}>{pet.adoptionStatus}</div>
+          <Text fontSize="4xl" lineHeight="2rem" className="small-caps">{pet.name}</Text>
+          <Text fontSize="xl" mb={4} className="small-caps" style={petStatusColor(pet.adoptionStatus as string)}>{pet.adoptionStatus}</Text>
           {!isLoading ? <PetDetailsActions pet={pet} updatePetStatus={updatePetStatus} /> : null}
-          <div className="pet-bio">{pet.bio}</div>
+          <Text fontSize="md" my={8}>{pet.bio}</Text>
           {petData.map((attr, index) => <Tag key={index} size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{attr}</Tag>)}
         </Box>
       </Container>

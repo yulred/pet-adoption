@@ -1,14 +1,14 @@
-import "./Header.css";
+import { Heading, Text } from "@chakra-ui/react";
 import { useAuthContext } from "../../context/AuthContext";
 
 export default function Header() {
   const { currentUser } = useAuthContext();
-  const headerText = "header text";
 
   return (
     <>
-      <div className="header">{currentUser.name ? `${currentUser.name}, ${headerText}` : `${headerText}`}</div>
-      <div className="intro">intro text</div>
+      <Heading fontWeight="semibold">{currentUser.name ? `${currentUser.name},` : null}</Heading>
+      <Heading fontWeight="semibold">Change a Life</Heading>
+      <Text fontSize="xl" mt={4}>...adopt a pet.</Text>
     </>
   )
 }

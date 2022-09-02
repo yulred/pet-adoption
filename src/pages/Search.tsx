@@ -40,7 +40,7 @@ export default function Search() {
           <SearchFilterOptions />
           <SearchFilterTagList />
           {!isSearching
-            ? <PetGrid cardSize={20} petsArray={searchResults} emptyArrayMsg="No pets match your search criteria." />
+            ? <PetGrid cardSize={20} petsArray={searchResults} emptyArrayMsg={location.search ? "No pets match your search criteria." : null} />
             : null}
         </Flex>
       </Center>

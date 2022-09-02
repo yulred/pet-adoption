@@ -16,11 +16,11 @@ export default function ProfileMenu() {
         variant="link"
         colorScheme="white"
         minW="fit-content"
-        rightIcon={<ChevronDownIcon
-      />}>
+        rightIcon={<ChevronDownIcon/>}
+      >
         {currentUser.role === "Admin" ? "Admin" : "Profile"}
       </MenuButton>
-      <MenuList>
+      <MenuList fontSize="xl">
         {currentUser.role === "Admin" ? <MenuItem onClick={() => navigate("/dashboard")}>Dashboard</MenuItem> : null}
         <MenuItem onClick={() => navigate("/profile/settings")}>Settings</MenuItem>
         <MenuItem onClick={() => navigate("/profile/mypets")}>My Pets</MenuItem>

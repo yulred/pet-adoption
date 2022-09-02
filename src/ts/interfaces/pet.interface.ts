@@ -11,14 +11,7 @@ export interface IPet {
   hypoallergenic?: boolean,
   dietary?: string[],
   breed?: string,
-}
-
-export interface IPetStatus {
-  pet?: {
-    _id?: string,
-    adoptionStatus?: string,
-  },
-  updatePetStatus: Function,
+  createdAt?: string,
 }
 
 export interface IPetButton {
@@ -27,45 +20,28 @@ export interface IPetButton {
   label: string,
 }
 
-export interface IPetCard {
-  pet: {
-    _id?: string,
-    type?: string,
-    name?: string,
-    adoptionStatus?: string,
-    picture?: string,
-    height?: number,
-    weight?: number,
-    color?: string,
-    bio?: string,
-    hypoallergenic?: boolean,
-    dietary?: string[],
-    breed?: string,
-  },
-  cardSize: number,
-}
-
 export interface IPets {
-  ownedPets: object[],
-  savedPets: object[],
+  ownedPets: IPet[],
+  savedPets: IPet[],
 }
 
 export interface IPetGrid {
   cardSize: number,
   petsArray: IPet[],
-  emptyArrayMsg: string,
+  emptyArrayMsg: string | null,
 }
 
 export interface IPetColumn {
-  name: string | undefined,
-  type: string | undefined,
-  status: string | undefined,
-  id: string | undefined,
+  name?: string,
+  type?: string,
+  status?: string,
+  date?: string,
+  id?: string,
 }
 
 export interface IPetImage {
-  imageSrc: string | undefined,
-  imageAlt: string | undefined,
+  imageSrc?: string,
+  imageAlt?: string,
   imageSize: number,
   imageRadius: number,
 }

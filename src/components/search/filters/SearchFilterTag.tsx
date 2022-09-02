@@ -1,8 +1,7 @@
 import { Tag, TagLabel, TagCloseButton } from "@chakra-ui/react";
 import { useSearchContext } from "../../../context/SearchContext";
-import { ISearchFilterTag } from "../../../ts/interfaces/search.interface";
 
-export default function SearchFiltersList({ item }: ISearchFilterTag) {
+export default function SearchFiltersList({ item }: { item: string[] }) {
   const { handleRemoveFilter } = useSearchContext();
 
   return (

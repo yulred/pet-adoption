@@ -1,13 +1,10 @@
 form {
   width: 100%;
+  text-align: left;
 }
 
 form .chakra-form-control:not(:first-of-type) {
   margin-top: 1rem;
-}
-
-.submit-button {
-  text-align: right;
 }
 
 .server-error {
@@ -20,17 +17,7 @@ form .chakra-form-control:not(:first-of-type) {
   margin-left: 0 !important;
 }
 
-.form-header, .form-header-label, .form-header-input {
-  font-family: var(--chakra-fonts-heading) !important;
-  font-weight: var(--chakra-fontWeights-bold) !important;
-  font-size: var(--chakra-fontSizes-3xl) !important;
-  text-transform: lowercase !important;
-  font-variant: small-caps !important;
-}
-
-.css-y0zcnp, .css-1ssjhh {
-  display: none;
-}
+/* FilePicker */
 
 .css-7nrq, .css-8hr38g {
   padding-inline-start: 0 !important;

@@ -1,7 +1,6 @@
-import "./UserDetails.css";
 import { useState, useEffect } from "react";
 import { 
-  Box, Flex, Container, Stack, Divider, useColorMode,
+  Box, Flex, Container, Stack, Divider, Text, useColorMode,
   Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon 
 } from "@chakra-ui/react";
 import { EmailIcon, PhoneIcon, BellIcon } from "@chakra-ui/icons";
@@ -21,8 +20,6 @@ export default function UserDetails() {
   const [isUserLoading, setIsUserLoading] = useState(true);
   const [isListLoading, setIsListLoading] = useState(true);
   let location = useLocation();
-
-  //TODO: clean this up
 
   useEffect(() => {
     const awaitGetUser = async () => await getUser();
@@ -68,17 +65,17 @@ export default function UserDetails() {
         bg={colorMode === "light" ? lightModeColor : darkModeColor}
       >
         <Box px={12} py={6}>
-          <div className="user-name">{user?.name}</div>
-          <div className="user-role" style={userRoleColor(user?.role as string)}>{user?.role}</div>
+          <Text fontSize="4xl" lineHeight="2rem" className="small-caps">{user?.name}</Text>
+          <Text fontSize="xl" mb={4} className="small-caps" style={userRoleColor(user?.role as string)}>{user?.role}</Text>
           <Stack direction="row" h="100px" p={4}>
             <Divider orientation="vertical" />
-            <div className="user-info">
-              <div><EmailIcon mr={2} />E-Mail: <a href={`mailto:${user?.email}`}>{user?.email}</a></div>
-              <div><PhoneIcon mr={2} />Phone Number: {user?.tel ? user?.tel : "–"}</div>
-              <div><BellIcon mr={2} />Joined: {!isUserLoading ? new Date(user!.createdAt).toLocaleString() : null}</div>
-            </div>
+            <Box my={4} textAlign="left" fontSize="md">
+              <Text><EmailIcon mr={2} />E-Mail: <a href={`mailto:${user?.email}`}>{user?.email}</a></Text>
+              <Text><PhoneIcon mr={2} />Phone Number: {user?.tel ? user?.tel : "–"}</Text>
+              <Text><BellIcon mr={2} />Joined: {!isUserLoading ? new Date(user!.createdAt).toLocaleString() : null}</Text>
+            </Box>
           </Stack>
-          <div className="user-bio">Bio: {user?.bio ? user?.bio : "–"}</div>
+          <Text textAlign="left" fontSize="md" m="1rem 0 2rem 1.5rem">Bio: {user?.bio ? user?.bio : "–"}</Text>
           <Accordion allowToggle>
             <AccordionItem>
               <AccordionButton>

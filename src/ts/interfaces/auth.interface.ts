@@ -22,7 +22,3 @@ export interface IAuthContext {
   handleSavePet: Function,
   handleClearSavedPet: Function,
 }
-
-export interface IAuthContextProps {
-  children: React.ReactNode,
-}

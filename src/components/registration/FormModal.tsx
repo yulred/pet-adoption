@@ -4,9 +4,8 @@ import {
 } from "@chakra-ui/react";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
-import { IFormModalProps } from "../../ts/interfaces/form.interface";
 
-export default function FormModal({ isOpen, toggleModal }: IFormModalProps) {
+export default function FormModal({ isOpen, toggleModal }: { isOpen: boolean, toggleModal: Function }) {
  
   return (
     <Modal isOpen={isOpen} onClose={() => toggleModal()}>

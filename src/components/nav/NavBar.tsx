@@ -1,5 +1,5 @@
 import "./NavBar.css";
-import { Link, useDisclosure, Flex } from "@chakra-ui/react";
+import { Box, Link, useDisclosure, Flex } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "../../ColorModeSwitcher";
 import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
@@ -12,8 +12,14 @@ export default function NavBar() {
   const toggleModal = () => onToggle();
   
   return (
-    <div className="nav-bar">
-      <Flex justify="end" align="center" gap={6} p={6}>
+    <Box h="10vh" className="nav-bar">
+      <Flex
+        justify="end"
+        align="center"
+        gap={6}
+        p={6}
+        className="small-caps"
+      >
         <Link as={NavLink} to="/">Home</Link>
         {isActiveSession ? <ProfileMenu /> : null}
         {!isActiveSession ? <Link onClick={toggleModal}>Log&nbsp;In/<wbr />Sign&nbsp;Up</Link> : null}
@@ -21,6 +27,6 @@ export default function NavBar() {
         <ColorModeSwitcher justifySelf="flex-end" alignSelf="center" />
       </Flex>
       <FormModal isOpen={isOpen} toggleModal={toggleModal} />
-    </div>
+    </Box>
   )
 }

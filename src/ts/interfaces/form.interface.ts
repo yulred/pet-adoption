@@ -1,8 +1,3 @@
-export interface IFormModalProps {
-  isOpen: boolean,
-  toggleModal: Function,
-}
-
 export interface IFieldProps {
   fieldName: string,
   fieldLabel: string,
@@ -16,8 +11,4 @@ export interface ISelectFieldProps {
   fieldName: string,
   fieldLabel: string,
   fieldArray: string[],
-}
-
-export interface ISubmitButtonProps {
-  buttonLabel: string,
 }

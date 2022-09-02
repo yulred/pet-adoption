@@ -1,13 +1,13 @@
 import "./PetCard.css";
-import { Flex, LinkBox, useColorMode } from "@chakra-ui/react";
+import { Flex, LinkBox, Text, useColorMode } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { NavLink } from "react-router-dom";
 import PetImage from "./PetImage";
 import { lightModeColor, darkModeColor } from "../../utils/globals/globals";
 import { petStatusColor } from "../../utils/globals/helpers";
-import { IPetCard } from "../../ts/interfaces/pet.interface";
+import { IPet } from "../../ts/interfaces/pet.interface";
 
-export default function PetCard({ pet, cardSize }: IPetCard) {
+export default function PetCard({ pet, cardSize }: { pet: IPet, cardSize: number }) {
   const { colorMode } = useColorMode();
 
   return (
@@ -23,13 +23,13 @@ export default function PetCard({ pet, cardSize }: IPetCard) {
       <Flex direction="column">
         <PetImage imageSrc={pet.picture} imageAlt={pet.name} imageSize={cardSize} imageRadius={100} />
         <Flex direction="row" justify="space-between" align="center" p={4}>
-          <div className="pet-text">
+          <Text>
             {pet.name}
-            <span style={petStatusColor(pet.adoptionStatus as string)} className="pet-card-status"> {pet.adoptionStatus}</span>
-          </div>
+            <span style={petStatusColor(pet.adoptionStatus as string)} className="pet-card-status small-caps"> {pet.adoptionStatus}</span>
+          </Text>
           <ArrowForwardIcon mt={2} />
         </Flex>
-        {cardSize !== 20 ? null : <div className="overlay">About Me</div>}
+        {cardSize !== 20 ? null : <div className="overlay small-caps">About Me</div>}
       </Flex>
     </LinkBox>
   )

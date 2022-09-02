@@ -39,7 +39,7 @@ export default function ProfileSettingsForm() {
       onSubmit={async (user) => {
         try {
           setServerError("");
-          const res = await Put("/user", { id: currentUser._id, ...user });
+          const res = await Put(`/user/${currentUser._id}`, user);
           
           if (res.ok) {
             toast({ ...toastSuccessOptions as UseToastOptions, description: "Profile successfully updated." });

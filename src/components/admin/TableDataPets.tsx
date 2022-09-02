@@ -15,6 +15,7 @@ export default function TableDataPets({ pets }: { pets: (IPet[] | undefined) }) 
         name: pet.name,
         type: pet.type,
         status: pet.adoptionStatus,
+        date: pet.createdAt,
         id: pet._id,
       }) // eslint-disable-next-line
     }), [],
@@ -31,7 +32,12 @@ export default function TableDataPets({ pets }: { pets: (IPet[] | undefined) }) 
       {
         Header: "Status",
         accessor: "status",
-        Cell: (e: CellProps<IPetColumn>) => <span style={petStatusColor(e.value)} className="dashboard-status">{e.value}</span>
+        Cell: (e: CellProps<IPetColumn>) => <span style={petStatusColor(e.value)} className="small-caps">{e.value}</span>
+      },
+      {
+        Header: "Date",
+        accessor: "date",
+        Cell: (e: CellProps<IPetColumn>) => <span>{new Date(e.value).toLocaleString()}</span>
       },
     ], [],
   )

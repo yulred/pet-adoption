@@ -16,7 +16,6 @@ export default function FormSelectField({ fieldName, fieldLabel, fieldArray }: I
         as={Select}
         name={fieldName}
         w="12rem"
-        value={values[fieldName as keyof typeof values]}
         onChange={handleChange}
       >
         {fieldArray.map(item => <option key={item} value={`${item}`}>{item}</option>)}

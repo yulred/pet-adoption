@@ -5,9 +5,9 @@ import { useLocation } from "react-router-dom";
 import PetDetailsButton from "./PetDetailsButton";
 import { Post, Delete } from "../../utils/api";
 import { useAuthContext } from "../../context/AuthContext";
-import { IPetStatus } from "../../ts/interfaces/pet.interface";
+import { IPet } from "../../ts/interfaces/pet.interface";
 
-export default function PetDetailsActions({ pet, updatePetStatus }: IPetStatus) {
+export default function PetDetailsActions({ pet, updatePetStatus }: { pet: IPet, updatePetStatus: Function }) {
   const { currentUser, handleAdoptPet, handleFosterPet, handleReturnPet, handleSavePet, handleClearSavedPet } = useAuthContext();
   let location = useLocation();
 

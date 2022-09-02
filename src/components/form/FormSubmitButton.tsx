@@ -1,11 +1,10 @@
-import { Button} from "@chakra-ui/react";
-import { ISubmitButtonProps } from "../../ts/interfaces/form.interface";
+import { Box, Button } from "@chakra-ui/react";
 
-export default function FormSubmitButton({ buttonLabel }: ISubmitButtonProps) {
+export default function FormSubmitButton({ buttonLabel }: { buttonLabel: string }) {
 
   return (
-    <div className="submit-button">
+    <Box textAlign="right">
       <Button mt={4} colorScheme="teal" type="submit">{buttonLabel}</Button>
-    </div>
+    </Box>
   )
 }

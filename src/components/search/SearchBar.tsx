@@ -7,9 +7,8 @@ import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import { useSearchParams, URLSearchParamsInit } from "react-router-dom";
 import { petTypes } from "../../utils/globals/globals";
 import { useSearchContext } from "../../context/SearchContext";
-import { ISearchBar } from "../../ts/interfaces/search.interface";
 
-export default function SearchBar({ getSearchResults, isSearching }: ISearchBar) {
+export default function SearchBar({ getSearchResults, isSearching }: { getSearchResults: Function, isSearching: boolean }) {
   const { filters, handleAddQueryFilter } = useSearchContext();
   const [typeFilter, setTypeFilter] = useState("Type");
   const [searchParams, setSearchParams] = useSearchParams();

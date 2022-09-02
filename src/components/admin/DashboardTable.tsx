@@ -24,11 +24,11 @@ export default function DashboardTable({ columns, data }: { columns: readonly Co
     }, useSortBy);
 
   return (
-    <Table size="md" variant="simple" colorScheme="blackAlpha" fontSize="1rem" mt={4} {...getTableProps()}>
+    <Table size="md" variant="simple" colorScheme="blackAlpha" fontSize="1rem" mt={8} {...getTableProps()}>
       <Thead>
         {headerGroups.map(headerGroup => (
           <Tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
+            {headerGroup.headers.map(column => (
               <Th {...column.getHeaderProps(column.getSortByToggleProps({ title: `Sort by ${column.Header}` }))}>
                 <Flex align="center" wrap="nowrap" gap={2} w="6rem">
                   {column.render("Header")}
@@ -46,7 +46,7 @@ export default function DashboardTable({ columns, data }: { columns: readonly Co
           prepareRow(row);
           return (
             <Tr {...row.getRowProps()}>
-              {row.cells.map((cell) => <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>)}
+              {row.cells.map(cell => <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>)}
             </Tr>
           )
         })}

@@ -5,17 +5,17 @@ import { Column, CellProps } from "react-table";
 import { NavLink } from "react-router-dom";
 import DashboardTable from "./DashboardTable";
 import { userRoleColor } from "../../utils/globals/helpers";
-import { IUsers, IUserColumn } from "../../ts/interfaces/user.interface";
+import { IUser, IUserColumn } from "../../ts/interfaces/user.interface";
 
-export default function TableDataUsers({ users }: IUsers) {
+export default function TableDataUsers({ users }: { users: IUser[] }) {
 
   const data = useMemo(
     () => users!.map(user => {
       return ({
         name: user.name,
         email: user.email,
-        tel: user.tel,
         role: user.role,
+        date: user.createdAt,
         id: user._id,
       }) // eslint-disable-next-line
     }), [],
@@ -33,11 +33,15 @@ export default function TableDataUsers({ users }: IUsers) {
         accessor: "email",
         Cell: (e: CellProps<IUserColumn>) => <Link href={`mailto:${e.value}`}>{e.value}</Link>
       },
-      { Header: "Phone No.", accessor: "tel" },
       {
         Header: "Role",
         accessor: "role",
-        Cell: (e: CellProps<IUserColumn>) => <span style={userRoleColor(e.value)} className="dashboard-role">{e.value}</span>
+        Cell: (e: CellProps<IUserColumn>) => <span style={userRoleColor(e.value)} className="small-caps">{e.value}</span>
+      },
+      {
+        Header: "Date",
+        accessor: "date",
+        Cell: (e: CellProps<IUserColumn>) => <span>{new Date(e.value).toLocaleString()}</span>
       },
     ], [],
   )

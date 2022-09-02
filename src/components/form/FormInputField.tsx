@@ -21,7 +21,7 @@ export default function FormInputField({ fieldName, fieldLabel, fieldUnit, field
         value={values[fieldName as keyof typeof values]}
         onChange={handleChange}
       />
-      <Text fontSize="md" ml={2}>{fieldUnit}</Text>
+      <Text fontSize="md" mx={2}>{fieldUnit}</Text>
       <FormErrorMessage>{errors[fieldName as keyof typeof errors]}</FormErrorMessage>
     </FormControl>
   )
