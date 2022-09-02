@@ -22,12 +22,11 @@ async function getSearchedPets(query) {
     }
 
     if (query.q) {
-      query.$or = [ {type: qRe }, {name: qRe}, {adoptionStatus: qRe}, {color: qRe}, {bio: qRe}, {breed: qRe} ];
+      query.$or = [ {type: qRe}, {name: qRe}, {adoptionStatus: qRe}, {color: qRe}, {bio: qRe}, {breed: qRe} ];
     }
     
-    const searchedPets = await petModel.find(query, { name: 1, type: 1, adoptionStatus: 1, picture: 1 });
-
-    return searchedPets.sort((a, b) => a.name.localeCompare(b.name));
+    const searchedPets = await petModel.find(query, { name: 1, type: 1, adoptionStatus: 1, picture: 1 }).sort({ name: 1 });
+    return searchedPets
   } catch(err) {
     console.log(err);
   }
@@ -134,7 +133,7 @@ async function getUsersPets(userID) {
 
     const ownedPets = await petModel.find({"_id": {$in: [...user.pets.adopted, ...user.pets.fostered]}});
     const savedPets = await petModel.find({"_id" : {$in: [...user.pets.saved]}});
-    
+
     return {ownedPets, savedPets};
   } catch(err) {
     console.log(err);
@@ -146,9 +145,9 @@ async function editPet(pet) {
     const petToUpdate = {};
 
     for (const key in pet) {
-      if (pet[key] && key !== "id") petToUpdate[key] = pet[key];
+      if (pet[key] && key !== "id" && key !== "owner") petToUpdate[key] = pet[key];
     }
-    
+
     const updatedPet = await petModel.findByIdAndUpdate({ _id: pet.id }, petToUpdate, { new: true });
     return updatedPet;
   } catch(err) {
@@ -156,17 +155,16 @@ async function editPet(pet) {
   }
 }
 
-async function addPet(newPet) {
+async function addPet(pet) {
   try {
-    newUser.bio = "";
-    newUser.role = "user";
-    newUser.pets = {
-      adopted: [],
-      fostered: [],
-      saved: [],
+    const petToAdd = {};
+
+    for (const key in pet) {
+      if (pet[key] && key !== "id" && key !== "owner") petToAdd[key] = pet[key];
     }
-    const pet = await petModel.create(newPet);
-    return pet;
+
+    const newPet = await petModel.create(petToAdd);
+    return newPet;
   } catch(err) {
     console.log(err);
   }

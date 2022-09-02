@@ -10,6 +10,7 @@ async function verifyToken(req, res, next) {
 
   jwt.verify(token, process.env.TOKEN_KEY, (err, decoded) => {
     if (err) {
+      res.clearCookie("token", { httpOnly: true });
       res.status(401).send("Invalid Token");
       return;
     }

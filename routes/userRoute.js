@@ -4,13 +4,17 @@ const { validateBody } = require("../middleware/validateBody");
 const { userSchema } = require("../schemas/userSchema");
 const { doPasswordsMatch, isPasswordMinLength, doesUserExist } = require("../middleware/userMiddleware");
 const { hashPassword } = require("../middleware/hashPassword");
+const { verifyToken } = require("../middleware/verifyToken");
+const { verifyAdmin } = require("../middleware/verifyAdmin");
+const { verifyUser } = require("../middleware/verifyUser");
 
 const router = express.Router();
 
 router
-.get("/:id/full", userController.getFullUser)
-.get("/:id", userController.getUser)
-.get("/", userController.getAllUsers)
-.put("/", validateBody(userSchema), doPasswordsMatch, isPasswordMinLength, doesUserExist, hashPassword, userController.updateUser)
+.get("/search", verifyToken, verifyAdmin, userController.getSearchedUsers)
+.get("/:id/full", verifyToken, verifyAdmin, userController.getFullUser)
+.get("/:id", verifyToken, verifyUser, userController.getUser)
+.get("/", verifyToken, verifyAdmin, userController.getAllUsers)
+.put("/:id", verifyToken, verifyUser, validateBody(userSchema), doPasswordsMatch, isPasswordMinLength, doesUserExist, hashPassword, userController.updateUser)
 
 module.exports = router;

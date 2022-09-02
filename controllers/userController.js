@@ -38,4 +38,13 @@ async function updateUser(req, res) {
   }
 }
 
-module.exports = { getUser, getFullUser, getAllUsers, updateUser };
+async function getSearchedUsers(req, res) {
+  try {
+    const users = await userModel.getSearchedUsers(req.query);
+    res.send(users);
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
+module.exports = { getUser, getFullUser, getAllUsers, updateUser, getSearchedUsers };

@@ -1,6 +1,7 @@
 const petSchema = {
   type: "object",
   properties: {
+    id: { type: "string" },
     type: { type: "string" },
     name: { type: "string" },
     adoptionStatus: { type: "string" },
@@ -12,6 +13,7 @@ const petSchema = {
     dietary: { type: "string" },
     breed: { type: "string" },
     picture: { type: "string" },
+    owner: { type: "string" },
   },
 }
 

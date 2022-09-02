@@ -22,7 +22,7 @@ async function doesUserExist(req, res, next) {
     if (req.body.email) {
       const isUser = await userModel.exists({ email: req.body.email });
 
-      if (!isUser || req.body.id === isUser._id.toString()) next();
+      if (!isUser || req.body.userID === isUser._id.toString()) next();
       else res.status(400).send("E-Mail already registered.");
     } else next();
   } catch(err) {

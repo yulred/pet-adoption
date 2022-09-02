@@ -12,6 +12,7 @@ const petSchema = new mongoose.Schema({
   hypoallergenic: Boolean,
   dietary: [String],
   breed: String,
-})
+},
+{ timestamps: true })
 
 module.exports = { petSchema };

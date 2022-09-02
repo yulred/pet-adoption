@@ -23,8 +23,19 @@ async function getFullUser(id) {
 
 async function getAllUsers() {
   try {
-    const user = await userModel.find({}, { name: 1, email: 1, tel: 1, role: 1 });
+    const user = await userModel.find({}, { name: 1, email: 1, tel: 1, role: 1, createdAt: 1 });
     return user;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+async function getSearchedUsers(query) {
+  try {
+    let qRe = new RegExp(`${query.q}`, "i");
+
+    const users = await userModel.find({ $or: [ {name: qRe}, {email: qRe} ] }, { name: 1, email: 1 });
+    return users;
   } catch(err) {
     console.log(err);
   }
@@ -35,14 +46,40 @@ async function updateUser(user) {
     const userToUpdate = {};
 
     for (const key in user) {
-      if (user[key] && key !== "id") userToUpdate[key] = user[key];
+      if (user[key]) userToUpdate[key] = user[key];
     }
     
-    const updatedUser = await userModel.findByIdAndUpdate({ _id: user.id }, userToUpdate, { new: true });
+    const updatedUser = await userModel.findByIdAndUpdate({ _id: user.userID }, userToUpdate, { new: true });
     return updatedUser;
   } catch(err) {
     console.log(err);
   }
 }
 
-module.exports = { userModel, getUser, getFullUser, getAllUsers, updateUser };
+async function adoptPet(petID, userID) {
+  try {
+    const user = await userModel.findByIdAndUpdate(
+      { _id: userID },
+      { $addToSet: { "pets.adopted": petID } },
+      { new: true }
+    )
+    return user;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+async function fosterPet(petID, userID) {
+  try {
+    const user = await userModel.findByIdAndUpdate(
+      { _id: userID },
+      { $addToSet: { "pets.fostered": petID } },
+      { new: true }
+    )
+    return user;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+module.exports = { userModel, getUser, getFullUser, getAllUsers, updateUser, getSearchedUsers, adoptPet, fosterPet };

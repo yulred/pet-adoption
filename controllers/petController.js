@@ -1,4 +1,5 @@
 const petModel = require("../models/petModel");
+const userModel = require("../models/userModel");
 
 async function getSearchedPets(req, res) {
   try {
@@ -72,6 +73,10 @@ async function getUsersPets(req, res) {
 async function editPet(req, res) {
   try {
     const pet = await petModel.editPet(req.body);
+
+    // if (req.body.adoptionStatus === "Adopted") await userModel.adoptPet(req.body.id, req.body.owner);
+    // if (req.body.adoptionStatus === "Fostered") await userModel.fosterPet(req.body.id, req.body.owner);
+
     res.send({ ok: true });
   } catch(err) {
     res.status(500).send(err);
@@ -81,6 +86,12 @@ async function editPet(req, res) {
 async function addPet(req, res) {
   try {
     const pet = await petModel.addPet(req.body);
+
+    console.log(req.body.adoptionStatus)
+
+    if (req.body.adoptionStatus === "Adopted") await userModel.adoptPet(req.body.id, req.body.owner);
+    if (req.body.adoptionStatus === "Fostered") await userModel.fosterPet(req.body.id, req.body.owner);
+
     res.send({ ok: true });
   } catch(err) {
     res.status(500).send(err);
