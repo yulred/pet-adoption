@@ -41,10 +41,11 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      if (userInput?.name && userInput?.name.length > 1) {
+      if (!userInput?._id && userInput?.name) {
+        setIsMenuOpen(true);
         handleUserSearch(userInput.name);
-        if (!isMenuOpen) setIsMenuOpen(true);
-      } else setIsMenuOpen(false);
+      }
+      else setIsMenuOpen(false);
     }, 300)
 
     return () => clearTimeout(debounce);
@@ -152,7 +153,7 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
                     name="owner"
                     w="12rem"
                     value={userInput?.name}
-                    onChange={(e) => {setUserInput({_id: "", name: e.target.value, email: ""})}}
+                    onChange={(e) => setUserInput({_id: "", name: e.target.value, email: ""})}
                   />
                 </FormControl>
               </>
