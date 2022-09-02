@@ -1,5 +1,3 @@
-const userModel = require("../models/userModel");
-
 async function verifyUser(req, res, next) {
   const { id } = req.params;
 
