@@ -23,7 +23,8 @@ async function getPet(req, res) {
 async function adoptPet(req, res) {
   try {
     const { id } = req.params;
-    const pet = await petModel.adoptPet(id, req.body);
+    const pet = await petModel.adoptPet(id, req.body.action);
+    const user = await userModel.adoptPet(id, req.body.userID, req.body.action);
     res.send(pet);
   } catch(err) {
     res.status(500).send(err);
@@ -33,7 +34,8 @@ async function adoptPet(req, res) {
 async function returnPet(req, res) {
   try {
     const { id } = req.params;
-    const pet = await petModel.returnPet(id, req.body);
+    const pet = await petModel.returnPet(id);
+    const user = await userModel.returnPet(id, req.body.userID);
     res.send(pet);
   } catch(err) {
     res.status(500).send(err);
@@ -43,7 +45,7 @@ async function returnPet(req, res) {
 async function savePet(req, res) {
   try {
     const { id } = req.params;
-    const pet = await petModel.savePet(id, req.body);
+    const pet = await userModel.savePet(id, req.body.userID);
     res.send(pet);
   } catch(err) {
     res.status(500).send(err);
@@ -53,7 +55,7 @@ async function savePet(req, res) {
 async function deleteSavedPet(req, res) {
   try {
     const { id } = req.params;
-    const pet = await petModel.deleteSavedPet(id, req.body);
+    const pet = await userModel.deleteSavedPet(id, req.body.userID);
     res.send(pet);
   } catch(err) {
     res.status(500).send(err);
@@ -74,7 +76,7 @@ async function editPet(req, res) {
   try {
     const pet = await petModel.editPet(req.body);
 
-    if (req.body.adoptionStatus === "Adopted" || req.body.adoptionStatus === "Fostered") await userModel.removePet(req.body.id);
+    if (req.body.adoptionStatus === "Adopted" || req.body.adoptionStatus === "Fostered") await userModel.returnPet(req.body.id);
     if (req.body.adoptionStatus === "Adopted") await userModel.adoptPet(req.body.id, req.body.owner);
     if (req.body.adoptionStatus === "Fostered") await userModel.fosterPet(req.body.id, req.body.owner);
 

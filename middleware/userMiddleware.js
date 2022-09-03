@@ -5,8 +5,7 @@ function doPasswordsMatch(req, res, next) {
     if (req.body.password === req.body.passwordConfirm) {
       delete req.body.passwordConfirm;
       next();
-    }
-    else res.status(400).send("Passwords must match.");
+    } else res.status(400).send("Passwords must match.");
   } else next();
 }
 

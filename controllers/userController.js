@@ -10,6 +10,15 @@ async function getUser(req, res) {
   }
 }
 
+async function updateUser(req, res) {
+  try {
+    const user = await userModel.updateUser(req.body);
+    res.send({ok: true});
+  } catch(err) {
+    res.status(500).send(err);
+  }
+}
+
 async function getFullUser(req, res) {
   try {
     const { id } = req.params;
@@ -22,17 +31,8 @@ async function getFullUser(req, res) {
 
 async function getAllUsers(req, res) {
   try {
-    const user = await userModel.getAllUsers();
-    res.send(user);
-  } catch(err) {
-    res.status(500).send(err);
-  }
-}
-
-async function updateUser(req, res) {
-  try {
-    const user = await userModel.updateUser(req.body);
-    res.send({ok: true});
+    const users = await userModel.getAllUsers();
+    res.send(users);
   } catch(err) {
     res.status(500).send(err);
   }
@@ -47,4 +47,4 @@ async function getSearchedUsers(req, res) {
   }
 }
 
-module.exports = { getUser, getFullUser, getAllUsers, updateUser, getSearchedUsers };
+module.exports = { getUser, updateUser, getFullUser, getAllUsers, getSearchedUsers };

@@ -1,10 +1,11 @@
-const loginModel = require("../models/loginModel");
+const jwt = require("jsonwebtoken");
+const { cookieSettings } = require("../config");
 
 async function loginUser(req, res) {
   try {
-    const token = await loginModel.loginUser(res.locals.userID);
+    const token = jwt.sign({ id: res.locals.userID }, process.env.TOKEN_KEY, { expiresIn: "14d" });
 
-    res.cookie("token", token, { maxAge: 1209600000, httpOnly: true, sameSite: "none", overwrite: true });
+    res.cookie("token", token, cookieSettings);
     res.send({ ok: true, id: res.locals.userID });
   } catch(err) {
     res.status(500).send(err);

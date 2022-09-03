@@ -1,10 +1,13 @@
+const jwt = require("jsonwebtoken");
 const signupModel = require("../models/signupModel");
+const { cookieSettings } = require("../config");
 
 async function signupUser(req, res) {
   try {
-    const { token, user } = await signupModel.signupUser(req.body);
+    const user = await signupModel.signupUser(req.body);
+    const token = jwt.sign({ id: user._id.toString() }, process.env.TOKEN_KEY, { expiresIn: "14d" });
     
-    res.cookie("token", token, { maxAge: 1209600000, httpOnly: false, overwrite: true });
+    res.cookie("token", token, cookieSettings);
     res.send({ ok: true, id: user._id.toString() });
   } catch(err) {
     res.status(500).send(err);

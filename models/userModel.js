@@ -12,6 +12,26 @@ async function getUser(id) {
   }
 }
 
+async function updateUser(user) {
+  try {
+    const userToUpdate = {};
+
+    for (const key in user) {
+      if (user[key]) userToUpdate[key] = user[key];
+    }
+    
+    const updatedUser = await userModel.findByIdAndUpdate(
+      { _id: user.userID },
+      userToUpdate,
+      { new: true }
+    )
+
+    return updatedUser;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
 async function getFullUser(id) {
   try {
     const user = await userModel.findById(id, { password: 0 });
@@ -23,8 +43,8 @@ async function getFullUser(id) {
 
 async function getAllUsers() {
   try {
-    const user = await userModel.find({}, { name: 1, email: 1, tel: 1, role: 1, createdAt: 1 });
-    return user;
+    const users = await userModel.find({}, { name: 1, email: 1, role: 1, createdAt: 1 });
+    return users;
   } catch(err) {
     console.log(err);
   }
@@ -32,61 +52,84 @@ async function getAllUsers() {
 
 async function getSearchedUsers(query) {
   try {
-    let qRe = new RegExp(`${query.q}`, "i");
+    let queryRe = new RegExp(`${query.q}`, "i");
 
-    const users = await userModel.find({ $or: [ {name: qRe}, {email: qRe} ] }, { name: 1, email: 1 });
+    const users = await userModel.find({ $or: [ {name: queryRe}, {email: queryRe} ] }, { name: 1, email: 1 });
     return users;
   } catch(err) {
     console.log(err);
   }
 }
 
-async function updateUser(user) {
+async function adoptPet(petID, userID, action) {
   try {
-    const userToUpdate = {};
+    if (action === "adopt") {
+      const user = await userModel.findByIdAndUpdate(
+        { _id: userID },
+        { $addToSet: { "pets.adopted": petID } },
+        { new: true }
+      )
 
-    for (const key in user) {
-      if (user[key]) userToUpdate[key] = user[key];
+      return user;
     }
     
-    const updatedUser = await userModel.findByIdAndUpdate({ _id: user.userID }, userToUpdate, { new: true });
-    return updatedUser;
+    if (action === "foster") {
+      const user = await userModel.findByIdAndUpdate(
+        { _id: userID },
+        { $addToSet: { "pets.fostered": petID } },
+        { new: true }
+      )
+
+      return user;
+    }
   } catch(err) {
     console.log(err);
   }
 }
 
-async function adoptPet(petID, userID) {
+async function returnPet(petID, userID = undefined) {
+  try {
+    if (userID) {
+      const user = await userModel.findByIdAndUpdate(
+        { _id: userID },
+        { $pull: { "pets.adopted": petID, "pets.fostered": petID } },
+        { new: true }
+      )
+    
+      return user;
+    } else {
+      const user = await userModel.findOneAndUpdate(
+        { $or: [ {"pets.adopted": { $in: [petID] } }, {"pets.fostered": { $in: [petID] } } ] },
+        { $pull: { "pets.adopted": petID, "pets.fostered": petID } },
+        { new: true }
+      )
+
+      return user;
+    }
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+async function savePet(petID, userID) {
   try {
     const user = await userModel.findByIdAndUpdate(
       { _id: userID },
-      { $addToSet: { "pets.adopted": petID } },
+      { $addToSet: { "pets.saved": petID } },
       { new: true }
     )
+
     return user;
   } catch(err) {
     console.log(err);
   }
 }
 
-async function fosterPet(petID, userID) {
+async function deleteSavedPet(petID, userID) {
   try {
     const user = await userModel.findByIdAndUpdate(
       { _id: userID },
-      { $addToSet: { "pets.fostered": petID } },
-      { new: true }
-    )
-    return user;
-  } catch(err) {
-    console.log(err);
-  }
-}
-
-async function removePet(petID) {
-  try {
-    const user = await userModel.findOneAndUpdate(
-      { $or: [ {"pets.adopted": { $in: [petID] } }, {"pets.fostered": { $in: [petID] } } ] },
-      { $pull: { "pets.adopted": petID, "pets.fostered": petID } },
+      { $pull: { "pets.saved": petID } },
       { new: true }
     )
 
@@ -96,4 +139,4 @@ async function removePet(petID) {
   }
 }
 
-module.exports = { userModel, getUser, getFullUser, getAllUsers, updateUser, getSearchedUsers, adoptPet, fosterPet, removePet };
+module.exports = { userModel, getUser, updateUser, getFullUser, getAllUsers, getSearchedUsers, adoptPet, returnPet, savePet, deleteSavedPet };

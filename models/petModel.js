@@ -6,10 +6,10 @@ const petModel = mongoose.model("pets", petSchema);
 
 async function getSearchedPets(query) {
   try {
-    let nRe = new RegExp(`^[${query.name}]`, "i");
-    let qRe = new RegExp(`${query.q}`, "i");
+    let nameRe = new RegExp(`^[${query.name}]`, "i");
+    let queryRe = new RegExp(`${query.q}`, "i");
 
-    if (query.name) query.name = nRe;
+    if (query.name) query.name = nameRe;
 
     if (query.height) {
       let height = query.height.split(/[\s-]+/);
@@ -22,7 +22,7 @@ async function getSearchedPets(query) {
     }
 
     if (query.q) {
-      query.$or = [ {type: qRe}, {name: qRe}, {adoptionStatus: qRe}, {color: qRe}, {bio: qRe}, {breed: qRe} ];
+      query.$or = [ {type: queryRe}, {name: queryRe}, {adoptionStatus: queryRe}, {color: queryRe}, {bio: queryRe}, {breed: queryRe} ];
     }
     
     const searchedPets = await petModel.find(query, { name: 1, type: 1, adoptionStatus: 1, picture: 1 }).sort({ name: 1 });
@@ -41,45 +41,33 @@ async function getPet(petID) {
   }
 }
 
-async function adoptPet(petID, currentUser) {
+async function adoptPet(petID, action) {
   try {
-    if (currentUser.action === "adopt") {
+    if (action === "adopt") {
       const pet = await petModel.findByIdAndUpdate(
         { _id: petID },
         { adoptionStatus: "Adopted" },
         { new: true }
       )
 
-      const user = await userModel.findByIdAndUpdate(
-        { _id: currentUser.userID },
-        { $addToSet: { "pets.adopted": petID } },
-        { new: true }
-      )
-
-      return { pet, user };
+      return pet;
     }
     
-    if (currentUser.action === "foster") {
+    if (action === "foster") {
       const pet = await petModel.findByIdAndUpdate(
         { _id: petID },
         { adoptionStatus: "Fostered" },
         { new: true }
       )
 
-      const user = await userModel.findByIdAndUpdate(
-        { _id: currentUser.userID },
-        { $addToSet: { "pets.fostered": petID } },
-        { new: true }
-      )
-
-      return { pet, user };
+      return pet;
     }
   } catch(err) {
     console.log(err);
   }
 }
 
-async function returnPet(petID, currentUser) {
+async function returnPet(petID) {
   try {
     const pet = await petModel.findByIdAndUpdate(
       { _id: petID },
@@ -87,41 +75,7 @@ async function returnPet(petID, currentUser) {
       { new: true }
     )
 
-    const user = await userModel.findByIdAndUpdate(
-      { _id: currentUser.userID },
-      { $pull: { "pets.adopted": petID, "pets.fostered": petID } },
-      { new: true }
-    )
-
-    return { pet, user };
-  } catch(err) {
-    console.log(err);
-  }
-}
-
-async function savePet(petID, currentUser) {
-  try {
-    const user = await userModel.findByIdAndUpdate(
-      { _id: currentUser.userID },
-      { $addToSet: { "pets.saved": petID } },
-      { new: true }
-    )
-
-    return {user};
-  } catch(err) {
-    console.log(err);
-  }
-}
-
-async function deleteSavedPet(petID, currentUser) {
-  try {
-    const user = await userModel.findByIdAndUpdate(
-      { _id: currentUser.userID },
-      { $pull: { "pets.saved": petID } },
-      { new: true }
-    )
-
-    return {user};
+    return pet;
   } catch(err) {
     console.log(err);
   }
@@ -145,8 +99,10 @@ async function editPet(pet) {
     const petToUpdate = {};
 
     for (const key in pet) {
-      if (pet[key] && key !== "id" && key !== "owner") petToUpdate[key] = pet[key];
+      if (pet[key] && key !== "id" && key !== "owner" && key !== "dietary") petToUpdate[key] = pet[key];
     }
+
+    if (pet.dietary) petToUpdate.dietary = pet.dietary.split(/[,\s]+/);
 
     const updatedPet = await petModel.findByIdAndUpdate({ _id: pet.id }, petToUpdate, { new: true });
     return updatedPet;
@@ -163,6 +119,8 @@ async function addPet(pet) {
       if (pet[key] && key !== "id" && key !== "owner") petToAdd[key] = pet[key];
     }
 
+    if (pet.dietary) petToAdd.dietary = pet.dietary.split(/[,\s]+/);
+
     const newPet = await petModel.create(petToAdd);
     return newPet;
   } catch(err) {
@@ -170,4 +128,4 @@ async function addPet(pet) {
   }
 }
 
-module.exports = { getSearchedPets, getPet, adoptPet, returnPet, savePet, deleteSavedPet, getUsersPets, editPet, addPet };
+module.exports = { getSearchedPets, getPet, adoptPet, returnPet, getUsersPets, editPet, addPet };

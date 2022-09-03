@@ -11,10 +11,10 @@ const { verifyUser } = require("../middleware/verifyUser");
 const router = express.Router();
 
 router
-.get("/search", verifyToken, verifyAdmin, userController.getSearchedUsers)
-.get("/:id/full", verifyToken, verifyAdmin, userController.getFullUser)
-.get("/:id", verifyToken, verifyUser, userController.getUser)
-.get("/", verifyToken, verifyAdmin, userController.getAllUsers)
-.put("/:id", verifyToken, verifyUser, validateBody(userSchema), doPasswordsMatch, isPasswordMinLength, doesUserExist, hashPassword, userController.updateUser)
+  .get("/search", verifyToken, verifyAdmin, userController.getSearchedUsers)
+  .get("/:id/full", verifyToken, verifyAdmin, userController.getFullUser)
+  .get("/:id", verifyToken, verifyUser, userController.getUser)
+  .put("/:id", verifyToken, verifyUser, validateBody(userSchema), doPasswordsMatch, isPasswordMinLength, doesUserExist, hashPassword, userController.updateUser)
+  .get("/", verifyToken, verifyAdmin, userController.getAllUsers)
 
 module.exports = router;
