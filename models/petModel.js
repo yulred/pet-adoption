@@ -25,7 +25,7 @@ async function getSearchedPets(query) {
       query.$or = [ {type: queryRe}, {name: queryRe}, {adoptionStatus: queryRe}, {color: queryRe}, {bio: queryRe}, {breed: queryRe} ];
     }
     
-    const searchedPets = await petModel.find(query, { name: 1, type: 1, adoptionStatus: 1, picture: 1 }).sort({ name: 1 });
+    const searchedPets = await petModel.find(query, { name: 1, type: 1, adoptionStatus: 1, picture: 1, createdAt: 1 }).sort({ name: 1 });
     return searchedPets
   } catch(err) {
     console.log(err);
