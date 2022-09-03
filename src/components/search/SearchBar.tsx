@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   Center, Input, InputGroup, InputLeftAddon, InputRightAddon,
-  Button, MenuButton, Menu, MenuList, MenuItem, MenuDivider, IconButton
+  Button, MenuButton, Menu, MenuList, MenuItem, MenuDivider, IconButton, useMediaQuery
 } from "@chakra-ui/react";
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import { useSearchParams, URLSearchParamsInit } from "react-router-dom";
@@ -12,6 +12,7 @@ export default function SearchBar({ getSearchResults, isSearching }: { getSearch
   const { filters, handleAddQueryFilter } = useSearchContext();
   const [typeFilter, setTypeFilter] = useState("Type");
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isSmallerThan750] = useMediaQuery("(max-width: 750px)");
 
   useEffect(() => {
     const awaitGetSearchResults = async () => await getSearchResults();
@@ -28,7 +29,7 @@ export default function SearchBar({ getSearchResults, isSearching }: { getSearch
 
   return (
     <Center>
-      <InputGroup justifyContent="center" w="60%">
+      <InputGroup justifyContent="center" w={isSmallerThan750 ? "100%" : "60%"}>
         <InputLeftAddon p={0} w="7.5rem" children={
           <Menu>
             <MenuButton

@@ -56,7 +56,7 @@ export default function ProfileSettingsForm() {
         <FormInputField fieldName="email" fieldLabel="E-Mail" req={false} />
         <FormInputField fieldName="tel" fieldLabel="Phone Number" req={false} />
         <FormTextareaField fieldName="bio" fieldLabel="Bio" req={false} />
-        {serverError ? <div className="server-error">Error: {serverError}</div> : null}
+        {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
         <FormSubmitButton buttonLabel="Save" />
       </form>
     )}

@@ -174,7 +174,7 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
           <FormInputField fieldName="dietary" fieldLabel="Dietary Restrictions (separated by comma)" req={false} />
           <FormInputField fieldName="breed" fieldLabel="Breed" req={true} />
           <FormTextareaField fieldName="bio" fieldLabel="Bio" req={false} />
-          {serverError ? <div className="server-error">Error: {serverError}</div> : null}
+          {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
           <FormSubmitButton buttonLabel="Save" />
         </form>
       )}

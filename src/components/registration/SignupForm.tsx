@@ -64,7 +64,7 @@ export default function SignupForm({ toggleModal }: { toggleModal: Function }) {
         <FormPasswordField fieldName="password" fieldLabel="Password" req={true} />
         <FormPasswordField fieldName="passwordConfirm" fieldLabel="Confirm Password" req={true} />
         <FormInputField fieldName="tel" fieldLabel="Phone Number" req={false} />
-        {serverError ? <div className="server-error">Error: {serverError}</div> : null}
+        {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
         <FormSubmitButton buttonLabel="Sign Up" />
       </form>
     )}

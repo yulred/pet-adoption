@@ -52,7 +52,7 @@ export default function ProfilePasswordForm() {
         <FormPasswordField fieldName="oldPassword" fieldLabel="Old Password" req={true} />
         <FormPasswordField fieldName="password" fieldLabel="New Password" req={true} />
         <FormPasswordField fieldName="passwordConfirm" fieldLabel="Confirm New Password" req={true} />
-        {serverError ? <div className="server-error">Error: {serverError}</div> : null}
+        {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
         <FormSubmitButton buttonLabel="Save" />
       </form>
     )}

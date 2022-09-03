@@ -33,10 +33,10 @@ export default function SearchFilterSlider({ filter }: { filter: string }) {
               value={sliderMark[0]}
               textAlign="center"
               color={colorMode === "light" ? "black" : "white"}
-              mt="-8"
+              mt="-6"
               ml="-5"
               minW="max-content"
-              fontSize="1.1rem"
+              fontSize="md"
             >
               {`${sliderMark[0]} cm`}
             </RangeSliderMark>
@@ -44,10 +44,10 @@ export default function SearchFilterSlider({ filter }: { filter: string }) {
               value={sliderMark[1]}
               textAlign="center"
               color={colorMode === "light" ? "black" : "white"}
-              mt="-8"
+              mt="6"
               ml="-5"
               minW="max-content"
-              fontSize="1.1rem"
+              fontSize="md"
             >
               {`${sliderMark[1]} cm`}
             </RangeSliderMark>
