@@ -39,7 +39,7 @@ export default function TableDataUsers({ users }: { users: IUser[] }) {
         Cell: (e: CellProps<IUserColumn>) => <span style={userRoleColor(e.value)} className="small-caps">{e.value}</span>
       },
       {
-        Header: "Date",
+        Header: "Created",
         accessor: "date",
         Cell: (e: CellProps<IUserColumn>) => <span>{new Date(e.value).toLocaleString()}</span>
       },

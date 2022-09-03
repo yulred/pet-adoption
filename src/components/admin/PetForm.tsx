@@ -27,6 +27,7 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
   const [searchRes, setSearchRes] = useState<{_id: string, name: string, email: string}[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const filePickerRef = useRef<FilePicker>(null);
   const menuRef = useRef(null);
   const toast = useToast();
   let location = useLocation();
@@ -98,9 +99,11 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
         validateOnChange={false}
         onSubmit={async (pet, { resetForm }) => {
           try {
-            setServerError("");
             const url = location.pathname.split("dashboard")[1];
             const petData = new FormData();
+
+            setServerError("");
+            filePickerRef.current?.reset();
 
             for (const key in pet) {
               petData.append(`${key}`, `${pet[key as keyof typeof pet]}`);
@@ -136,6 +139,7 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
             hideClearButton={false}
             clearButtonLabel="Clear File"
             placeholder={"Choose image..."}
+            ref={filePickerRef}
           />
           <FormSelectField fieldName="type" fieldLabel="Pet Type" fieldArray={petTypes} />
           <FormSelectField fieldName="adoptionStatus" fieldLabel="Adoption Status" fieldArray={petStatus} />

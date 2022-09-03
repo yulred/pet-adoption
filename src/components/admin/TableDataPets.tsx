@@ -35,7 +35,7 @@ export default function TableDataPets({ pets }: { pets: (IPet[] | undefined) }) 
         Cell: (e: CellProps<IPetColumn>) => <span style={petStatusColor(e.value)} className="small-caps">{e.value}</span>
       },
       {
-        Header: "Date",
+        Header: "Created",
         accessor: "date",
         Cell: (e: CellProps<IPetColumn>) => <span>{new Date(e.value).toLocaleString()}</span>
       },
