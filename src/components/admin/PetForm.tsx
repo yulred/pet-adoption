@@ -150,16 +150,16 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
                   <Menu isOpen={isMenuOpen} autoSelect={false} flip={false}>
                     <MenuButton></MenuButton>
                     <MenuList mt={4} ref={menuRef} fontSize="md">
-                      {searchRes.map(item => {return (
-                        <>
-                          <MenuItem key={item._id} onClick={() => {setUserInput(item); setIsMenuOpen(false)}}>
-                            {item.name}
-                          </MenuItem>
-                          <MenuItem key={item.email} onClick={() => {setUserInput(item); setIsMenuOpen(false)}}>
-                            {item.email}
-                          </MenuItem>
-                        </>
-                      )})}
+                      {searchRes.map(item => 
+                        <MenuItem key={item._id} onClick={() => {setUserInput(item); setIsMenuOpen(false)}}>
+                          {item.name}
+                        </MenuItem>
+                      )}
+                      {searchRes.map(item => 
+                        <MenuItem key={item.email} onClick={() => {setUserInput(item); setIsMenuOpen(false)}}>
+                          {item.email}
+                        </MenuItem>
+                      )}
                     </MenuList>
                   </Menu>
                   <Input
