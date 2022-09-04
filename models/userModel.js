@@ -95,7 +95,7 @@ async function returnPet(petID, userID = undefined) {
         { $pull: { "pets.adopted": petID, "pets.fostered": petID } },
         { new: true }
       )
-    
+
       return user;
     } else {
       const user = await userModel.findOneAndUpdate(

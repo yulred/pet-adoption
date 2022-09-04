@@ -76,9 +76,9 @@ async function editPet(req, res) {
   try {
     const pet = await petModel.editPet(req.body);
 
-    if (req.body.adoptionStatus === "Adopted" || req.body.adoptionStatus === "Fostered") await userModel.returnPet(req.body.id);
+    if (req.body.adoptionStatus === "Adopted" || req.body.adoptionStatus === "Fostered") await userModel.returnPet(req.body.id, req.body.owner);
     if (req.body.adoptionStatus === "Adopted") await userModel.adoptPet(req.body.id, req.body.owner, "adopt");
-    if (req.body.adoptionStatus === "Fostered") await userModel.fosterPet(req.body.id, req.body.owner, "foster");
+    if (req.body.adoptionStatus === "Fostered") await userModel.adoptPet(req.body.id, req.body.owner, "foster");
 
     res.send({ ok: true });
   } catch(err) {
@@ -91,7 +91,7 @@ async function addPet(req, res) {
     const pet = await petModel.addPet(req.body);
 
     if (req.body.adoptionStatus === "Adopted") await userModel.adoptPet(pet._id, req.body.owner, "adopt");
-    if (req.body.adoptionStatus === "Fostered") await userModel.fosterPet(pet._id, req.body.owner, "foster");
+    if (req.body.adoptionStatus === "Fostered") await userModel.adoptPet(pet._id, req.body.owner, "foster");
 
     res.send({ ok: true });
   } catch(err) {
