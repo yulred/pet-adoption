@@ -4,4 +4,9 @@ const telRegExpStr = "^((\\+[1-9]{1,4}[\\-]*)|(\\([0-9]{2,3}\\)[\\-]*)|([0-9]{2,
 
 const cookieSettings = { maxAge: 1209600000, httpOnly: false, overwrite: true };
 
-module.exports = { emailRegExp, telRegExp, telRegExpStr, cookieSettings };
+const dev = { API_URL: "http://localhost:3000" };
+const prod = { API_URL: "" };
+
+const config = process.env.NODE_ENV === "development" ? dev : prod;
+
+module.exports = { emailRegExp, telRegExp, telRegExpStr, cookieSettings, config };
