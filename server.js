@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGO_URI, () => console.log("Connected to DB"), er
 app.use("/images", express.static("images"));
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({ origin: "*", credentials: true }));
+app.use(cors({ origin: "https://pet-adoption-yulred.netlify.app", credentials: true }));
 
 app.use("/pet", petRoute);
 app.use("/signup", signupRoute);
