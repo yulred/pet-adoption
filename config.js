@@ -4,9 +4,6 @@ const telRegExpStr = "^((\\+[1-9]{1,4}[\\-]*)|(\\([0-9]{2,3}\\)[\\-]*)|([0-9]{2,
 
 const cookieSettings = { maxAge: 1209600000, httpOnly: false, overwrite: true };
 
-const dev = { API_URL: "http://localhost:3000" };
-const prod = { API_URL: "https://pet-adoption-yulred.netlify.app" };
-
-const config = process.env.NODE_ENV === "development" ? dev : prod;
+const config = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://pet-adoption-yulred.netlify.app";
 
 module.exports = { emailRegExp, telRegExp, telRegExpStr, cookieSettings, config };
