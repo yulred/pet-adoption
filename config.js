@@ -5,7 +5,7 @@ const telRegExpStr = "^((\\+[1-9]{1,4}[\\-]*)|(\\([0-9]{2,3}\\)[\\-]*)|([0-9]{2,
 const cookieSettings = { maxAge: 1209600000, httpOnly: false, overwrite: true };
 
 const dev = { API_URL: "http://localhost:3000" };
-const prod = { API_URL: "https://tranquil-everglades-31307.herokuapp.com/" };
+const prod = { API_URL: "https://6316010c80fe05666f8f1e49--pet-adoption-yulred.netlify.app/" };
 
 const config = process.env.NODE_ENV === "development" ? dev : prod;
 
