@@ -15,6 +15,7 @@ export default function PetDetails() {
   const { colorMode } = useColorMode();
   const { isLoading, currentUser } = useAuthContext();
   const [pet, setPet] = useState<IPet>({});
+  const [isPetLoading, setIsPetLoading] = useState(true);
   const petData = [
     pet.type,
     pet.breed,
@@ -34,8 +35,10 @@ export default function PetDetails() {
 
   const getPet = async () => {
     try {
+      setIsPetLoading(true);
       const data = await Get(location.pathname);
       setPet(data);
+      setIsPetLoading(false);
     } catch(err) {
       console.log(err);
     }
@@ -71,9 +74,13 @@ export default function PetDetails() {
               : null}
           </Text>
           <Text fontSize="xl" mb={4} className="small-caps" style={petStatusColor(pet.adoptionStatus as string)}>{pet.adoptionStatus}</Text>
-          {!isLoading && Object.keys(currentUser).length ? <PetDetailsActions pet={pet} updatePetStatus={updatePetStatus} /> : null}
+          {!isLoading && Object.keys(currentUser).length
+            ? <PetDetailsActions pet={pet} updatePetStatus={updatePetStatus} />
+            : null}
           <Text fontSize="md" my={8}>{pet.bio}</Text>
-          {petData.map((attr, index) => <Tag key={index} size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{attr}</Tag>)}
+          {!isPetLoading
+            ? petData.map((attr, index) => <Tag key={index} size="lg" variant="outline" colorScheme="teal" m={1} p={2}>{attr}</Tag>)
+            : null}
         </Box>
       </Container>
     </Flex>
