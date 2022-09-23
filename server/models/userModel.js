@@ -12,6 +12,15 @@ async function getUser(id) {
   }
 }
 
+async function signupUser(newUser) {
+  try {
+    const user = await userModel.create(newUser);
+    return user;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
 async function updateUser(user) {
   try {
     const userToUpdate = {};
@@ -139,4 +148,4 @@ async function deleteSavedPet(petID, userID) {
   }
 }
 
-module.exports = { userModel, getUser, updateUser, getFullUser, getAllUsers, getSearchedUsers, adoptPet, returnPet, savePet, deleteSavedPet };
+module.exports = { userModel, getUser, signupUser, updateUser, getFullUser, getAllUsers, getSearchedUsers, adoptPet, returnPet, savePet, deleteSavedPet };
