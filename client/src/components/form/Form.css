@@ -7,12 +7,6 @@ form .chakra-form-control:not(:first-of-type) {
   margin-top: 1rem;
 }
 
-.server-error {
-  margin-top: 1rem;
-  text-align: center;
-  color: red;
-}
-
 .css-1sgc0qu {
   margin-left: 0 !important;
 }

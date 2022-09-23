@@ -1,6 +1,6 @@
 import "../form/Form.css";
 import { useState } from "react";
-import { useToast, UseToastOptions } from "@chakra-ui/react";
+import { useToast, UseToastOptions, Text } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import FormInputField from "../form/FormInputField";
@@ -56,7 +56,7 @@ export default function ProfileSettingsForm() {
         <FormInputField fieldName="email" fieldLabel="E-Mail" req={false} />
         <FormInputField fieldName="tel" fieldLabel="Phone Number" req={false} />
         <FormTextareaField fieldName="bio" fieldLabel="Bio" req={false} />
-        {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
+        {serverError ? <Text color="red" mt={4} textAlign="center">Server Error: {serverError}</Text> : null}
         <FormSubmitButton buttonLabel="Save" />
       </form>
     )}

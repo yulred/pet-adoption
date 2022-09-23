@@ -29,7 +29,7 @@ export default function PetCard({ pet, cardSize }: { pet: IPet, cardSize: number
           </Text>
           <ArrowForwardIcon mt={2} />
         </Flex>
-        {cardSize !== 20 ? null : <div className="overlay small-caps">About Me</div>}
+        {cardSize !== 20 ? null : <Text className="overlay small-caps">About Me</Text>}
       </Flex>
     </LinkBox>
   )

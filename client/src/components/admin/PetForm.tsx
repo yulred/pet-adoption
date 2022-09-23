@@ -2,7 +2,7 @@ import "../form/Form.css";
 import { useEffect, useState, useRef } from "react";
 import { 
   Flex, Input, useToast, UseToastOptions, FormControl, FormLabel,
-  Menu, MenuButton, MenuList, MenuItem, useOutsideClick
+  Menu, MenuButton, MenuList, MenuItem, useOutsideClick, Text
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import { useLocation } from "react-router-dom";
@@ -178,7 +178,7 @@ export default function PetEditForm({ currentPet, getPet }: { currentPet: IPet, 
           <FormInputField fieldName="dietary" fieldLabel="Dietary Restrictions (separated by comma)" req={false} />
           <FormInputField fieldName="breed" fieldLabel="Breed" req={true} />
           <FormTextareaField fieldName="bio" fieldLabel="Bio" req={false} />
-          {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
+          {serverError ? <Text color="red" mt={4} textAlign="center">Server Error: {serverError}</Text> : null}
           <FormSubmitButton buttonLabel="Save" />
         </form>
       )}

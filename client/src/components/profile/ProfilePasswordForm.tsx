@@ -1,6 +1,6 @@
 import "../form/Form.css";
 import { useState } from "react";
-import { useToast, UseToastOptions } from "@chakra-ui/react";
+import { useToast, UseToastOptions, Text } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import FormPasswordField from "../form/FormPasswordField";
@@ -52,7 +52,7 @@ export default function ProfilePasswordForm() {
         <FormPasswordField fieldName="oldPassword" fieldLabel="Old Password" req={true} />
         <FormPasswordField fieldName="password" fieldLabel="New Password" req={true} />
         <FormPasswordField fieldName="passwordConfirm" fieldLabel="Confirm New Password" req={true} />
-        {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
+        {serverError ? <Text color="red" mt={4} textAlign="center">Server Error: {serverError}</Text> : null}
         <FormSubmitButton buttonLabel="Save" />
       </form>
     )}

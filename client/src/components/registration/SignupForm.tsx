@@ -1,6 +1,6 @@
 import "../form/Form.css";
 import { useState } from "react";
-import { useToast, UseToastOptions } from "@chakra-ui/react";
+import { useToast, UseToastOptions, Text } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import FormInputField from "../form/FormInputField";
@@ -64,7 +64,7 @@ export default function SignupForm({ toggleModal }: { toggleModal: Function }) {
         <FormPasswordField fieldName="password" fieldLabel="Password" req={true} />
         <FormPasswordField fieldName="passwordConfirm" fieldLabel="Confirm Password" req={true} />
         <FormInputField fieldName="tel" fieldLabel="Phone Number" req={false} />
-        {serverError ? <div className="server-error">Server Error: {serverError}</div> : null}
+        {serverError ? <Text color="red" mt={4} textAlign="center">Server Error: {serverError}</Text> : null}
         <FormSubmitButton buttonLabel="Sign Up" />
       </form>
     )}
