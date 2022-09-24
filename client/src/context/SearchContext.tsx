@@ -10,7 +10,7 @@ const SearchContext = createContext<ISearchContext>({
   handleAddQueryFilter: ()=>{},
   handleRemoveFilter: ()=>{},
   handleClearFilters: ()=>{},
-  advancedSearch: true || false,
+  advancedSearch: false,
   toggleAdvancedSearch: ()=>{},
 })
 
