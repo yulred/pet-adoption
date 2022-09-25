@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:8080" : "https://tranquil-everglades-31307.herokuapp.com";
+const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:8080" : "https://yulred-pet-adoption.cyclic.app";
 
 export const Get = async (path: string) => {
   const res = await axios.get(BASE_URL + path, { withCredentials: true });
