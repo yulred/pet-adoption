@@ -10,4 +10,4 @@ Ajv, https://www.npmjs.com/package/ajv \
 ajv-formats, https://www.npmjs.com/package/ajv-formats \
 jsonwebtoken, https://www.npmjs.com/package/jsonwebtoken \
 Multer, https://www.npmjs.com/package/multer \
-Cloudinary
+Cloudinary, https://cloudinary.com

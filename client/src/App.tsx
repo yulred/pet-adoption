@@ -13,7 +13,8 @@ import AdminPet from "./pages/AdminPet";
 import AuthProvider from "./context/AuthContext";
 import SearchProvider from "./context/SearchContext";
 import { theme } from "./themes/theme";
-import { UserRoute, AdminRoute } from "./utils/ProtectedRoutes"; 
+import { UserRoute } from "./hoc/UserRoute"; 
+import { AdminRoute } from "./hoc/AdminRoute"; 
 
 export const App = () => (
   <ChakraProvider theme={theme}>
