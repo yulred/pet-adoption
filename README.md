@@ -12,7 +12,7 @@ React, TypeScript (front-end), Chakra UI, Node.js (Express), MongoDB (Mongoose)
 Front- & back-end (from main):
 
 ```
-npm start --prefix client & nodemon server/server
+npm run client & npm run server
 ```
 
 Database keys currently not included.
