@@ -3,7 +3,7 @@ A full-stack app for adopting pets. Includes search, user/pet management and adm
 
 Built as a graduation project for the Full-Stack Development programme at Israel Tech Challenge (itc).
 
-Deployed via Netlify (front-end) and Heroku (back-end): https://pet-adoption-yulred.netlify.app/
+Deployed via Netlify (front-end) and render (back-end): https://yulred-pet-adoption.netlify.app
 
 # Tech Stack
 React, TypeScript (front-end), Chakra UI, Node.js (Express), MongoDB (Mongoose)
